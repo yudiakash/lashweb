@@ -1,0 +1,70 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="ws_wrapper">
+      <h1 class="title_tag">
+        {{ 'Our Workshops' | translate }}<span>{{ 'Showing our workshops' | translate }}</span>
+      </h1>
+
+      <!--workshop_details-->
+      <ng-container *ngIf="workshopList">
+        <section class="workshop_details" *ngFor="let list of workshopList">
+          <!--ws_profile_wrapper-->
+          <div class="ws_profile_wrapper">
+            <a (click)="Register(list.id)">
+              <img
+                *ngIf="list.image"
+                alt="{{ isRTL ? list.title : list.title }}"
+                src="{{ this.imageUrl }}{{ list.image }}"
+                width="300"
+              />
+              <div class="ws_venue_status">
+                <div class="ws_venue_date">
+                  <ul>
+                    <li id="venue_calender">
+                      {{ list.date | date }}
+                    </li>
+                    <li *ngIf="list.from_time" id="venue_time">{{ list.from_time }} - {{ list.to_time }}</li>
+                    <li *ngIf="list.location" id="venue_location">
+                      {{ isRTL ? list.locationHe : list.locationEn }}
+                    </li>
+                  </ul>
+                </div>
+                <div *ngIf="!expired" class="ws_button_status">
+                  <a style="cursor: poiner" class="ws_btn_register"
+                    ><span>{{ 'Register' | translate }}</span>
+                  </a>
+                </div>
+                <div *ngIf="expired" class="ws_button_status">
+                  <a class="ws_btn_soldout">{{ 'Out of date' | translate }} <span></span></a>
+                </div>
+              </div>
+            </a>
+          </div>
+          <!--ws_profile_wrapper_END-->
+
+          <!--ws_profile_details-->
+
+          <div class="ws_profile_details">
+            <a (click)="Register(list.id)" style="cursor: pointer">
+              <h3>{{ isRTL ? list.translatedHeName : list.translatedName }}</h3>
+              <div class="description-container">
+                <p class="read-more" [innerHTML]="list.sht_desc"></p>
+                <!-- <p style="cursor: pointer" *ngIf="isContentExceedsLimit(list.sht_desc)" (click)="detailsPage(list.id)">
+                .....<span style="margin: 15px; color: #b8afaf">{{ 'read more' | translate }}</span>
+              </p> -->
+              </div>
+            </a>
+
+            <!-- <p class="read-more" [innerHTML]="list.long_desc"></p>
+            <p style="cursor: pointer" (click)="detailsPage(list.id)" *ngIf="list.long_desc.length > 500">......</p> -->
+          </div>
+
+          <!--ws_profile_details_END-->
+        </section>
+      </ng-container>
+      <!--workshop_details_END-->
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>

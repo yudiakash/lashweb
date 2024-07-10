@@ -1,0 +1,1703 @@
+<!--site_content-->
+
+<div class="site_content">
+  <!--site_wrapper-->
+  <div class="site_wrapper">
+    <div class="inner_wrapper">
+      <div class="myaccount_actors">
+        <h1 class="title_tag">
+          {{ 'My actor page' | translate
+          }}<span>{{ 'Edit any of your details below so your actor page is totally up to date' | translate }}</span>
+        </h1>
+
+        <!--filter_box-->
+        <button
+          style="display: none"
+          #popupButton
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          class="help-icon"
+        ></button>
+        <button
+          style="display: none"
+          #popupSecndButton
+          data-bs-toggle="modal"
+          data-bs-target="#exampleSecondModal"
+          class="help-icon"
+        ></button>
+
+        <div #mandatorySkills id="mandatory-skills" class="filter_box">
+          <form
+            #form
+            (change)="formChange($event)"
+            [formGroup]="newActorAccountForm"
+            (ngSubmit)="updateArtistAccount()"
+            #documentEditForm="ngForm"
+          >
+            <div class="filter_fields">
+              <div class="label_dropdown">
+                <label class="phys_label" for="Gender"
+                  >{{ 'Gender' | translate: { name: 'Gender' } }}
+                  <span class="mand-astrik">*</span>
+                </label>
+                <input type="hidden" name="Id" formControlName="Id" value="actiorDetails.Id" />
+                <select
+                  [ngStyle]="{
+                    border: genderErr ? '1px solid red' : '1px solid white',
+                    'background-color':
+                      this.actiorDetails.Gender == 0 || this.actiorDetails.Gender == 1 ? '#4558ba' : '#253378'
+                  }"
+                  (change)="genderChange($event, form)"
+                  name="Gender"
+                  formControlName="Gender"
+                >
+                  <option value=""></option>
+                  <option [selected]="actiorDetails.Gender === 1" value="1">
+                    <!-- {{ 'Gender' | translate: { name: 'Gender' } }} -->
+                    {{ 'Female' | translate }}
+                  </option>
+                  <option [selected]="actiorDetails.Gender === 0" value="0">
+                    <!-- {{ 'Gender' | translate: { name: 'Gender' } }}  -->
+                    {{ 'Male' | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- <div class="slidecontainer">
+                <p>
+                  {{ 'Height' | translate: { name: 'Height' } }} ({{ height }} {{ 'cm' | translate }})
+                  <span class="mand-astrik">*</span>
+                </p>
+                <div>
+                  <input type="range" min="60" max="220" [(ngModel)]="height" name="Height" formControlName="Height" />
+                </div>
+              </div> -->
+
+              <div class="label_dropdown body_div">
+                <label class="phys_label" for="Height"
+                  >{{ 'Height' | translate: { name: 'Height' } }} ({{ 'cm' | translate }})<span class="mand-astrik"
+                    >*</span
+                  ></label
+                >
+                <select
+                  [ngStyle]="{
+                    border: heightValErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.Height ? '#4558ba' : '#253378'
+                  }"
+                  name="Height"
+                  formControlName="Height"
+                  [(ngModel)]="height"
+                >
+                  <option [selected]="actiorDetails.Height === 0" value=""></option>
+                  <option
+                    *ngFor="let number of numberRange"
+                    [value]="number"
+                    [selected]="actiorDetails.Height === number"
+                  >
+                    {{ number | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown body_div">
+                <label class="phys_label" for="bodyTypeValue"
+                  >{{ 'Body' | translate: { name: 'Body' } }}
+                  <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  class="body_align bodyval"
+                  [ngStyle]="{
+                    border: bodyTypeErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.bodyTypeValue ? '#4558ba' : '#253378'
+                  }"
+                  name="bodyTypeValue"
+                  formControlName="bodyTypeValue"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let bodyType of bodyTypeList"
+                    [selected]="actorBodyTypeData === bodyType.Id"
+                    value="{{ bodyType.Id }}"
+                  >
+                    <!-- {{ 'Body' | translate: { name: 'Body' } }}  -->
+                    {{ bodyType.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown">
+                <label class="phys_label" for="hairColorValue"
+                  >{{ 'Hair Colour' | translate: { name: 'Hair Colour' } }}
+                  <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: hairColrErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.hairColorValue ? '#4558ba' : '#253378'
+                  }"
+                  name="hairColorValue"
+                  formControlName="hairColorValue"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let hairColor of hairColorList"
+                    [selected]="actorHairClrTypeData === hairColor.Id"
+                    value="{{ hairColor.Id }}"
+                  >
+                    <!-- {{ 'Hair Colour' | translate: { name: 'Hair Colour' } }} -->
+                    {{ hairColor.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown hair_typ ms-3">
+                <label class="phys_label" for="hairTypeValue"
+                  >{{ 'Hair Type' | translate: { name: 'Hair Type' } }} <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: hairTypeErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.hairTypeValue ? '#4558ba' : '#253378'
+                  }"
+                  name="hairTypeValue"
+                  formControlName="hairTypeValue"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let hairType of hairTypeList"
+                    [selected]="actorhairTypeData === hairType.Id"
+                    value="{{ hairType.Id }}"
+                  >
+                    <!-- {{ 'Hair Type' | translate: { name: 'Hair Type' } }} -->
+                    {{ hairType.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown hair_typ ms-3">
+                <label class="phys_label" for="eyeValue"
+                  >{{ 'Eyes' | translate: { name: 'Eyes' } }}
+                  <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  class="eyevalue"
+                  [ngStyle]="{
+                    border: eyeVlErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.eyeValue ? '#4558ba' : '#253378'
+                  }"
+                  name="eyeValue"
+                  formControlName="eyeValue"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let eyeType of eyeTypeList"
+                    [selected]="actorEyeTypeData === eyeType.Id"
+                    value="{{ eyeType.Id }}"
+                  >
+                    <!-- {{ 'Eyes' | translate: { name: 'Eyes' } }} -->
+                    {{ eyeType.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown">
+                <label class="phys_label" for="skinToneValue"
+                  >{{ 'Skin Tone' | translate: { name: 'Skin Tone' } }} <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: skinToneErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.skinToneValue ? '#4558ba' : '#253378'
+                  }"
+                  name="skinToneValue"
+                  formControlName="skinToneValue"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let skinTone of skinToneList"
+                    value="{{ skinTone.Id }}"
+                    [selected]="actorSkinTypeData === skinTone.Id"
+                  >
+                    <!-- {{ 'Skin Tone' | translate: { name: 'Skin Tone' } }} -->
+                    {{ skinTone.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- <select  name="AgencyRankId" formControlName="AgencyRankId">
+                <option *ngFor="let agency of agencyRanks"
+                  value="{{ agency.id}}"
+                >
+                  {{ agencyRanks.id }}
+                </option>
+              </select> -->
+              <!-- <div hidden>
+
+                <input name="Name" type="text" value="1" formControlName="AgencyRankId" />
+              </div> -->
+
+              <div class="label_dropdown hair_typ ms-3">
+                <label class="phys_label" for="educationValue"
+                  >{{ 'Education Level' | translate: { name: 'Education Level' } }} <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: eductnVlErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.Value ? '#4558ba' : '#253378'
+                  }"
+                  name="educationValue"
+                  formControlName="Value"
+                >
+                  <option value=""></option>
+                  <option *ngFor="let edu of educationLevel" value="{{ edu.id }}" [selected]="selectedValue == edu.id">
+                    <!-- {{ 'Education Level' | translate: { name: 'Education Level' } }} -->
+                    {{ edu.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown hair_typ ms-3">
+                <label class="phys_label" for="singerValue"
+                  >{{ 'Singer' | translate: { name: 'Singer' } }}
+                  <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  class="singerval"
+                  [ngStyle]="{
+                    border: singerValErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.singerValue ? '#4558ba' : '#253378'
+                  }"
+                  name="singerValue"
+                  formControlName="singerValue"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let datass of singerOptions"
+                    value="{{ datass.id }}"
+                    [selected]="singerSelectValue == datass.id"
+                  >
+                    <!-- {{ 'Singer' | translate: { name: 'Singer' } }}  -->
+                    {{ datass.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown gender">
+                <label class="phys_label" for="gender_tone_Value">
+                  {{ genderLabelTranslationKey | translate }}
+                  <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: genderValErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.gender_tone_Value ? '#4558ba' : '#253378'
+                  }"
+                  style="width: 100%"
+                  name="gender_tone_Value"
+                  formControlName="gender_tone_Value"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let datass of currentGenderOptions"
+                    value="{{ datass.id }}"
+                    [selected]="
+                      actiorDetails.Gender === 0 ? menToneSelectVal === datass.id : womantoneselectVal === datass.id
+                    "
+                  >
+                    {{ datass.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <!-- <div [hidden]="actiorDetails.Gender === 1" class="label_dropdown gender">
+                <label class="phys_label" for="gender_tone_Value">{{
+                  'Men Tone' | translate: { name: 'Men Tone' }
+                }}</label>
+                <select
+                  [ngStyle]="{
+                    border: genderValErr ? '1px solid red' : '1px solid white',
+                    'background-color': englishSelect ? '#4558ba' : '#253378'
+                  }"
+                  style="width: 100%"
+                  id="menTone"
+                  [hidden]="actiorDetails.Gender === 1"
+                  name="gender_tone_Value"
+                  formControlName="gender_tone_Value"
+                >
+                  <option value="">{{ 'Men Tone' | translate }}</option>
+                  <option
+                    *ngFor="let datass of menToneOptions"
+                    value="{{ datass.id }}"
+                    [selected]="menToneSelectVal == datass.id"
+                  >
+                    {{ datass.value | translate }}
+                  </option>
+                </select>
+              </div> -->
+
+              <div class="label_dropdown hair_typ ms-3">
+                <label class="phys_label" for="license_Value"
+                  >{{ 'Drive License' | translate: { name: 'Drive License' } }} <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: licenseValErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.license_Value ? '#4558ba' : '#253378'
+                  }"
+                  style="width: 100%"
+                  name="license_Value"
+                  formControlName="license_Value"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let datass of driveLicenseOptions"
+                    value="{{ datass.id }}"
+                    [selected]="driveSelectedVal == datass.id"
+                  >
+                    <!-- {{ 'Drive License' | translate: { name: 'Drive License' } }}  -->
+                    {{ datass.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown hair_typ ms-3">
+                <label class="phys_label" for="sendactiongRoles">
+                  {{ 'Acting Roles' | translate: { name: 'Send Me Acting Roles' } }}
+                  <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: rolesValErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.roles_Value ? '#4558ba' : '#253378'
+                  }"
+                  style="width: 100%"
+                  name="sendactiongRoles"
+                  formControlName="roles_Value"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let datass of sendRolesOptions"
+                    value="{{ datass.id }}"
+                    [selected]="sendRolesSelectValue == datass.id"
+                  >
+                    <!-- {{ 'Send Me Acting Roles' | translate: { name: 'Send Me Acting Roles' } }} -->
+                    {{ datass.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown">
+                <label class="phys_label" for="membershipValue"
+                  >{{ 'ORG Membership' | translate: { name: 'ORG Membership' } }} <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: membersipValErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.membershipValue ? '#4558ba' : '#253378'
+                  }"
+                  style="width: 100%"
+                  name="membershipValue"
+                  formControlName="membershipValue"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let datass of orgOptions"
+                    value="{{ datass.id }}"
+                    [selected]="ORGSelectValue == datass.id"
+                  >
+                    <!-- {{ 'ORG Membership' | translate: { name: 'ORG Membership' } }}  -->
+                    {{ datass.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown hair_typ ms-3">
+                <label class="phys_label" for="residenceValue"
+                  >{{ 'Residence' | translate: { name: 'Residence' } }} <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: residenceValErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.residenceValue ? '#4558ba' : '#253378'
+                  }"
+                  style="width: 100%"
+                  name="residenceValue"
+                  formControlName="residenceValue"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let datass of residenceOptions"
+                    value="{{ datass.id }}"
+                    [selected]="residenceSelectVal == datass.id"
+                  >
+                    {{ datass.value | translate }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="label_dropdown hair_typ ms-3">
+                <label class="phys_label" for="AgencyId"
+                  >{{ 'Agency' | translate: { name: 'Agency' } }}
+                  <span class="mand-astrik">*</span>
+                </label>
+                <select
+                  [ngStyle]="{
+                    border: agencyValErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.AgencyId ? '#4558ba' : '#253378'
+                  }"
+                  style="width: 100%"
+                  (change)="othersChange($event)"
+                  name="AgencyId"
+                  formControlName="AgencyId"
+                >
+                  <option [selected]="actiorDetails.AgencyId == 0" value=""></option>
+                  <option
+                    [selected]="actiorDetails.AgencyId === agencies.Id"
+                    *ngFor="let agencies of agencyParms"
+                    value="{{ agencies.Id }}"
+                  >
+                    {{ agencies.Name | translate }}
+                  </option>
+                  <option value="0">{{ 'Others' | translate }}</option>
+                </select>
+              </div>
+
+              <div
+                #agencyDiv
+                style="width: 31%"
+                *ngIf="otherValue == 0 && setOtherValue == true && otherValue"
+                class="parent_agency col-6 col-sm-6 col-md-6 col-lg-6"
+              >
+                <label style="color: white" class="phys_label" for="Name"
+                  >{{ 'Agency Name' | translate }}
+                  <span class="mand-astrik">*</span>
+                </label>
+                <input
+                  [ngStyle]="{ border: agencyValErr ? '1px solid red' : '1px solid white' }"
+                  class="agency_text"
+                  style="padding: 4px 4px 4px"
+                  [ngClass]="{ 'is-invalid': fff['Name'].touched && fff['Name'].invalid }"
+                  name="Name"
+                  type="text"
+                  formControlName="Name"
+                  [maxLength]="30"
+                />
+                <p
+                  style="text-align: left"
+                  *ngIf="fff['Name'].touched && fff['Name'].invalid"
+                  class="small text-danger font-italic"
+                >
+                  *{{ 'Field is required' | translate }}.
+                </p>
+              </div>
+              <div class="label_dropdown">
+                <label class="phys_label" for="motherTongue"
+                  >{{ 'Mother Tongue' | translate: { name: 'Mother Tongue' } }}<span class="mand-astrik">*</span></label
+                >
+                <select
+                  [ngStyle]="{
+                    border: motherTongueErr ? '1px solid red' : '1px solid white',
+                    'background-color': newActorAccountForm.value.motherTongue ? '#4558ba' : '#253378'
+                  }"
+                  name="motherTongue"
+                  formControlName="motherTongue"
+                >
+                  <option value=""></option>
+                  <option
+                    *ngFor="let langIds of languageSet"
+                    [value]="langIds.Id"
+                    [selected]="actiorDetails.mother_tongue === langIds.Id"
+                  >
+                    {{ langIds.prop5Name.trim() | titlecase | translate }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!--filter_box_END-->
+
+        <!--actors_edit-->
+        <div class="actors_edit">
+          <div class="row">
+            <!--skill_dlt-->
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 add_field">
+              <section>
+                <h3>{{ 'Skills' | translate }}</h3>
+                <!-- <a class="btn" href="javascript:void(0)" >{{ 'Add' | translate }}</a> -->
+              </section>
+              <section class=".mat-radio-outer-circle">
+                <div id="treeRoot" class="mt-3">
+                  <div
+                    #nonMandatorySkills
+                    id="non-mandatory-skills"
+                    class="treeNodeParent"
+                    *ngFor="let prop of newProp5"
+                  >
+                    <div
+                      class="withoutChild"
+                      style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: flex-start;
+                        min-height: 48px;
+                        overflow: hidden;
+                        word-wrap: break-word;
+                        width: 100%;
+                      "
+                      *ngIf="prop.child && prop.child.length === 0"
+                    >
+                      <button mat-icon-button disabled style="display: none"></button>
+                      &nbsp;
+
+                      <div
+                        class="subnode"
+                        (click)="toggleExpand(prop)"
+                        style="padding-left: 0px; align-items: flex-start; min-height: 48px; word-wrap: break-word"
+                      >
+                        {{ prop.prop5Name.trim() | titlecase | translate }}
+                        <!-- <div class="ml-2 dlt_btn_skills" *ngIf="prop.selectedVal" (click)="clearSelectedVal(prop)">
+                          delete
+                        </div> -->
+                      </div>
+
+                      <!-- <div (click)="toggleExpand(prop)">
+                        {{ prop.isExpanded ? '&#xFE40;&nbsp;' : '>' }}
+
+                        <mat-label style="width: 130px">{{ prop.prop5Name | titlecase }}</mat-label>
+                        </div> -->
+
+                      <mat-radio-group [(ngModel)]="prop.selectedVal">
+                        <mat-radio-button
+                          (click)="saveCapabilities(opts?.id, prop, prop.id)"
+                          *ngFor="let opts of prop?.options"
+                          [value]="opts?.id"
+                          style="margin: 0 5px"
+                        >
+                          {{ opts.value.trim() | translate }}
+                        </mat-radio-button>
+                      </mat-radio-group>
+
+                      <!-- <select [(ngModel)]="prop.selectedVal">
+                        <option *ngFor="let opts of prop?.options" [value]="opts?.id">
+                          {{ opts.value }}
+                        </option>
+                      </select> -->
+
+                      <!-- <div class="ml-2 dlt_btn_skills" *ngIf="prop.selectedVal" (click)="clearSelectedVal(prop)">
+                        delete
+                      </div> -->
+                    </div>
+                    <div
+                      class="withChild"
+                      style="
+                        display: flex;
+                        align-items: center;
+                        min-height: 48px;
+                        flex: 1;
+                        overflow: hidden;
+                        word-wrap: break-word;
+                        cursor: pointer;
+                        border-style: none;
+                      "
+                      *ngIf="prop.child && prop.child.length > 0"
+                      (click)="toggleExpand(prop)"
+                    >
+                      <span style="display: block; font-size: 24px; font-weight: 600">
+                        {{ prop.isExpanded ? '&#xFE40;&nbsp;' : '>' }}
+                      </span>
+
+                      <mat-label style="width: 130px"
+                        ><b>{{ prop.prop5Name | titlecase | translate }}</b></mat-label
+                      >
+                    </div>
+                    <div class="subNode-container" *ngIf="prop.isExpanded">
+                      <div *ngFor="let subNode of prop.child">
+                        <div
+                          class="subnode"
+                          (click)="toggleExpand(subNode)"
+                          style="
+                            padding-left: 40px;
+                            display: flex;
+                            align-items: center;
+                            min-height: 48px;
+                            flex: 1;
+                            overflow: hidden;
+                            word-wrap: break-word;
+                          "
+                        >
+                          <b>{{ subNode.isExpanded ? '&#xFE40;&nbsp;' : '>' }}</b>
+
+                          {{ subNode.prop5Name.trim() | titlecase | translate }}
+                          <!-- <div
+                            class="ml-2 dlt_btn_skills"
+                            *ngIf="subNode.selectedVal"
+                            (click)="clearSelectedVal(subNode)"
+                          >
+                            delete
+                          </div> -->
+                        </div>
+                        <div class="subnodeOptions" *ngIf="subNode?.isExpanded" style="padding-left: 80px">
+                          <mat-radio-group
+                            style="display: flex; flex-direction: column"
+                            [(ngModel)]="subNode.selectedVal"
+                          >
+                            <mat-radio-button
+                              (click)="saveCapabilities(option?.id, prop, subNode.id)"
+                              *ngFor="let option of subNode.options"
+                              style="margin: 5px"
+                              [value]="option.id"
+                            >
+                              {{ option.value.trim() | titlecase | translate }}
+                            </mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <!--skill_dlt_END-->
+
+            <!--skill_dlt-->
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 skill_dlt">
+              <section style="overflow-y: auto" class="content-wrapper-scroll">
+                <ng-container *ngFor="let skills of actiorDetails.skills; let k = index">
+                  <div
+                    [ngClass]="{ setBtn: selSkillId == skills.id, removebtn: selSkillId != skills.id }"
+                    class="skills_count"
+                    *ngIf="skills.prop5Name"
+                  >
+                    <article>
+                      <label>{{ skills.prop5Name.trim() | translate }}</label>
+                      <ul>
+                        <li>{{ skills.selectedVal.trim() | translate }}</li>
+                      </ul>
+                    </article>
+                    <a class="btn" href="javascript:void(0)" (click)="deleteSkill(skills.artistProp5Id)"
+                      ><i class="fa-solid fa-trash"></i> {{ skills.prop5Id }}</a
+                    >
+                  </div>
+                </ng-container>
+
+                <ng-container *ngFor="let change of pendingChanges">
+                  <div class="skills_count pending" *ngIf="change.Type == 7">
+                    <article>
+                      <label>{{ change.Label.trim() | translate }}</label>
+                      <ul>
+                        <li>{{ change.newChildName.trim() | translate }}</li>
+                      </ul>
+                    </article>
+                    <!-- <a
+                      style="border: none"
+                      class="btn"
+                      href="javascript:void(0)"
+                      (click)="deleteUnapprovedSkills(change.Id)"
+                      ><i class="fa-solid fa-trash"></i
+                    ></a> -->
+                  </div>
+                </ng-container>
+                <!-- <div style="display: flex; justify-content: center">
+                  <button
+                    class="viewmore mt-3"
+                    style="text-align: center; padding: 4px 7px 4px 8px"
+                    *ngIf="showmoreBtn && actiorDetails.skills?.length > 7"
+                    (click)="displayProps()"
+                  >
+                    Show more <i class="fa-solid fa-angle-down"></i>
+                  </button>
+                  <button
+                    class="viewless mt-3"
+                    style="text-align: center; padding: 4px 7px 4px 8px"
+                    *ngIf="!showmoreBtn && actiorDetails.skills?.length > 7"
+                    (click)="displayProps()"
+                  >
+                    Show less <i class="fa-sharp fa-solid fa-angle-up"></i>
+                  </button>
+                </div> -->
+              </section>
+            </div>
+            <!--skill_dlt_END-->
+          </div>
+        </div>
+        <!--actors_edit_END-->
+
+        <!--actors_edit-->
+        <div id="pictures" class="actors_edit actors_edit1">
+          <div class="row">
+            <!--skill_dlt-->
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6 add_field">
+              <section>
+                <h3>{{ 'Pictures' | translate }}</h3>
+                <a class="btn" href="javascript:void(0);" (click)="openImageModal(myImageModel)"></a>
+              </section>
+              <section>
+                <h3>{{ 'Videos' | translate }}</h3>
+                <a class="btn" href="javascript:void(0)" (click)="openVideoModal(myVideoModel)"></a>
+              </section>
+              <section>
+                <h3>{{ 'Vocal Demos' | translate }}</h3>
+                <a class="btn" href="javascript:void(0)" (click)="openAudioModal(myAudioModel)"></a>
+              </section>
+              <section>
+                <h3>{{ 'Resume' | translate }}</h3>
+                <a class="btn" (click)="openResumeTextModal(myResumeTextModal)"></a>
+              </section>
+              <section>
+                <h3>{{ 'Social Media Links' | translate }}</h3>
+                <a class="btn" (click)="openAddLink(mymodal)"></a>
+              </section>
+            </div>
+            <!--skill_dlt_END-->
+            <!--image_priority-->
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6 image_priority">
+              <section class="pic_sorting">
+                <div
+                  cdkDropList
+                  cdkDropListOrientation="horizontal"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+                >
+                  <div class="example-box" *ngFor="let pic of artistPictures; let k = index" cdkDrag>
+                    <div
+                      class="mb-5"
+                      *ngIf="k <= actiorDetails.MaxPictures"
+                      [ngClass]="{ 'unapproved-borders': pic.approved == 0 }"
+                    >
+                      <div
+                        style="
+                          width: 24%;
+                          height: 20%;
+                          border: 1px solid black;
+                          margin: 0px 0px 0px 41px;
+                          text-align: center;
+                        "
+                      >
+                        {{ k + 1 }}
+                      </div>
+                      <div class="img-file img-border mt-2">
+                        <img
+                          id="myImage"
+                          alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                          *ngIf="pic.fileName && pic.flag == 1"
+                          src="{{ imagebaseUrl }}{{ pic.fileName }}"
+                          style="width: 100%; height: 125px; object-fit: cover"
+                        />
+                        <img
+                          alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                          *ngIf="pic.fileName && pic.flag == 0"
+                          src="{{ imagebaseUrl }}{{ pic.fileName }}"
+                          style="width: 100%; height: 125px; object-fit: cover"
+                        />
+                      </div>
+
+                      <div *ngIf="k == 0 && pic.approved !== null">
+                        <p
+                          style="
+                            font-size: 14px;
+                            display: block;
+                            margin: 5px 0;
+                            color: #050e7a;
+                            font-weight: bold;
+                            font-size: 16px;
+                          "
+                          class="mt-1;"
+                        >
+                          {{ 'PRIMARY' | translate }}
+                        </p>
+                      </div>
+                      <div class="parent-edit">
+                        <a
+                          style="display: block; width: 25px"
+                          *ngIf="(pic.main == 1 || pic.main != 1) && pic.approved !== null"
+                          href="javascript:void(0)"
+                          (click)="deleteActorImage(pic.id)"
+                          ><i style="color: red" class="fa-solid fa-trash"></i
+                        ></a>
+
+                        <a
+                          style="display: block; width: 20px"
+                          *ngIf="(pic.main == 1 || pic.main != 1) && pic.approved !== null"
+                          href="javascript:void(0)"
+                          (click)="editActorImage(myImageModel1, pic.fileName, pic)"
+                          ><i style="color: #000f50" class="fa-solid fa-pen"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section>
+                <div
+                  cdkDropList
+                  cdkDropListOrientation="horizontal"
+                  class="example-list"
+                  (cdkDropListDropped)="drop1($event)"
+                >
+                  <div class="example-box" *ngFor="let embeds of embedVedio; let k = index" cdkDrag>
+                    <div
+                      *ngIf="k <= actiorDetails.MaxVideos"
+                      [ngClass]="{ 'unapproved-borders': embeds.approved == 0 }"
+                    >
+                      <div class="video-border">
+                        <img
+                          alt="embed-video"
+                          src="{{ embeds.embed.thumbnail }}"
+                          (click)="playVideo(myVideoListModel, embeds.embed.embed, embeds.embed.type)"
+                        />
+                      </div>
+                      <a style="display: block" href="javascript:void(0)" (click)="deleteVideo(embeds.id)">
+                        {{ 'Delete' | translate }}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <section *ngFor="let vocal of audioObjects; let j = index">
+                <!-- <audio controls *ngIf="j <= actiorDetails.MaxSounds">
+                  <source src="{{ vocal.embed }}" type="audio/mp3" />
+                  <source src="{{ vocal.embed }}" type="audio/mpeg" />
+                </audio> -->
+                <!-- starting -->
+
+                <div style="width: 50px; height: 50px"></div>
+                <div #myAudios class="audio-player">
+                  <div class="timeline">
+                    <div class="progress" [style.width]="(vocal.currentTime / vocal.duration) * 100 + '%'"></div>
+                  </div>
+                  <div class="controls">
+                    <div class="volume-container">
+                      <button
+                        [ngClass]="{
+                          'volume-button ': !isMuted || audioId != vocal.eId,
+                          'icono-volumeMute': isMuted && audioId == vocal.eId
+                        }"
+                        (click)="toggleMute(vocal)"
+                      ></button>
+                    </div>
+                    <div class="play-container">
+                      <i (click)="playAudio(vocal, j)" class="play"></i>
+                      <i (click)="pauseAudio(vocal, j)" class="pause"></i>
+                    </div>
+                    <div class="time">
+                      <div class="current">{{ getTimeCodeFromNum(vocal.currentTime) }}</div>
+                      <div class="divider">/</div>
+                      <div class="length">{{ getTimeCodeFromNum(vocal.duration) }}</div>
+                    </div>
+                    <a
+                      class="mt-3 audio_delt"
+                      style="font-size: 15px"
+                      href="javascript:void(0)"
+                      (click)="deleteAudio(vocal.eId)"
+                      >{{ 'Delete' | translate }}
+                    </a>
+                  </div>
+                </div>
+              </section>
+              <!-- <div class="tag_wrapper">
+                <section>
+                  <ul>
+                    <li class="active">
+                      <a *ngIf="updateRes" href="javascript:void(0)" (click)="openResumeTextModal(myResumeTextModal)">{{
+                        'Update Resume' | translate
+                      }}</a>
+                      <a
+                        *ngIf="!updateRes"
+                        href="javascript:void(0)"
+                        (click)="openResumeTextModal(myResumeTextModal)"
+                        >{{ 'Create Resume' | translate }}</a
+                      >
+                    </li>
+                  </ul>
+                </section>
+              </div> -->
+              <div class="tag_wrapper">
+                <section>
+                  <ul class="link_account">
+                    <li *ngFor="let links of LinksData; let k = index">
+                      <a href="{{ links.link }}" target="_blank">
+                        <img
+                          alt="{{ links.title }}"
+                          *ngIf="links.link.includes('instagram')"
+                          src="./assets/images/instaIcon.png"
+                        />
+                        <img
+                          alt="{{ links.title }}"
+                          *ngIf="links.link.includes('facebook')"
+                          src="./assets/images/fbIcon.png"
+                        />
+                        <img
+                          alt="{{ links.title }}"
+                          *ngIf="links.link.includes('twitter')"
+                          src="./assets/images/twitterIcon.png"
+                        />
+                        <img
+                          alt="{{ links.title }}"
+                          *ngIf="links.link.includes('linkedIn')"
+                          src="./assets/images/linkedinIcon.png"
+                        />
+                        <img
+                          alt="{{ links.title }}"
+                          *ngIf="links.link.includes('tiktok')"
+                          src="./assets/images/tiktokIcon.png"
+                        />
+                        <img
+                          alt="{{ links.title }}"
+                          *ngIf="
+                            !links.link.includes('linkedIn') &&
+                            !links.link.includes('instagram') &&
+                            !links.link.includes('twitter') &&
+                            !links.link.includes('tiktok') &&
+                            !links.link.includes('facebook')
+                          "
+                          src="./assets/images/webIcon.png"
+                        />
+                      </a>
+                      <div>
+                        <a class="dlt_btn" (click)="openConfirmDelete(content, links.id)"
+                          ><i style="color: red" class="fa-solid fa-trash"></i
+                        ></a>
+                      </div>
+                    </li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="single_btn">
+          <a *ngIf="!saveBtn" class="save-btn" href="javascript:void(0);" (click)="documentEditForm.ngSubmit.emit()">{{
+            'Save' | translate
+          }}</a>
+          <a *ngIf="saveBtn && setButton && enableBtn" class="save-btn" href="javascript:void(0);">
+            <button
+              style="background-color: transparent; border: none; color: white; font-style: italic; font-weight: 700"
+              class="save-btn"
+              (click)="documentEditForm.ngSubmit.emit()"
+            >
+              {{ 'Save And Proceed' | translate }}
+            </button></a
+          >
+          <a target="_blank" [routerLink]="['/view-all-actor-details']" [queryParams]="{ details: encodedToken }">{{
+            'Preview Actor Page' | translate
+          }}</a>
+        </div>
+        <div class="copy_single_btn">
+          <a target="_blank" (click)="copyPageLink(encodedToken)" style="cursor: pointer">{{ copyText | translate }}</a>
+        </div>
+        <!--actors_edit_END-->
+
+        <!--actors_edit-->
+        <div class="actors_edit">
+          <div class="row">
+            <!--skill_dlt-->
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6 add_field">
+              <!-- <section>
+                <h3>{{ 'Social Media Links' | translate }}</h3>
+                <a class="btn" (click)="openAddLink(mymodal)"></a>
+              </section> -->
+            </div>
+            <!--skill_dlt_END-->
+
+            <!--image_priority-->
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6 tag_wrapper">
+              <!-- <section style="display: flex">
+                <ul>
+                  <li *ngFor="let links of LinksData; let k = index">
+                    <a href="{{ links.link }}" target="_blank">
+                      <img *ngIf="links.link.includes('instagram')" src="./assets/images/instaIcon.png" />
+                      <img *ngIf="links.link.includes('facebook')" src="./assets/images/fbIcon.png" />
+                      <img *ngIf="links.link.includes('twitter')" src="./assets/images/twitterIcon.png" />
+                      <img *ngIf="links.link.includes('linkedIn')" src="./assets/images/linkeinIcon.png" />
+                      <img
+                        *ngIf="
+                          !links.link.includes('linkedIn') &&
+                          !links.link.includes('instagram') &&
+                          !links.link.includes('twitter') &&
+                          !links.link.includes('facebook')
+                        "
+                        src="./assets/images/webIcon.png"
+                      />
+                    </a>
+                    <div>
+                      <a class="ms-2 dlt_btn" (click)="openConfirmDelete(content, links.id)">{{
+                        'Delete' | translate
+                      }}</a>
+                    </div>
+                  </li>
+                </ul>
+              </section> -->
+            </div>
+            <!--image_priority_END-->
+          </div>
+        </div>
+        <!--actors_edit_END-->
+
+        <!-- <div class="single_btn">
+          <a target="_blank" [routerLink]="['/view-all-actor-details']" [queryParams]="{ details: encodedToken }">{{
+            'Preview Actor Page' | translate
+          }}</a>
+          <a *ngIf="!saveBtn" class="save-btn" href="javascript:void(0);" (click)="documentEditForm.ngSubmit.emit()">{{
+            'Save' | translate
+          }}</a>
+          <a *ngIf="saveBtn && setButton && enableBtn" class="save-btn" href="javascript:void(0);">
+            <button
+              style="background-color: transparent; border: none; color: white; font-style: italic; font-weight: 700"
+              class="save-btn"
+              (click)="documentEditForm.ngSubmit.emit()"
+            >
+              {{ 'Save And Proceed' | translate }}
+            </button></a
+          >
+        </div> -->
+      </div>
+    </div>
+    <!--inner_wrapper-->
+    <app-registration-renewal
+      [form]="this.newActorAccountForm.value"
+      [artistPictures]="artistPictures"
+      [routeParent]="routeParent"
+      [setButton]="setButton"
+    ></app-registration-renewal>
+  </div>
+
+  <!--site_wrapper_END-->
+</div>
+<!--site_content-->
+<!--site_wrapper_END-->
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      id="videoModelClose"
+      aria-label="Close"
+      #closeresumebutton
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newLinkForm" (ngSubmit)="submitActorLink()">
+      <div class="row">
+        <div class="form-group">
+          <label for="file">{{ 'Title' | translate }}:</label>
+          <input name="title" formControlName="title" placeholder="Title" class="form-control" />
+          <div *ngIf="ff['title'].touched && ff['title'].invalid" class="alert alert-danger">
+            <div *ngIf="ff['title'].errors && ff['title'].errors['required']">
+              {{ 'Title is required' | translate }}.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="file">{{ 'Link' | translate }}:</label>
+          <input name="link" formControlName="link" placeholder="Link" class="form-control" />
+          <div *ngIf="ff['link'].touched && ff['link'].invalid" class="alert alert-danger">
+            <div *ngIf="ff['link'].errors && ff['link'].errors['required']">{{ 'Link is required' | translate }}.</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">&nbsp;</div>
+      <div class="row">
+        <section class="col-12 col-sm-6 col-md-3 col-lg-3">
+          <div *ngIf="ff['link'].errors && ff['link'].errors['required']">{{ '' | translate }}.</div>
+
+          <button
+            [disabled]="newLinkForm.invalid || isButtonClicked"
+            class="btn btn-primary close"
+            (click)="modal.dismiss('Cross click')"
+            type="submit"
+          >
+            {{ 'Submit' | translate }}
+          </button>
+        </section>
+      </div>
+    </form>
+  </div>
+</ng-template>
+<!--- for image upload section -->
+<ng-template #myImageModel let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      id="imageModelClose"
+      aria-label="Close"
+      #closeImageModal
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newImageUploadForm">
+      <div class="row">
+        <div class="form-group">
+          <label for="file">{{ 'File' | translate }}:</label>
+          <input
+            formControlName="FileName"
+            id="file"
+            type="file"
+            class="form-control"
+            (change)="onFileChange($event)"
+          />
+          <div *ngIf="f['FileName'].touched && f['FileName'].invalid" class="alert alert-danger">
+            <div *ngIf="f['FileName'].errors && f['FileName'].errors['required']">
+              {{ 'File is required' | translate }}.
+            </div>
+          </div>
+
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [containWithinAspectRatio]="containWithinAspectRatio"
+            [aspectRatio]="5 / 7"
+            [resizeToWidth]="256"
+            [cropperMinWidth]="128"
+            [onlyScaleDown]="true"
+            [roundCropper]="false"
+            [canvasRotation]="canvasRotation"
+            [transform]="transform"
+            [alignImage]="'left'"
+            [style.display]="showCropper ? null : 'none'"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady($event)"
+            (loadImageFailed)="loadImageFailed()"
+          >
+          </image-cropper>
+
+          <div *ngIf="croppedImage" class="row" style="margin-top: 1px">
+            <div class="row text-center p-2 m-2">
+              <div class="parnt_rotatn">
+                <button class="btn btn-primary" (click)="clear()">Clear</button>
+                <button class="btn btn-primary" id="rotateButton" (click)="rotateLeft()">
+                  {{ 'Rotate Left' | translate }}
+                </button>
+                <button class="btn btn-primary" (click)="rotateRight()">
+                  {{ 'Rotate Right' | translate }}
+                </button>
+                <div style="padding: 5px">
+                  <button class="btn btn-primary" (click)="zoomOut()" class="mr-4 btn zoom-btn">
+                    {{ 'Zoom' | translate }} -
+                  </button>
+                  <button class="btn btn-primary" (click)="zoomIn()" class="mr-2 btn">
+                    {{ 'Zoom' | translate }} +
+                  </button>
+                  <button class="btn btn-primary" (click)="resetImage()" class="mr-2 btn btn-warning">
+                    {{ 'Reset Image' | translate }}
+                  </button>
+
+                  <!-- <div class="col-md-4">
+                <input [(ngModel)]="rotation" placeholder="Rotation" class="form-control mr-2" type="number" (keyup)="updateRotation()" /> 
+              </div> -->
+                </div>
+                <!-- <button (click)="flipHorizontal()" class="mr-2 btn btn-dark" >Flip horizontal</button>
+            <button (click)="flipVertical()" class="mr-2 btn btn-dark">Flip vertical</button> -->
+                <div style="padding: 5px">
+                  <!-- <button (click)="toggleContainWithinAspectRatio()" class="mr-2 btn btn-warning">{{containWithinAspectRatio?'Fill Aspect Ratio':'Contain Within Aspect Ratio'}}</button> -->
+                </div>
+              </div>
+              <!-- <div class="col-md-3">
+                <button (click)="rotateLeft()" class="mr-2 btn btn-dark">Rotate left</button>
+              </div>
+              <div class="col-md-3">
+                <button (click)="rotateRight()" class="mr-2 btn btn-dark">Rotate right</button>
+              </div> -->
+            </div>
+          </div>
+
+          <div *ngIf="croppedImage" class="image_rotate">
+            <div>
+              <p style="text-align: center">
+                {{ 'Rotate the image as desired or allow the image the flexibility to rotate.' | translate }}
+              </p>
+            </div>
+            <div style="margin: auto" class="text-center col-md-4">
+              <h5 style="font-weight: bold">Preview</h5>
+              <img [src]="croppedImage" />
+            </div>
+          </div>
+          <!-- <div class="parnt_rotatn">
+            <button id="rotateButton" *ngIf="imageSrc" (click)="rotateImage('left')">
+              {{ 'Rotate Left' | translate }}<i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <button *ngIf="imageSrc" (click)="rotateImage('right')">
+              {{ 'Rotate Right' | translate }} <i class="fa-solid fa-rotate-right"></i>
+            </button>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="row">&nbsp;</div>
+
+      <div class="row">
+        <!-- <img [src]="imageSrc" *ngIf="imageSrc" style="width: 200px" /> -->
+      </div>
+      <div class="row" *ngIf="imageSrc">&nbsp;</div>
+      <div style="float: right" class="row">
+        <section class="col-12 col-sm-6 col-md-3 col-lg-3">
+          <p style="color: red" *ngIf="messageAlert == true">
+            {{ '*Large File' | translate }}
+          </p>
+          <button
+            [disabled]="newImageUploadForm.invalid || isButtonClicked || !croppedImage || !croppedEvent"
+            (click)="updateImage()"
+            class="btn btn-primary"
+            type="submit"
+          >
+            {{ 'Submit' | translate }}
+          </button>
+        </section>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ 'Are you sure to delete this?' }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">{{ 'Cancel' | translate }}</button>
+    <button type="button" class="btn btn-outline-dark" (click)="c('yes')">{{ 'Yes' | translate }}</button>
+  </div>
+</ng-template>
+
+<!--- for image upload section -->
+<ng-template #myResumeModel let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      id="resumeModelClose"
+      #closeresumebutton
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newResumeUploadForm" (ngSubmit)="updateResume()">
+      <div class="row">
+        <div class="form-group">
+          <label for="file">{{ 'Resume' | translate }}:</label>
+          <input
+            formControlName="resume_path"
+            id="file"
+            type="file"
+            class="form-control"
+            (change)="onResumeFileChange($event)"
+          />
+          <div *ngIf="im['resume_path'].touched && im['resume_path'].invalid" class="alert alert-danger">
+            <div *ngIf="im['resume_path'].errors && im['resume_path'].errors['required']">
+              {{ 'File is required' | translate }}.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">&nbsp;</div>
+      <div class="row">
+        <section class="col-12 col-sm-6 col-md-3 col-lg-3">
+          <button class="btn btn-primary" [disabled]="newResumeUploadForm.invalid || isButtonClicked" type="submit">
+            {{ 'Submit' | translate }}
+          </button>
+        </section>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!--- for audio upload section -->
+<ng-template #myAudioModel let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      id="audioModelClose"
+      #closeresumebutton
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newAudioUploadForm" (ngSubmit)="addAudio()">
+      <div class="row">
+        <div class="form-group">
+          <label for="file">{{ 'Audio File Url' | translate }}:</label>
+          <input
+            (change)="getAudioUrl($event)"
+            #fileInput
+            id="file"
+            formControlName="Embed"
+            type="url"
+            class="form-control"
+          />
+          <div *ngIf="emAu['Embed'].touched && emAu['Embed'].invalid" class="alert alert-danger">
+            <div *ngIf="emAu['Embed'].errors && emAu['Embed'].errors['required']">
+              {{ 'Url is required' | translate }}.
+            </div>
+          </div>
+          <div *ngIf="errormsg">
+            <div style="color: red; font-size: 14px">*The embed must be a valid url</div>
+          </div>
+        </div>
+      </div>
+      <div class="row">&nbsp;</div>
+      <div class="row">
+        <section class="col-12 col-sm-6 col-md-3 col-lg-3">
+          <button
+            class="btn btn-primary"
+            [disabled]="errormsg || newAudioUploadForm.invalid || isButtonClicked"
+            type="submit"
+          >
+            {{ 'Submit' | translate }}
+          </button>
+        </section>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- for loading video -->
+<ng-template #myVideoListModel let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <iframe width="60" height="415" [src]="youtubeUrl"> </iframe>
+  </div>
+</ng-template>
+
+<!-- for uploading video -->
+<!--- for audio upload section -->
+<ng-template #myVideoModel let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      id="videoModelClose"
+      aria-label="Close"
+      #closeresumebutton
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newVideoUploadForm" (ngSubmit)="addVidio()">
+      <div class="row">
+        <div class="form-group">
+          <label for="file">{{ 'Video Url (youtube or Vimeo)' | translate }}:</label>
+          <input formControlName="Embed" type="url" class="form-control" />
+          <div *ngIf="vdForm['Embed'].touched && vdForm['Embed'].invalid" class="alert alert-danger">
+            <div *ngIf="vdForm['Embed'].errors && vdForm['Embed'].errors['required']">
+              {{ 'Url is required' | translate }}.
+            </div>
+          </div>
+          <p>*{{ 'You can upload a video from Vimeo and YouTube' | translate }}</p>
+        </div>
+      </div>
+      <div class="row">&nbsp;</div>
+      <div class="row">
+        <section class="col-12 col-sm-6 col-md-3 col-lg-3">
+          <button class="btn btn-primary" [disabled]="newVideoUploadForm.invalid || isButtonClicked" type="submit">
+            {{ 'Submit' | translate }}
+          </button>
+        </section>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!----  for resume text update -->
+
+<ng-template #myResumeTextModal let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      id="rTextModelClose"
+      aria-label="Close"
+      #closeresumebutton
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newResumeTextForm" (ngSubmit)="submitResumeTextForm()">
+      <div class="row">
+        <div class="row">
+          <div class="col-4">
+            <label style="font-size: 20px" for="file">{{ 'Resume' | translate }}:</label>
+          </div>
+          <div class="upload-btn col-8">
+            <button class="btn btn-primary mb-2" style="background-color: none; border-radius: 10px">
+              <a
+                style="font-weight: bolder"
+                class="btn"
+                href="javascript:void(0)"
+                (click)="openResumeModal(myResumeModel)"
+                >{{ 'Upload Pdf' | translate }}
+              </a>
+            </button>
+
+            <a *ngIf="actiorDetails.resume_path" target="_blank" href="{{ resumeUrl }}{{ actiorDetails.resume_path }}">
+              {{ 'View Pdf' | translate }}
+              <!-- <img class="mb-1" style="width: 35px" src="./assets/images/pdf.png" /> -->
+            </a>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div id="froala-editor" [froalaEditor]="froala1.options">{{ actiorDetails.Resume }}</div>
+
+          <!-- <editor formControlName="Resume" [init]="init" initialValue="{{ actiorDetails.Resume }}"></editor>  -->
+        </div>
+      </div>
+      <div class="row">&nbsp;</div>
+      <div class="row">
+        <section class="col-12 col-sm-6 col-md-3 col-lg-3">
+          <button class="btn btn-primary" type="submit">{{ 'Submit' | translate }}</button>
+        </section>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #myImageModel1 let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      id="imageModelClosee"
+      aria-label="Close"
+      #closeImageModal
+      (click)="closeModall(myImageModel1)"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="newImageUploadForm">
+      <div class="row">
+        <div class="form-group">
+          <!-- <label for="file">{{ 'File' | translate }}:</label> -->
+
+          <image-cropper
+            [imageChangedEvent]="imageChangedEventt"
+            [maintainAspectRatio]="true"
+            [containWithinAspectRatio]="containWithinAspectRatio"
+            [aspectRatio]="5 / 7"
+            [resizeToWidth]="256"
+            [cropperMinWidth]="128"
+            [onlyScaleDown]="true"
+            [roundCropper]="false"
+            [canvasRotation]="canvasRotation"
+            [transform]="transform"
+            [alignImage]="'left'"
+            [style.display]="showCropper ? null : 'none'"
+            format="png"
+            (imageCropped)="imageCroppedd($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady($event)"
+            (loadImageFailed)="loadImageFailed()"
+          >
+          </image-cropper>
+
+          <div class="row" style="margin-top: 1px">
+            <div class="row text-center p-2 m-2">
+              <div class="parnt_rotatn">
+                <button class="btn btn-primary" id="rotateButton" (click)="rotateLeft()">
+                  {{ 'Rotate Left' | translate }}
+                </button>
+                <button class="btn btn-primary" (click)="rotateRight()">
+                  {{ 'Rotate Right' | translate }}
+                </button>
+                <div style="padding: 5px">
+                  <button class="btn btn-primary" (click)="zoomOut()" class="mr-4 btn zoom-btn">
+                    {{ 'Zoom' | translate }} -
+                  </button>
+                  <button class="btn btn-primary" (click)="zoomIn()" class="mr-2 btn">
+                    {{ 'Zoom' | translate }} +
+                  </button>
+                  <button class="btn btn-primary" (click)="resetImage()" class="mr-2 btn btn-warning">
+                    {{ 'Reset Image' | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="croppedImage" class="image_rotate">
+            <div>
+              <p style="text-align: center">
+                {{ 'Rotate the image as desired or allow the image the flexibility to rotate.' | translate }}
+              </p>
+            </div>
+            <div style="margin: auto" class="text-center col-md-4">
+              <h5 style="font-weight: bold">Preview</h5>
+              <img [src]="croppedImage" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">&nbsp;</div>
+
+      <div class="row">
+        <!-- <img [src]="imageSrc" *ngIf="imageSrc" style="width: 200px" /> -->
+      </div>
+      <div class="row" *ngIf="imageSrc">&nbsp;</div>
+      <div style="float: right" class="row">
+        <section class="col-12 col-sm-6 col-md-3 col-lg-3">
+          <p style="color: red" *ngIf="messageAlert == true">
+            {{ '*Large File' | translate }}
+          </p>
+          <button (click)="updateEditImage()" class="btn btn-primary" type="submit">
+            {{ 'Submit' | translate }}
+          </button>
+        </section>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<!-- <div data-backdrop="static" data-keyboard="false" id="popup-overlay" class="popup-overlay">
+  <div id="popup" class="popup">
+    <ng-template id="exampleModal" #contentPop let-modal>
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" id="modalCloseButton" (click)="modal.dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body popup-intro">
+        <p style="text-align: center; font-size: 30px" *ngIf="language == 'en-US'">
+          Excellent! Now let's specify your additional abilities.
+        </p>
+        <p style="text-align: center; height: 100px; margin-top: 39px; font-size: 30px" *ngIf="language == 'he-IL'">
+          מעולה מלאת את הבסיס עכשיו אנחנו ממקדים אותך עוד יותר חשוב למלא זה מדייק אותנו ואותך
+        </p>
+        <p
+          style="text-align: center; font-size: 30px"
+          *ngIf="language != 'en-US' && language != 'he-IL'"
+        >
+          Excellent! Now let's specify your additional abilities.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</div> -->
+
+<!-- first popup -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div style="margin-top: 163px" class="modal-dialog">
+    <div style="width: 100%" class="modal-content">
+      <div style="border: none" class="modal-header">
+        <button
+          style="padding: 23px 20px 20px 20px"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body popup-intro">
+          <p style="text-align: center; font-size: 30px" *ngIf="language == 'en-US'">
+            Excellent! Now let's specify your additional abilities.
+          </p>
+          <p style="text-align: center; font-size: 30px" *ngIf="language == 'he-IL'">
+            מעולה מלאת את הבסיס עכשיו אנחנו ממקדים אותך עוד יותר חשוב למלא זה מדייק אותנו ואותך
+          </p>
+          <p
+            style="margin-top: 19px; text-align: center; font-size: 30px"
+            *ngIf="language != 'en-US' && language != 'he-IL'"
+          >
+            Excellent! Now let's specify your additional abilities.
+          </p>
+        </div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<!-- second popup -->
+<div class="modal fade" id="exampleSecondModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div style="margin-top: 163px" class="modal-dialog">
+    <div style="width: 100%" class="modal-content">
+      <div style="border: none" class="modal-header">
+        <button
+          style="padding: 23px 20px 20px 20px"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body popup-intro">
+          <p style="margin-top: 36px; text-align: center; font-size: 30px; height: 104px" *ngIf="language == 'en-US'">
+            Please add at least 1 headshot picture.
+          </p>
+          <p style="margin-top: 36px; text-align: center; font-size: 30px; height: 104px" *ngIf="language == 'he-IL'">
+            נא הוסף צילום ראש אחד לפחות הוסף תמונה אחת לפחות.
+          </p>
+          <p
+            style="margin-top: 36px; text-align: center; font-size: 30px; height: 104px"
+            *ngIf="language != 'en-US' && language != 'he-IL'"
+          >
+            Please add at least 1 headshot picture.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div data-backdrop="static" data-keyboard="false" id="popup-overlay" class="popup-overlay">
+  <div id="popup" class="popup">
+    <ng-template #contentPopSecnd let-modal>
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" id="modalCloseButton" (click)="modal.dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body popup-intro">
+        <p style="margin-top: 36px; text-align: center; font-size: 30px; height: 104px" *ngIf="language == 'en-US'">
+          Please add at least 1 headshot picture.
+        </p>
+        <p style="margin-top: 36px; text-align: center; font-size: 30px; height: 104px" *ngIf="language == 'he-IL'">
+          נא הוסף צילום ראש אחד לפחות הוסף תמונה אחת לפחות.
+        </p>
+        <p
+          style="margin-top: 36px; text-align: center; font-size: 30px; height: 104px"
+          *ngIf="language != 'en-US' && language != 'he-IL'"
+        >
+          Please add at least 1 headshot picture.
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</div> -->
+
+<div id="example"></div>
+
+<!-- audio -->

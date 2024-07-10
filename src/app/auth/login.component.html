@@ -1,0 +1,85 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper">
+      <h1 class="title_tag">
+        {{ 'Already registered' | translate }} ?<span>{{ 'Log in to your account' | translate }}</span>
+      </h1>
+
+      <div class="login_banner">
+        <h3>{{ 'Welcome Back' | translate }}</h3>
+      </div>
+
+      <form class="mt-2 needs-validation" [formGroup]="loginForm" (ngSubmit)="login()">
+        <section>
+          <article>
+            <div class="login_cred">
+              <input
+                [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }"
+                type="text"
+                class="form-control"
+                id="email"
+                placeholder="{{ 'Email or Username' | translate }}"
+                formControlName="email"
+                autocomplete="off"
+              />
+              <p
+                *ngIf="f['email'].touched && f['email'].invalid"
+                class="small text-danger font-italic email_validation"
+              >
+                *{{ 'Email or Username is required' | translate }}.
+              </p>
+            </div>
+
+            <!-- <div *ngIf="submitted && f['email'].errors" class="invalid-feedback invalid-bg">
+              <div *ngIf="f['email']['errors']">{{ 'Email is required' | translate }}</div>
+              <div *ngIf="f['email']['errors']['email']">{{ 'Email must be a valid email address' | translate }}</div>
+            </div> -->
+            <div class="login_cred">
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="{{ 'Password' | translate }}"
+                formControlName="password"
+                autocomplete="off"
+                [ngClass]="{ 'is-invalid': submitted && f['password']['errors'] }"
+              />
+              <div
+                style="display: block"
+                *ngIf="submitted && f['password']['errors']"
+                class="invalid-feedback invalid-bg"
+              >
+                <div *ngIf="f['password']['errors']['required']">{{ 'Password is required' | translate }}</div>
+                <div *ngIf="f['password']['errors']['minlength']">
+                  {{ 'Password must be at least 6 characters' | translate }}
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- <p>Forgot your password? <a href="#">click here</a></p> -->
+
+          <div class="login_btn">
+            <button type="submit">{{ 'Login' | translate }}</button>
+          </div>
+
+          <p class="mt-4" style="text-align: center; line-height: 11px">
+            {{ 'Forgot Password' | translate }}?
+            <a class="mt-3" routerLink="/forgot-password">{{ 'Click Here' | translate }}</a>
+            {{ 'reset password' | translate }} <span>{{ 'or' | translate }}</span>
+            <a class="mt-3" routerLink="/forgot-username">{{ 'Click Here' | translate }}</a>
+            {{ 'reset username' | translate }}
+          </p>
+          <div style="clear: both"></div>
+          <h5 class="mt-4">
+            {{ 'Not a member yet?' | translate }}
+            <a routerLink="/join-as-actor">{{ 'Join Now' | translate: { name: 'Join Now' } }}</a>
+          </h5>
+        </section>
+      </form>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

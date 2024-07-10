@@ -1,0 +1,21 @@
+table.table.table-hover {
+  border: 1px solid black;
+}
+td {
+  text-align: center;
+}
+
+@media (min-width: 250px) and (max-width: 576px) {
+  .myaccount_paymentinfo section {
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  .myaccount_paymentinfo table th {
+    font-size: 10px;
+  }
+
+  .myaccount_paymentinfo table td {
+    font-size: 10px;
+  }
+}

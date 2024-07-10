@@ -1,0 +1,56 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="myaccount_paymentinfo">
+      <h1 class="title_tag">
+        {{ 'Payment History' | translate }}<span>{{ 'View your payment history' | translate }}</span>
+      </h1>
+      <section>
+        <table class="table table-hover">
+          <thead class="">
+            <tr>
+              <th>{{ 'Payment Date' | translate }}</th>
+              <th>{{ 'Payment Amount' | translate }}</th>
+              <th>{{ 'Plan' | translate }}</th>
+              <th>{{ 'Transaction ID' | translate }}</th>
+              <th>{{ 'Invoice' | translate }}</th>
+              <th>{{ 'Transaction Status' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let list of historyList">
+              <td>{{ list.created_at | date: 'mediumDate' }}</td>
+              <td>{{ list.amount }}</td>
+              <td>{{ 'Monthly' | translate }}</td>
+              <!-- <td *ngIf="list.subscription_id == 2">{{ 'Monthly' | translate }}</td>
+              <td *ngIf="list.subscription_id == 4">{{ '6 Months' | translate }}</td>
+              <td *ngIf="list.subscription_id == 5">{{ 'Yearly' | translate }}</td> -->
+
+              <td>{{ list.transaction_key }}</td>
+              <td *ngIf="list.invoice_key">
+                <a
+                  style="color: #8b92fa; text-decoration: underline"
+                  target="_blank"
+                  href="http://my.tranzila.com/api/get_financial_document/{{ list.invoice_key }}"
+                  >{{ 'Download Invoice' | translate }}</a
+                >
+              </td>
+              <td *ngIf="!list.invoice_key">122</td>
+
+              <td *ngIf="list.is_payed == '0'">{{ 'Pending' | translate }}</td>
+              <td *ngIf="list.is_payed == '1'">{{ 'Paid' | translate }}</td>
+              <td *ngIf="list.is_payed == '2'">{{ 'Cancelled' | translate }}</td>
+            </tr>
+            <tr *ngIf="!dataCheck">
+              <td colspan="5">{{ 'No payments found' | translate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <!-- <a class="payhistory_btn" routerLink="/my-payments">{{ 'Payment info' | translate }}</a> -->
+    </div>
+  </div>
+  <!--inner_wrapper-->
+  <app-registration-renewal></app-registration-renewal>
+</div>
+<!--site_wrapper_END-->

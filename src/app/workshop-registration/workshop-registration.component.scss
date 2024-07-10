@@ -1,0 +1,68 @@
+ul.breadcrumb li a {
+  display: inline-block;
+  padding: 0 5px 0 0;
+  color: #000;
+}
+.ws_banner {
+  display: flex;
+  flex-wrap: wrap;
+}
+.ws_banner_date {
+  width: 25%;
+  display: flex;
+  background-color: #000;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.ws_banner_date h5 {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+  background-image: url(../../assets/images/icon_date.png);
+  background-repeat: no-repeat;
+  background-position: center top;
+  padding: 105px 0 0;
+}
+.ws_banner_title {
+  width: 44%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ws_banner_title h3 {
+  font-size: 34px;
+  font-weight: 600;
+}
+.arrow_disable {
+  background-image: url(../../assets/images/arow-violet.png);
+}
+.ws_banner_image {
+  width: 25%;
+}
+.ws_banner_date {
+  width: 25%;
+}
+.ws_banner_title {
+  width: 50%;
+}
+.ws_banner_image img {
+  width: 100%;
+}
+
+.future-date-message {
+  position: absolute;
+  bottom: -40px;
+  left: 5px;
+}
+.login_wrapper section {
+  padding: 81px 10px 10px 10px !important;
+}
+.no_img .ws_banner_title {
+  width: 74% !important;
+}
+.ws_banner_title {
+  padding: 30px;
+}

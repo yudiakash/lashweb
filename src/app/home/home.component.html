@@ -1,0 +1,316 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <ul class="bottom_links">
+      <li>
+        <a routerLink="/director-registration">{{ 'Cast New Project' | translate }}</a>
+      </li>
+      <li>
+        <a routerLink="/rehearsals-studios">{{ 'Rehearsals Studios' | translate: { name: 'Rehearsals Studios' } }}</a>
+      </li>
+      <li>
+        <a routerLink="/our-top-photographers">{{ 'Photographers' | translate: { name: 'Photographers' } }}</a>
+      </li>
+      <li *ngIf="!auth.isAuthenticated">
+        <a routerLink="/add-your-details">{{ 'Actors Registration' | translate }}</a>
+      </li>
+    </ul>
+    <!--main_banner-->
+    <div class="main_banner">
+      <section>
+        <h3>
+          {{
+            'Join SHALASH today and land your perfect role'
+              | translate: { name: 'Join SHALASH today and land your perfect role' }
+          }}
+        </h3>
+        <p>
+          {{
+            'SHALASH has the most jobs, the best tools, and expert advice to help you get cast.'
+              | translate
+                : { name: 'SHALASH has the most jobs, the best tools, and expert advice to help you get cast.' }
+          }}
+        </p>
+      </section>
+      <a *ngIf="!auth.isAuthenticated" routerLink="/join-as-actor">{{
+        'Join Now' | translate: { name: 'Join Now' }
+      }}</a>
+    </div>
+    <!--main_banner_END-->
+
+    <!--add_project-->
+    <!-- <section class="add_project">
+      <a routerLink="#"></a>
+      <h3>
+        {{ 'Looking to cast' | translate: { name: 'Looking to cast' } }}<br />{{
+          'your project' | translate: { name: 'your project' }
+        }}?
+      </h3>
+      <p>
+        {{
+          'SHALASH will help you find the best talent.'
+            | translate: { name: 'SHALASH will help you find the best talent.' }
+        }}
+      </p>
+    </section> -->
+    <!--add_project_END-->
+
+    <!--audition_wrapper-->
+    <!-- <div class="audition_wrapper">
+      <h3>
+        <a routerLink="/casting-calls">{{ 'Latest Audition' | translate: { name: 'Latest Audition' } }}</a>
+        <a class="left-arrow" routerLink="/casting-calls"></a>
+      </h3>
+
+      <section class="row">
+        <article class="col-12 col-sm-6 col-md-6 col-lg-6 film">
+          <h5>
+            <a [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'film' }">{{ 'film' | translate }} </a>
+            <a class="left-arrow" [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'film' }"></a>
+          </h5>
+          <ng-container *ngFor="let otherslist of auditionListFilim; let i = index">
+            <p *ngIf="i < 2">
+              <span
+                ><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }">{{
+                  otherslist.TypeName
+                }}</a></span
+              ><br /><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }">{{
+                otherslist.pTitle
+              }}</a>
+            </p>
+          </ng-container>
+        </article>
+        <article class="col-12 col-sm-6 col-md-6 col-lg-6 stage">
+          <h5>
+            <a [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'stage' }">{{ 'stage' | translate }} </a>
+            <a class="left-arrow" [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'stage' }"></a>
+          </h5>
+          <ng-container *ngFor="let otherslist of auditionListStage; let i = index">
+            <p *ngIf="i < 2">
+              <span
+                ><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }">{{
+                  otherslist.TypeName
+                }}</a></span
+              >
+              <br /><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }">{{
+                otherslist.pTitle
+              }}</a>
+            </p>
+          </ng-container>
+        </article>
+        <article class="col-12 col-sm-6 col-md-4 col-lg-4 tv">
+          <h5>
+            <a [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'tv' }">{{ 'tv' | translate }} </a>
+            <a class="left-arrow" [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'tv' }"></a>
+          </h5>
+          <ng-container *ngFor="let otherslist of auditionListTv; let i = index">
+            <p *ngIf="i < 2">
+              <span
+                ><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }">{{
+                  otherslist.TypeName
+                }}</a></span
+              >
+              <br /><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }">{{
+                otherslist.pTitle
+              }}</a>
+            </p>
+          </ng-container>
+        </article>
+        <article class="col-12 col-sm-6 col-md-4 col-lg-4 commercial">
+          <h5>
+            <a [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'commercial' }"
+              >{{ 'Commercial' | translate }}
+            </a>
+            <a class="left-arrow" [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'commercial' }"></a>
+          </h5>
+          <ng-container *ngFor="let otherslist of auditionListCommercial; let i = index">
+            <p *ngIf="i < 2">
+              <span
+                ><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }">{{
+                  otherslist.TypeName
+                }}</a></span
+              ><br /><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }"
+                >{{ otherslist.pTitle }} - {{ otherslist.id }}</a
+              >
+            </p>
+          </ng-container>
+        </article>
+        <article class="col-12 col-sm-6 col-md-4 col-lg-4 other">
+          <h5>
+            <a [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'other' }">{{ 'Other' | translate }} </a>
+            <a class="left-arrow" [routerLink]="['/casting-calls']" [queryParams]="{ catName: 'other' }"></a>
+          </h5>
+          <ng-container *ngFor="let otherslist of auditionListOther; let i = index">
+            <p *ngIf="i < 2">
+              <span
+                ><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }">{{
+                  otherslist.TypeName
+                }}</a></span
+              ><br /><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: otherslist.slug }">{{
+                otherslist.pTitle
+              }}</a>
+            </p>
+          </ng-container>
+        </article>
+      </section>
+    </div> -->
+    <!--audition_wrapper_END-->
+
+    <!--search_actors-->
+    <section class="search_actors">
+      <ul>
+        <ng-container *ngFor="let imagedata of imgList; let i = index">
+          <li id="{{ imagedata.checklist }}" *ngIf="i < 16">
+            <img
+              #checkStatus
+              alt="{{ imagedata.artists }}"
+              src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ imagedata.fileName }}&w=163&h=217&zc=1&q=95"
+            />
+          </li>
+          <!-- <li  id={{imagedata.checklist}}   *ngIf="i < 16">
+            <img  src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ randomImageFile }}&w=163&h=217&zc=1&q=95" />
+          </li> -->
+        </ng-container>
+      </ul>
+      <h3>
+        <a routerLink="/search">{{ 'Search Actors' | translate: { name: 'Search Actors' } }}</a>
+      </h3>
+    </section>
+    <!--search_actors_END-->
+
+    <!--our_workshop-->
+    <section class="our_workshop">
+      <h3>
+        <a routerLink="/news" class="work-link">{{ 'News Feed' | translate: { name: 'News Feed' } }}</a
+        ><a routerLink="/news" class="link-img"></a>
+      </h3>
+
+      <div class="row">
+        <ng-container *ngFor="let list of newsList; let i = index">
+          <div class="col-12 col-sm-6 col-md-3 col-lg-3" *ngIf="i < 4">
+            <a class="workshop" [routerLink]="['/news-details', list.id]">
+              <article>
+                <img
+                  alt="{{ list.title }}"
+                  *ngIf="list.pic"
+                  src="{{ imageReSizeUrl }}src={{ imgNewsUrl }}{{ list.pic }}&w=318&h=334&zc=1&q=95"
+                />
+                <img
+                  *ngIf="!list.pic"
+                  alt="{{ list.title }}"
+                  src="{{ imageReSizeUrl }}src={{ imgUrl }}user.png&w=318&h=334&zc=1&q=95"
+                />
+
+                <h5>{{ isRTL ? list.transHeTitle : list.transEnTitle }}</h5>
+
+                <p [innerHtml]="isRTL ? list.transHeText : list.transEnText"></p>
+              </article>
+            </a>
+          </div>
+        </ng-container>
+        <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+          <div
+            class="fb-page"
+            data-href="https://www.facebook.com/shalashorg"
+            data-height="450"
+            data-small-header=""
+            data-adapt-container-width="1"
+            data-hide-cover=""
+            data-show-facepile=""
+            data-show-posts="true"
+            data-width="600"
+          >
+            <blockquote cite="https://www.facebook.com/shalashorg" class="fb-xfbml-parse-ignore">
+              <a href="https://www.facebook.com/shalashorg">‎שלש - שחקנים למען שחקנים‎</a>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--our_workshop_END-->
+
+    <!-- workshop -->
+    <section class="our_workshop mt-4">
+      <h3>
+        <a routerLink="/workshops" class="work-link">{{ 'OUR Workshops' | translate: { name: 'Our Workshops' } }}</a
+        ><a routerLink="/workshops" class="link-img"></a>
+      </h3>
+      <div class="row">
+        <ng-container *ngFor="let list of workshopList; let i = index">
+          <div class="col-12 col-sm-6 col-md-3 col-lg-3" *ngIf="i < 4">
+            <a class="workshop" [routerLink]="['/workshop', list.id]">
+              <article>
+                <img
+                  *ngIf="list.image"
+                  alt="{{ list.title }}"
+                  src="{{ imageReSizeUrl }}src={{ imgNewsUrl }}{{ list.image }}&w=318&h=334&zc=1&q=95"
+                />
+                <img
+                  *ngIf="!list.image"
+                  alt="{{ list.title }}"
+                  src="{{ imageReSizeUrl }}src={{ imgUrl }}user.png&w=318&h=334&zc=1&q=95"
+                />
+                <h5>{{ isRTL ? list.title : list.title }}</h5>
+                <p [innerHtml]="isRTL ? list.sht_desc : list.sht_desc"></p>
+              </article>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+    </section>
+    <!--workshop end-->
+
+    <!--success_stories-->
+    <section class="success_stories">
+      <!-- <article>
+        <div class="success_img"><img src="./assets/images/casting.png" /></div>
+        <div class="success_content">
+          <h5>Successful Casting</h5>
+          <img src="./assets/images/hand_icon.png" />
+          <p>
+            Gabriella Sternfeld has guided our way to a budgeted and successful project for the femamle sector...
+            <a routerLink="#">See More</a>
+          </p>
+        </div>
+      </article> -->
+    </section>
+    <!--success_stories_END-->
+
+    <!--how_it_works-->
+    <!-- <section class="how_it_works">
+      <div class="hw_content">
+        <h3>{{ 'How does it works' | translate }}?</h3>
+        <a (click)="open(mymodal)">{{ 'Click here' | translate }} </a>
+      </div>
+      <div class="video_screen" (click)="open(mymodal)"></div>
+    </section> -->
+    <!--how_it_works_END-->
+
+    <ul class="bottom_links">
+      <li>
+        <a routerLink="/director-registration">{{ 'Cast New Project' | translate: { name: 'Cast new project' } }}</a>
+      </li>
+      <li>
+        <a routerLink="/rehearsals-studios">{{ 'Rehearsals Studios' | translate: { name: 'Rehearsals Studios' } }}</a>
+      </li>
+      <li>
+        <a routerLink="/our-top-photographers">{{ 'Photographers' | translate: { name: 'Photographers' } }}</a>
+      </li>
+      <li *ngIf="!auth.isAuthenticated">
+        <a routerLink="/add-your-details">{{ 'Actors Registration' | translate: { name: 'actors registration' } }}</a>
+      </li>
+    </ul>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <iframe width="430" height="315" src="https://www.youtube.com/embed/PJ2af7AYRlU"> </iframe>
+  </div>
+</ng-template>

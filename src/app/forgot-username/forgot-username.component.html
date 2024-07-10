@@ -1,0 +1,48 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper">
+      <h1 class="title_tag">
+        {{ 'Forgot Your Username' | translate }} ?<span>{{ 'Reset here' | translate }}</span>
+      </h1>
+
+      <div class="login_banner">
+        <h3>{{ 'Forgot Username' | translate }}</h3>
+      </div>
+
+      <form class="mt-2 needs-validation" [formGroup]="resetForm" (ngSubmit)="resetUsername()">
+        <section>
+          <article>
+            <div class="email_forgott">
+              <input
+                type="text"
+                class="form-control"
+                id="email"
+                placeholder="{{ 'email' | translate }}"
+                formControlName="email"
+                [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].errors }"
+              />
+              <div style="clear: both"></div>
+              <div *ngIf="f['email'].touched && f['email'].errors" class="invalid-feedback invalid-bg">
+                <div class="email_notfctn" *ngIf="f['email'].touched && f['email']['errors']['required']">
+                  {{ 'email is required' | translate }}
+                </div>
+                <!-- <div *ngIf="f['username'].touched && f['username']['errors']['username']">
+                  {{ 'Email must be a valid email address' | translate }}
+                </div> -->
+              </div>
+            </div>
+          </article>
+
+          <!-- <p>Forgot your password? <a href="#">click here</a></p> -->
+
+          <div class="login_btn">
+            <button [disabled]="!resetForm.valid" type="submit">{{ 'Reset Username' | translate }}</button>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

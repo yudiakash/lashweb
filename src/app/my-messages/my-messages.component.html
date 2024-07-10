@@ -1,0 +1,434 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="message_wrapper">
+      <h1 class="title_tag">
+        {{ 'Messages' | translate }}<span>{{ 'Check out your unread messages for updates' | translate }}</span>
+      </h1>
+      <p style="color: #08124c">
+        {{ 'Notifications for projects will be sent via email along with SMS notifications' | translate }}
+      </p>
+
+      <div class="mobile_view_nav">
+        <a href="/actor-account">{{ 'Explore Your Actor Profile' | translate }}</a>
+      </div>
+      <!--section-->
+      <section>
+        <!--message_siderbar-->
+        <aside #messageSidebar class="message_siderbar">
+          <ul>
+            <li id="inbox" (click)="openMessageByType()">
+              <a href="javascript:void(0)" [ngClass]="{ active: selectedtn == null }">
+                <div class="inbox_msgg">
+                  <p class="ms-2">{{ 'Inbox' | translate }}</p>
+                  <span class="count ms-3">{{ countUnread }}</span>
+                </div>
+              </a>
+            </li>
+            <ng-container *ngFor="let types of messagesTypeList; let i = index">
+              <li
+                (click)="openMessageByType(types.id)"
+                *ngIf="types.typeName == 'General' || types.typeName == 'Copies of applies'"
+                [attr.id]="types.slug === 'general' || types.slug === 'copies_of_applies' ? types.slug : null"
+              >
+                <a href="javascript:void(0)" [ngClass]="{ active: selectedtn == types.id }">
+                  <p>
+                    {{ types.typeName | translate }}
+                    <!-- <span class="msg_unread" *ngFor="let msg of unreadMsg">
+                      <P *ngIf="types.id == 1">{{ msg['1'] }}</P>
+                      <P *ngIf="types.id == 2">{{ msg['2'] }}</P>
+                      <P *ngIf="types.id == 3">{{ msg['3'] }}</P>
+                      <P *ngIf="types.id == 4">{{ msg['4'] }}</P>
+                      <P *ngIf="types.id == 5">{{ msg['5'] }}</P>
+                    </span> -->
+                  </p>
+                </a>
+              </li>
+            </ng-container>
+          </ul>
+
+          <div class="contact_section" *ngIf="!isRTL">
+            <a class="whatsapp_no" target="_blank" href="https://api.whatsapp.com/send?phone=0543314242"></a>
+
+            <a
+              class="whatsapp_no1"
+              style="margin-top: -40px"
+              target="_blank"
+              href="https://api.whatsapp.com/send?phone=0543314242"
+              >+972542687358</a
+            >
+            <a
+              class="whatsapp_no1"
+              style="margin-bottom: 40px"
+              target="_blank"
+              href="https://api.whatsapp.com/send?phone=447507676131"
+            >
+              +447507676131</a
+            >
+            <a class="email_id" target="_blank" href="mailto:shalash1@gmail.com">shalash1@gmail.com</a>
+          </div>
+          <div class="contact_section" *ngIf="isRTL">
+            <a class="whatsapp_no" target="_blank" href="https://api.whatsapp.com/send?phone=0543314242"></a>
+
+            <a
+              class="whatsapp_no1"
+              style="margin-top: -40px"
+              target="_blank"
+              href="https://api.whatsapp.com/send?phone=0543314242"
+              >972542687358+</a
+            >
+            <a
+              class="whatsapp_no1"
+              style="margin-bottom: 40px"
+              target="_blank"
+              href="https://api.whatsapp.com/send?phone=447507676131"
+            >
+              447507676131+</a
+            >
+            <a class="email_id" target="_blank" href="mailto:shalash1@gmail.com">shalash1@gmail.com</a>
+          </div>
+        </aside>
+        <!--message_siderbar_END-->
+        <!--message_section-->
+        <div #messageSection class="message_section">
+          <!--message_list-->
+          <div [ngClass]="{ unShowList: messageId }" class="message_list">
+            <form [formGroup]="newSearchForm" (ngSubmit)="searchFilter()">
+              <div class="searchFilter">
+                <button #showSidee (click)="showSide()" class="mobile_view">
+                  <span style="font-size: 23px; color: #c2b6b6">&lt;</span>
+                </button>
+                <input
+                  style="width: 100%"
+                  maxlength="30"
+                  name="Keyword"
+                  formControlName="title"
+                  type="text"
+                  placeholder="{{ 'Search inbox' | translate }}"
+                />
+                <button class="btn-filter me-1">
+                  <i style="width: 39px" class="fa-solid fa-magnifying-glass"></i>
+                </button>
+              </div>
+            </form>
+            <ng-container
+              *ngFor="
+                let itemz of messageList
+                  | paginate
+                    : {
+                        itemsPerPage: tableSize,
+                        currentPage: page,
+                        totalItems: totalCount
+                      };
+                let i = index
+              "
+            >
+              <article
+                (click)="openMessage(itemz.msgId, itemz.firstMessage)"
+                #{{itemz.msgId}}
+                class="{{ itemz.slug }}"
+                [ngClass]="{
+                  active: messageId == itemz.msgId,
+                  msgUnread: itemz.readByActor == 0 || itemz.ReadByActor == 0,
+                  msgread: readMsgList.includes(itemz.msgId)
+                }"
+              >
+                <a href="javascript:void(0)">
+                  <div class="message_cat">
+                    <span>{{ itemz.msgTypeName | translate }}</span>
+                    <small>{{ itemz.CreationDate | date: 'dd/MM/yy' }}</small>
+                  </div>
+                  <h3>{{ !isRTL ? itemz.Title : itemz.Title }}</h3>
+                  <!-- <p *ngIf="itemz.msgTypeId != newCastingMessage && selectedMessageTypeId != newCastingMessage">
+                    {{ itemz.shortText }}...
+                  </p> -->
+                </a>
+              </article>
+            </ng-container>
+            <ul class="actor_pagination mt-3" *ngIf="messageList[0]">
+              <pagination-controls
+                previousLabel="{{ 'Prev' | translate }}"
+                nextLabel="{{ 'Next' | translate }}"
+                (pageChange)="onTableDataChange($event)"
+                [(ngModel)]="currentPage"
+              >
+              </pagination-controls>
+            </ul>
+            <article *ngIf="!messageList[0]">
+              <a>
+                <p>{{ 'No Messages Found' | translate }}</p>
+              </a>
+            </article>
+          </div>
+
+          <div *ngIf="messageList[0] && !messageDetails.msgId" class="message_details">
+            <section class="blank_msg" *ngIf="!id || !messageDetails.msgId">
+              <div>
+                <img class="icon_download" src="https://i.postimg.cc/TPp6HyBK/download-icon.png" />
+                <h5>{{ 'Please select a message' | translate }}</h5>
+              </div>
+            </section>
+          </div>
+
+          <!-- msg_Type 1 -->
+
+          <div
+            [ngClass]="{ showDetails: messageId }"
+            *ngIf="msggId && messageList[0] && messageDetails.msgId && messageDetails.Type == 1"
+            class="message_details casting_details"
+          >
+            <div style="display: flex">
+              <button
+                [ngClass]="{ details_toggle: sidebarOpen, details_untoggle: !sidebarOpen }"
+                #showSidee
+                (click)="showSide()"
+                class="mobile_view details"
+              >
+                <span style="font-size: 23px; color: #c2b6b6">&lt;</span>
+              </button>
+              <div class="action_bar">
+                <ul>
+                  <li id="delete">
+                    <a (click)="confirmedDelete(messageId)"></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="msg_innerbox" *ngIf="messageDetails.Body" [innerHTML]="safeHtmlContent"></div>
+          </div>
+          <!-- msg_Type 2 -->
+          <div
+            [ngClass]="{ showDetails: messageId }"
+            style="width: 510px"
+            *ngIf="msggId && messageList[0] && messageDetails.msgId && messageDetails.Type == 2"
+            class="message_details casting_details"
+          >
+            <button [hidden]="!sidebarOpen" #showSidee (click)="showSide()" class="mobile_view">
+              <span style="font-size: 23px; color: #c2b6b6">&lt;</span>
+            </button>
+            <div class="action_bar">
+              <ul>
+                <li id="delete">
+                  <a (click)="confirmedDelete(messageId)"></a>
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="messageDetails.Body" [innerHTML]="safeHtmlContent"></div>
+          </div>
+
+          <!-- msg_Type 3 -->
+          <div
+            [ngClass]="{ showDetails: messageId }"
+            style="width: 510px"
+            *ngIf="msggId && messageList[0] && messageDetails.msgId && messageDetails.Type == 3"
+            class="message_details casting_details"
+          >
+            <button [hidden]="!sidebarOpen" #showSidee (click)="showSide()" class="mobile_view">
+              <span style="font-size: 23px; color: #c2b6b6">&lt;</span>
+            </button>
+            <div class="action_bar">
+              <ul>
+                <li id="delete">
+                  <a (click)="confirmedDelete(messageId)"></a>
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="messageDetails.Body" [innerHTML]="safeHtmlContent"></div>
+          </div>
+
+          <!-- msg_Type 4 -->
+          <div
+            [ngClass]="{ showDetails: messageId }"
+            *ngIf="msggId && messageList[0] && messageDetails.msgId && messageDetails.Type == 4"
+            class="message_details casting_details"
+          >
+            <button [hidden]="!sidebarOpen" #showSidee (click)="showSide()" class="mobile_view">
+              <span style="font-size: 23px; color: #c2b6b6">&lt;</span>
+            </button>
+            <div class="action_bar">
+              <ul>
+                <li id="delete">
+                  <a (click)="confirmedDelete(messageId)"></a>
+                </li>
+              </ul>
+            </div>
+            <div *ngIf="messageDetails.Body" [innerHTML]="safeHtmlContent"></div>
+          </div>
+
+          <!-- msg_type 5 -->
+          <div
+            [ngClass]="{ showDetails: messageId }"
+            *ngIf="msggId && messageList[0] && messageDetails.msgId && messageDetails.Type == 5"
+            class="message_details casting_details"
+          >
+            <button [hidden]="!sidebarOpen" #showSidee (click)="showSide()" class="mobile_view">
+              <span style="font-size: 23px; color: #c2b6b6">&lt;</span>
+            </button>
+            <div class="action_bar">
+              <ul>
+                <li id="delete">
+                  <a (click)="confirmedDelete(messageId)"></a>
+                </li>
+              </ul>
+            </div>
+            <section style="background-color: #f6f6f6">
+              <h3 id="ttl_apply">
+                <span>{{ 'Copy of your Apply' | translate }}</span>
+              </h3>
+              <div class="audition_advertisement audition_apply"></div>
+              <div class="innerr" *ngIf="messageDetails.Body" [innerHTML]="safeHtmlContent"></div>
+              <div class="audition_smiley smiley_img"></div>
+            </section>
+          </div>
+
+          <!-- msg_Type 2 -->
+          <div
+            [ngClass]="{ showDetails: messageId }"
+            *ngIf="msggId && messageList[0] && messageDetails.msgId && messageDetails.Type == 20"
+            class="message_details"
+          >
+            <button [hidden]="!sidebarOpen" #showSidee (click)="showSide()" class="mobile_view">
+              <span style="font-size: 23px; color: #c2b6b6">&lt;</span>
+            </button>
+            <div class="action_bar">
+              <ul>
+                <li id="delete">
+                  <a (click)="confirmedDelete(messageId)"></a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- start -->
+
+            <!-- <section
+              [ngClass]="{ showDetails: messageId }"
+              *ngIf="messageList[0] && messageDetails.msgId && messageDetails.Type == newCastingMessage"
+            >
+          
+              <h3 id="ttl_casting_call">
+                <span>{{ messageDetails.TypeName | translate }}</span>
+              </h3>
+
+              <div class="message_content mt-2">
+                <div class="audition_advertisement casting_advertisementt mt-2">
+                  <h5>{{ 'New casting' | translate }} - '{{ messageDetails.Title }}'</h5>
+                  <p *ngIf="messageDetails.Body">
+                    {{ castingDetails?.auditionDescription }}
+                  </p>
+                </div>
+
+                <div class="audition_details_message">
+                  <h4>'{{ messageDetails.Title }}'</h4>
+                  <section style="display: flex">
+                    <div class="audition_content_message">
+                      <p>
+                        {{ castingDetails?.auditionLocation }}
+                        
+                      </p>
+                    </div>
+                    <div *ngIf="imageFile" class="audition_image_message">
+                      <img src="https://dev.shalashazure.com/public/auditions/{{ imageFile }}" />
+                    </div>
+                  </section>
+                </div>
+
+                <ng-container *ngFor="let datas of data; let k = index">
+                  <div class="casting-project" *ngIf="datas.id">
+                    <button
+                      *ngIf="datas.description || datas.FileName"
+                      (click)="expandToggle(datas.id, k)"
+                      style="background: none; color: white; border: none"
+                      class="btn-search ms-2"
+                    >
+                     
+                      <span *ngIf="expandingToggle && k == roleIndex">&#xFE40;</span>
+                      <span *ngIf="!expandingToggle || k != roleIndex">&#x232A;</span>
+                    </button>
+
+                    <p>{{ datas.title }}</p>
+                    <p class="ms-3">
+                      {{ datas.gender == 0 ? 'Actor' : datas.gender == 1 ? 'Actress' : 'actor or actress' }}
+                    </p>
+                    <p class="ms-3">({{ datas.minAge }} - {{ datas.maxAge }})</p>
+                    <span style="cursor: pointer" *ngIf="!appliedData.includes(datas.id)">
+                      <a class="casting_apply" (click)="applyCasting(datas.id)"> {{ 'Apply' | translate }} </a>
+                    </span>
+                    <span *ngIf="appliedData.includes(datas.id)">
+                      <a class="casting_applied"> {{ 'Applied' | translate }} </a>
+                    </span>
+
+                    <div class="clear_casting"></div>
+                  </div>
+                  <div
+                    class="parent_toggle"
+                    style="display: flex; justify-content: space-between"
+                    *ngIf="expandingToggle && datas.id == roleId"
+                  >
+                    <div *ngIf="datas.description" class="child_desc ms-3 mt-3" style="background: none">
+                      <h4 style="color: black; font-weight: 150px">{{ datas.description }}</h4>
+                    </div>
+                    <div class="child_imgg" style="width: 50%" *ngIf="datas.FileName">
+                      <img
+                        style="width: 100%"
+                        src="https://dev.shalashazure.com/public/auditions/{{ datas.FileName }}"
+                      />
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="mt-2">
+                  <div *ngIf="successMsg == true">
+                    <div style="background-color: green">
+                      <p style="color: white; font-size: 16px; padding: 5px" class="ms-3">
+                        {{ 'Your request has been sent to production' | translate }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div *ngIf="errorMsg == true">
+                    <div style="background-color: red; color: white; font-size: 16px; padding: 5px">
+                      <p class="ms-3">{{ errorMessages }}</p>
+                    </div>
+                  </div>
+
+                  <div *ngIf="eror == true">
+                    <div style="background-color: rgb(175, 39, 5); font-size: 16px; padding: 5px">
+                      <p class="ms-3">{{ 'Error occurred. Please try again!' | translate }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="casting_info">
+                  <p>
+                    {{ 'Please send your request until' | translate }}| {{ 'date' | translate }}:'{{
+                      closingDate | date: 'dd/MM/yy'
+                    }}'
+                  </p>
+                  <span class="full_info_btn"
+                    ><a [routerLink]="['/casting-call-details']" [queryParams]="{ details: encoded }">{{
+                      'Full Info' | translate
+                    }}</a></span
+                  >
+                </div>
+              </div>
+            </section> -->
+
+            <!-- <section *ngIf="messageList[0] && messageDetails.msgId && messageDetails.Type != newCastingMessage">
+              <div>
+                <div>
+                  <div
+                    *ngIf="messageDetails.Body && messageDetails.Type != newCastingMessage"
+                    [innerHTML]="messageDetails?.Body"
+                    class="audition_content_message"
+                  ></div>
+                </div>
+              </div>
+            </section> -->
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <app-registration-renewal></app-registration-renewal>
+</div>
+<!--site_wrapper_END-->

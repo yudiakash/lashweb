@@ -1,0 +1,205 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="myaccount_paymentinfo">
+      <h1 class="title_tag">
+        {{ 'Payment info' | translate }}<span>{{ 'View your payment methods and payment history' | translate }}</span>
+      </h1>
+
+      <section>
+        <!--payment_card-->
+        <article class="payment_card">
+          <div class="paymentcard_wrapper">
+            <ul>
+              <li *ngIf="!isData" [ngStyle]="{ 'text-align': 'riight' }">
+                <label [ngStyle]="{ right: 60 }">{{ 'No cards found' | translate }}.</label>
+              </li>
+              <li *ngFor="let list of cardList" (click)="getCardDetail(list.id)">
+                <!-- <img src="./assets/images/payment_logo1.png" /> -->
+                <h3>
+                  <strong>{{ 'Card Number' | translate }}: </strong>
+                  {{ list.card_no.toString().substring(list.card_no.toString().length - 4) }}
+                </h3>
+                <label *ngIf="list.is_default">{{ 'Default' | translate }}</label>
+              </li>
+              <!-- <li>
+                <a class="add_editor_field" href="#">Add your own abilities</a>
+              </li> -->
+            </ul>
+          </div>
+
+          <a class="payhistory_btn" routerLink="/payment-history">{{ 'Payment History' | translate }}</a>
+        </article>
+        <!--payment_card_END-->
+
+        <!--payment_field-->
+        <article class="payment_field">
+          <form autocomplete="off" class="form-horizontal" [formGroup]="newPaymentForm" (ngSubmit)="onSubmit()">
+            <label for="exampleInputEmail1">{{ 'Name' | translate }}:</label>
+            <div class="">
+              <input
+                [ngClass]="{ 'is-invalid': f['name'].touched && f['name'].invalid }"
+                name="name"
+                type="text"
+                placeholder="{{ 'Name' | translate }}"
+                formControlName="name"
+              />
+              <p *ngIf="f['name'].touched && f['name'].invalid" class="small text-danger font-italic">
+                *{{ 'name is required' | translate }}.
+              </p>
+            </div>
+
+            <label for="exampleInputEmail1">{{ 'Phone' | translate }}:</label>
+            <div>
+              <input
+                [ngClass]="{ 'is-invalid': f['phone'].touched && f['phone'].invalid }"
+                name="Phone"
+                type="text"
+                placeholder="{{ 'Phone' | translate }}"
+                formControlName="phone"
+                [maxLength]="11"
+              />
+              <p *ngIf="f['phone'].touched && f['phone'].invalid" class="small text-danger font-italic">
+                * {{ 'Phone is required' | translate }}.
+              </p>
+              <p *ngIf="f['phone'].errors?.['pattern']" class="small text-danger font-italic">Invalid Phone Number.</p>
+            </div>
+
+            <label for="exampleInputEmail1">{{ 'Email' | translate }}:</label>
+            <div>
+              <input
+                [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }"
+                name="email"
+                type="text"
+                placeholder="{{ 'example@gmail.com' | translate }}"
+                formControlName="email"
+                [maxLength]="30"
+              />
+              <p *ngIf="f['email'].touched && f['email'].invalid" class="small text-danger font-italic">
+                *{{ 'Email is required' | translate }}.
+              </p>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">{{ 'Card Number' | translate }}:</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['cardNumber'].touched && f['cardNumber'].invalid }"
+                name="cardNumber"
+                type="text"
+                placeholder="{{ 'Card Number' | translate }}"
+                formControlName="cardNumber"
+              />
+              <p *ngIf="f['cardNumber'].touched && f['cardNumber'].invalid" class="small text-danger font-italic">
+                *{{ 'Valid card number is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">{{ 'Expiration date' | translate }}:</label>
+              <div class="dual_field">
+                <div id="month">
+                  <select
+                    name="expMonth"
+                    [ngClass]="{ 'is-invalid': f['expMonth'].touched && f['expMonth'].invalid }"
+                    formControlName="expMonth"
+                  >
+                    <option>Select</option>
+                    <option *ngFor="let month of monthlist" [value]="month.value">{{ month.text }}</option>
+                  </select>
+                  <p *ngIf="f['expMonth'].touched && f['expMonth'].invalid" class="small text-danger font-italic">
+                    *{{ 'Valid expiry month is required' | translate }}.
+                  </p>
+                </div>
+                <div id="year">
+                  <select
+                    class="me-2"
+                    name="expYear"
+                    [ngClass]="{ 'is-invalid': f['expYear'].touched && f['expYear'].invalid }"
+                    formControlName="expYear"
+                  >
+                    <option>Select</option>
+                    <option *ngFor="let year of years" [value]="year.value">
+                      {{ year.text }}
+                    </option>
+                  </select>
+                  <p *ngIf="f['expYear'].touched && f['expYear'].invalid" class="small text-danger font-italic">
+                    *{{ 'Valid expiry year is required' | translate }}.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">{{ 'CVV' | translate }}:</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['cvv'].touched && f['cvv'].invalid }"
+                name="cvv"
+                type="text"
+                placeholder="{{ 'CVV' | translate }}"
+                formControlName="cvv"
+              />
+              <p *ngIf="f['cvv'].touched && f['cvv'].invalid" class="small text-danger font-italic">
+                *{{ 'cvv is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="form-group">
+              <label for="exampleInputEmail1">{{ 'ID' | translate }}: </label>
+              <input name="cardId" type="text" placeholder="{{ 'Card ID' | translate }}" formControlName="cardId" />
+              <input name="id" type="hidden" formControlName="id" />
+            </div>
+
+            <div class="form-check payment-checkbox">
+              <input
+                style="margin: 6px 3px 0px 0px"
+                type="checkbox"
+                class="form-check-input"
+                id="flexCheckDefault"
+                name="is_default"
+                formControlName="is_default"
+                value=""
+                checked=""
+              />
+              <label class="form-check-label me-5" for="flexCheckDefault">{{ 'Make default card' | translate }}</label>
+              <a *ngIf="cardDetail?.id" href="javascript:void(0)" (click)="deleteCard(cardDetail.id)">{{
+                'Delete' | translate
+              }}</a>
+            </div>
+
+            <!-- <div class="single_btn">
+              <button [disabled]="!newPaymentForm.valid" class="sbscrptn_save">
+                {{ 'Save' | translate }}
+              </button>
+            </div> -->
+
+            <ul class="audition_pagination reg_pagination">
+              <li
+                style="padding: 0px 26px 5px 25px !important"
+                [ngClass]="{ arrow_paymnt: newPaymentForm.valid, arrow_disable: !newPaymentForm.valid }"
+              >
+                <button
+                  [ngStyle]="{ color: newPaymentForm.valid ? '#000d59' : '#8a91f9' }"
+                  style="
+                    background-color: transparent;
+                    border: none;
+                    color: #8a91f9;
+                    font-size: 20px;
+                    font-weight: bold;
+                  "
+                  [disabled]="!newPaymentForm.valid"
+                  class="btn btn-primary"
+                >
+                  {{ 'Save' | translate }}
+                </button>
+              </li>
+            </ul>
+          </form>
+        </article>
+        <!--payment_field_END-->
+      </section>
+    </div>
+  </div>
+  <app-registration-renewal></app-registration-renewal>
+
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

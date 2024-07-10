@@ -1,0 +1,59 @@
+.popup-intro {
+  font-size: 16px;
+}
+
+.popup-intro iframe {
+  margin-top: 10px;
+}
+.invalid_next {
+  background-image: url(../../assets/images/arow-violet.png);
+  background-position: right center;
+}
+
+@media (min-width: 250px) and (max-width: 576px) {
+  .myaccount_texteditor section {
+    display: block !important;
+  }
+  .myaccount_texteditor section article {
+    width: 100% !important;
+    margin: 0 0 0px !important;
+  }
+
+  .left_editor {
+    padding: 0 0 0 0 !important;
+  }
+  .right_editor {
+    padding: 0 0 0 0 !important;
+  }
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  color: #343a40;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #343a40;
+  opacity: 1; /* Firefox reduces the opacity of the placeholder by default, so you might want to reset it */
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #343a40;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  /* Firefox 18- */
+  color: #343a40;
+  opacity: 1;
+}
+
+textarea::placeholder {
+  color: rgb(165, 164, 164);
+  font-size: 14px;
+}

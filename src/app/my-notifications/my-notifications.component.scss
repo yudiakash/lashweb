@@ -1,0 +1,21 @@
+.myaccount_notification input.ng-untouched.ng-pristine.ng-valid {
+  width: 17px !important;
+}
+.myaccount_notification section {
+  max-width: 342px;
+}
+// .audition_pagination {
+//   margin-right: 184px !important;
+// }
+.rtl .audition_pagination .mynotifictn {
+  margin-right: 0px !important;
+  margin-left: 172px !important;
+}
+.myaccount_notification section {
+  max-width: 410px;
+}
+@media (min-width: 250px) and (max-width: 576px) {
+  .audition_pagination .mynotifictn .reg_pagination {
+    margin-right: 0px !important;
+  }
+}

@@ -1,0 +1,135 @@
+<footer class="footer">
+  <div class="row">
+    <section class="col-12 col-sm-6 col-md-3 col-lg-3">
+      <ul class="social_links">
+        <li><a class="fb" href="https://www.facebook.com/shalashorg" target="_blank"></a></li>
+        <li><a class="insta" href="https://www.instagram.com/shalash_org/" target="_blank"></a></li>
+      </ul>
+
+      <div class="socialmedia">
+        <!-- <div
+          class="fb-page"
+          data-href="https://www.facebook.com/shalashorg"
+          data-height="300"
+          data-small-header=""
+          data-adapt-container-width="1"
+          data-hide-cover=""
+          data-show-facepile=""
+          data-show-posts="true"
+          data-width="600"
+        >
+          <blockquote cite="https://www.facebook.com/shalashorg" class="fb-xfbml-parse-ignore">
+            <a href="https://www.facebook.com/shalashorg">‎שלש - שחקנים למען שחקנים‎</a>
+          </blockquote>
+        </div> -->
+      </div>
+    </section>
+
+    <section class="col-12 col-sm-6 col-md-6 col-lg-6 text-center newsletter">
+      <h3>{{ 'join our newsletter' | translate }}</h3>
+      <article>
+        <input
+          value="{{ clearField }}"
+          [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }"
+          name="email"
+          #emailInput
+          formControlName="email"
+          type="text"
+          (change)="getEmal($event)"
+          placeholder="{{ 'Email' | translate }}"
+        />
+        <button
+          (click)="storeSubscriptions(emailInput.value)"
+          [disabled]="!boxChecked || clearField"
+          class=""
+          style="cursor: pointer; background: none; border: none; padding: 4px 0px 4px"
+        >
+          <a>{{ 'Subscribe' | translate }}</a>
+        </button>
+      </article>
+      <div class="form-check">
+        <input
+          (change)="checkbox($event)"
+          [checked]="boxChecked"
+          class="form-check-input"
+          type="checkbox"
+          value=""
+          id="flexCheckDefault"
+        />
+        <label class="form-check-label" for="flexCheckDefault">{{
+          'I agree to receive newsletters from SHALASH via email' | translate
+        }}</label>
+      </div>
+      <p>
+        © {{ currentYear }} {{ 'SHALASH.' | translate }}
+        {{ 'All rights reserved' | translate: { name: '{{currentYear}} SHALASH. All rights reserved' } }} |
+        <a routerLink="/terms-of-use">{{ 'Terms of Use' | translate: { name: 'Terms of Use' } }}</a>
+      </p>
+    </section>
+
+    <section class="col-12 col-sm-6 col-md-3 col-lg-3 d-flex align-content-center justify-content-center">
+      <a class="faq_btn" routerLink="/faq">{{ 'Faq' | translate }}</a>
+      <div class="footer_chat_button" (click)="openModal(mymodal)">
+        <img src="./assets/images/chat.png" width="50" height="50" />
+      </div>
+    </section>
+  </div>
+</footer>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      id="videoMsgClose"
+      aria-label="Close"
+      #closeresumebutton
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="row">
+        <div class="form-group">
+          <input
+            (change)="getEmailContent($event)"
+            formControlName="chatmesageemail"
+            placeholder="{{ 'Email' | translate }}"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group" style="margin-top: 10px">
+          <input
+            (change)="getPhoneContent($event)"
+            formControlName="chatmesagephone"
+            placeholder="{{ 'Phone' | translate }}"
+            class="form-control"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group" style="margin-top: 10px">
+          <textarea
+            (change)="getMessageContent($event)"
+            formControlName="chatmesagebody"
+            placeholder="{{ 'Messages' | translate }}"
+            class="form-control"
+            rows="5"
+          ></textarea>
+        </div>
+      </div>
+      <div class="row">&nbsp;</div>
+      <div class="row">
+        <section class="col-12 col-sm-6 col-md-3 col-lg-3">
+          <a class="btn btn-primary close" (click)="submitChat()">
+            {{ 'Send' | translate }}
+          </a>
+        </section>
+      </div>
+    </form>
+  </div>
+</ng-template>

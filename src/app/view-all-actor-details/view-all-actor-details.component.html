@@ -1,0 +1,341 @@
+<!--site_wrapper-->
+
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="actors_wrapper">
+      <h1 class="title_tag">
+        {{ 'Actor' | translate
+        }}<span
+          ><a routerLink="/home">{{ 'Home' | translate }}</a> / <a routerLink="/search">{{ 'Actors' | translate }}</a> /
+          {{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}
+        </span>
+      </h1>
+
+      <!--actor_details-->
+      <section class="actor_details">
+        <!--actor_bio-->
+        <div class="actor_bio">
+          <h3>{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}</h3>
+          <!-- <ul>
+            <ul>
+              <ng-container *ngFor="let charvalues of actiorDetails.charValuesData">
+                <li *ngIf="charvalues.Title">
+                  {{ charvalues.Title | translate }} :
+                  <strong *ngIf="charvalues.newValue">{{ charvalues.newValue }}</strong>
+                  <strong *ngIf="!charvalues.newValue">{{ charvalues.Value }}</strong>
+                </li>
+              </ng-container>
+            </ul>
+            <ul></ul>
+          </ul> -->
+        </div>
+        <!--actor_bio_END-->
+
+        <!--actor_images-->
+        <div *ngIf="maxPictures >= 5 && maxPictures != 0" class="actor_images penta_img">
+          <div class="ac_img_left">
+            <article>
+              <ng-container *ngFor="let pictures of subImages; let i = index">
+                <img
+                  *ngIf="pictures.loc == 'sub' && i < 2 && pictures.flag == 1"
+                  alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                  src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ pictures.img }}&w=163&h=217&zc=1&q=95"
+                />
+
+                <img
+                  *ngIf="pictures.loc == 'sub' && i < 2 && pictures.flag == 0"
+                  alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                  src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ pictures.img }}&w=163&h=217&zc=1&q=95"
+                />
+              </ng-container>
+            </article>
+          </div>
+
+          <div class="ac_img_right">
+            <h3 class="mobile_actor">{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}</h3>
+            <ng-container *ngFor="let mainpictures of mainImages; let k = index">
+              <img
+                *ngIf="mainpictures && mainpictures.flag == 1"
+                alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ mainpictures.img }}&w=326&h=434&zc=1&q=95"
+              />
+
+              <img
+                *ngIf="mainpictures && mainpictures.flag == 0"
+                alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ mainpictures.img }}&w=326&h=434&zc=1&q=95"
+              />
+
+              <img
+                *ngIf="!mainpictures && actiorDetails.Gender == 0"
+                alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}male.png&w=326&h=434&zc=1&q=95"
+              />
+              <img
+                *ngIf="!mainpictures && actiorDetails.Gender == 1"
+                alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}female.png&w=326&h=434&zc=1&q=95"
+              />
+            </ng-container>
+          </div>
+
+          <div class="ac_img_left">
+            <article>
+              <ng-container *ngFor="let pictures of lastImage; let i = index">
+                <img
+                  *ngIf="pictures.loc == 'sub' && i < 2 && pictures.flag == 1"
+                  alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                  src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ pictures.img }}&w=163&h=217&zc=1&q=95"
+                />
+
+                <img
+                  *ngIf="pictures.loc == 'sub' && i < 2 && pictures.flag == 0"
+                  alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                  src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ pictures.img }}&w=163&h=217&zc=1&q=95"
+                />
+              </ng-container>
+            </article>
+          </div>
+        </div>
+        <!--actor_images_END-->
+
+        <div
+          [ngClass]="{ img_four: maxPictures == 4, three_img: maxPictures == 3, dual_imgg: maxPictures == 2 }"
+          *ngIf="maxPictures < 5 && maxPictures != 0"
+        >
+          <div>
+            <ul class="image_show">
+              <ng-container *ngFor="let pictures of subImages; let i = index">
+                <li>
+                  <img
+                    *ngIf="pictures.loc == 'sub' && pictures.flag == 1"
+                    alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                    src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ pictures.img }}&w=250&h=350&zc=1&q=95"
+                  />
+                </li>
+
+                <img
+                  *ngIf="pictures.loc == 'sub' && pictures.flag == 0"
+                  alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                  src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ pictures.img }}&w=250&h=217&zc=1&q=95"
+                />
+              </ng-container>
+              <li *ngIf="mainImages[0] && mainImages[0]?.flag == 1">
+                <img
+                  alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                  src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ mainImages[0].img }}&w=250&h=350&zc=1&q=95"
+                />
+              </li>
+
+              <li *ngIf="mainImages && mainImages[0]?.flag == 0">
+                <img
+                  alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                  src="{{ imageReSizeUrl }}src={{ imagebaseUrl }}{{ mainImages[0].img }}&w=250&h=217&zc=1&q=95"
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div *ngIf="maxPictures == 0 && maxPictures != 5">
+          <div>
+            <ul class="image_show">
+              <img
+                *ngIf="actiorDetails.Gender == 0"
+                alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}male.png&w=326&h=434&zc=1&q=95"
+              />
+              <img
+                *ngIf="actiorDetails.Gender == 1"
+                alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}female.png&w=326&h=434&zc=1&q=95"
+              />
+            </ul>
+          </div>
+        </div>
+      </section>
+      <!--actor_details_END-->
+
+      <!--actor_skills-->
+      <section class="actor_skills">
+        <div class="embed_video" style="margin-top: 35px" *ngIf="actiorDetails?.artistEmbeds?.length > 0">
+          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <ng-container *ngFor="let embeds of actiorDetails.Embed; let k = index">
+                <div class="carousel-item" [ngClass]="{ active: k === 0 }" *ngIf="k <= 2">
+                  <img
+                    alt="{{ actiorDetails.FirstName }} {{ actiorDetails.LastName }}"
+                    src="{{ embeds.embed.fullsize }}"
+                    (click)="playVideo(myVideoListModel, embeds.embed.embed, embeds.embed.type)"
+                  />
+                  <div (click)="playVideo(myVideoListModel, embeds.embed.embed, embeds.embed.type)" class="playIcon">
+                    <i class="fa-solid fa-play"></i>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev"
+            >
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next"
+            >
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div style="width: 50%" [ngClass]="{ noemb: actiorDetails?.artistEmbeds?.length == 0 }" class="skillset">
+          <h3>{{ 'Skills' | translate }}</h3>
+
+          <div class="skill_dlt">
+            <section>
+              <ng-container *ngFor="let skills of actiorDetails.skills; let k = index">
+                <div class="skills_count" *ngIf="skills.prop5Name">
+                  <article>
+                    <label>{{ skills.prop5Name | translate }}</label>
+                    <ul>
+                      <li>{{ skills.selectedVal | translate }}</li>
+                    </ul>
+                  </article>
+                </div>
+              </ng-container>
+              <ng-container *ngFor="let change of pendingChanges">
+                <div class="skills_count pending" *ngIf="change.Type == 7">
+                  <article>
+                    <label>{{ change.Label | translate }}</label>
+                    <ul>
+                      <li>{{ change.newChildName | translate }}</li>
+                    </ul>
+                  </article>
+                </div>
+              </ng-container>
+            </section>
+          </div>
+        </div>
+      </section>
+      <div *ngIf="actiorDetails?.artistVocals?.length > 0" class="skills_audio">
+        <div class="vocal_player">
+          <h5 class="vocal_demo">{{ 'Vocal' | translate }}</h5>
+          <section class="audio_sec" *ngFor="let vocal of audioObjects; let j = index">
+            <!-- <audio controls *ngIf="j <= actiorDetails.MaxSounds">
+              <source src="{{ vocal.embed }}" type="audio/mp3" />
+              <source src="{{ vocal.embed }}" type="audio/mpeg" />
+            </audio> -->
+            <!-- starting -->
+            <div style="width: 50px; height: 50px"></div>
+            <div #myAudios class="audio-player">
+              <div class="timeline">
+                <div class="progress" [style.width]="(vocal.currentTime / vocal.duration) * 100 + '%'"></div>
+              </div>
+              <div class="controls">
+                <div class="volume-container vlume">
+                  <button
+                    [ngClass]="{
+                      'volume-button ': !isMuted || audioId != vocal.eId,
+                      'icono-volumeMute': isMuted && audioId == vocal.eId
+                    }"
+                    (click)="toggleMute(vocal)"
+                  ></button>
+                </div>
+                <div class="play-container">
+                  <i (click)="playAudio(vocal, j)" class="play"></i>
+                  <i (click)="pauseAudio(vocal, j)" class="pause"></i>
+                </div>
+                <div class="time">
+                  <div class="current">{{ getTimeCodeFromNum(vocal.currentTime) }}</div>
+                  <div class="divider">/</div>
+                  <div class="length">{{ getTimeCodeFromNum(vocal.duration) }}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ending -->
+          </section>
+        </div>
+      </div>
+      <!--actor_skills_END-->
+
+      <!--actor_link-->
+      <div *ngIf="LinksData.length > 0" class="tag_wrapper">
+        <section class="file-media">
+          <ul style="margin-top: 10px">
+            <li *ngFor="let links of LinksData; let k = index">
+              <a href="{{ links.link }}" target="_blank">
+                <img
+                  alt="{{ links.title }}"
+                  *ngIf="links.link.includes('instagram')"
+                  src="./assets/images/instaIcon.png"
+                />
+                <img alt="{{ links.title }}" *ngIf="links.link.includes('facebook')" src="./assets/images/fbIcon.png" />
+                <img
+                  alt="{{ links.title }}"
+                  *ngIf="links.link.includes('twitter')"
+                  src="./assets/images/twitterIcon.png"
+                />
+                <img
+                  alt="{{ links.title }}"
+                  *ngIf="links.link.includes('linkedIn')"
+                  src="./assets/images/linkeinIcon.png"
+                />
+                <img
+                  alt="{{ links.title }}"
+                  *ngIf="links.link.includes('tiktok')"
+                  src="./assets/images/tiktokIcon.png"
+                />
+                <img
+                  alt="{{ links.title }}"
+                  *ngIf="
+                    !links.link.includes('linkedIn') &&
+                    !links.link.includes('instagram') &&
+                    !links.link.includes('twitter') &&
+                    !links.link.includes('tiktok') &&
+                    !links.link.includes('facebook')
+                  "
+                  src="./assets/images/webIcon.png"
+                />
+              </a>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <!--actor_link_END-->
+
+      <!--actor_resume-->
+      <section class="actor_resume">
+        <h3>
+          {{ 'Resume' | translate }}
+          <a *ngIf="actiorDetails.resume_path" href="{{ resumeUrl }}{{ actiorDetails.resume_path }}">{{
+            'FILE' | translate
+          }}</a>
+        </h3>
+        <p class="inmyview" *ngIf="actiorDetails.headline">{{ actiorDetails.headline }}</p>
+        <p class="resume_editor" [innerHTML]="actiorDetails.Resume"></p>
+      </section>
+      <!--actor_resume_END-->
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+
+<ng-template #myVideoListModel let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <iframe width="60" height="415" [src]="youtubeUrl"> </iframe>
+  </div>
+</ng-template>
+<!--site_wrapper_END-->
+<!--   -->

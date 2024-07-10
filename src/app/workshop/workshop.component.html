@@ -1,0 +1,171 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="ws_wrapper">
+      <h1 class="title_tag">{{ isRTL ? workshopData.transNameHe : workshopData.titleEn }}</h1>
+      <ul class="breadcrumb">
+        <li>
+          <a href="#">{{ 'Home' | translate }}</a> /
+        </li>
+        <li>
+          <a href="#">{{ 'Workshops' | translate }}</a> /
+        </li>
+        <li>{{ isRTL ? workshopData.transNameHe : workshopData.titleEn }}</li>
+      </ul>
+
+      <!--profile_details-->
+      <section class="profile_details" style="background-color: #fff">
+        <div class="ws_profilepic" *ngIf="workshopData.image">
+          <img src="{{ imageReSizeUrl }}src={{ this.imageUrl }}{{ workshopData.image }}&w=295&h=295&zc=1&q=95" />
+        </div>
+
+        <div
+          class="ws_profile_description"
+          [ngStyle]="{
+            width: !workshopData.image ? '100%' : ''
+          }"
+        >
+          <!-- <p>
+            {{ isRTL ? workshopData.transTextHe : workshopData.longDescEn }}
+          </p> -->
+          <p [innerHTML]="workshopData.long_desc"></p>
+        </div>
+      </section>
+      <!--profile_details_END-->
+
+      <!--ws_button-->
+      <div class="ws_button mobile_btn">
+        <a *ngIf="!workshopData.external_link" [routerLink]="['/workshop-registration', id]" class="registr">{{
+          'Register' | translate
+        }}</a>
+        <a *ngIf="workshopData.external_link" class="registr" href="{{ workshopData.external_link }}">{{
+          'Register' | translate
+        }}</a>
+      </div>
+      <!--ws_button_END-->
+
+      <!--ws_period-->
+      <div class="ws_period">
+        <ul>
+          <li>
+            <img src="../../assets/images/icon_date.png" />
+            <h5>
+              {{ workshopData.date | date }}
+            </h5>
+          </li>
+          <li *ngIf="workshopData.from_time || workshopData.to_time">
+            <img src="../../assets/images/icon_time.png" />
+            <h5>{{ workshopData.from_time }} - {{ workshopData.to_time }}</h5>
+          </li>
+          <li *ngIf="workshopData.location">
+            <img style="width: 80px" src="../../assets/images/icon_location2.png" />
+            <h5>{{ isRTL ? workshopData.LocationHe : workshopData.LocationEn }}</h5>
+          </li>
+        </ul>
+      </div>
+      <!--ws_period_END-->
+
+      <!--ws_shedule_wrapper-->
+      <div class="ws_shedule_wrapper">
+        <div class="ws_time_schedule">
+          <ul *ngIf="wrkSchedule">
+            <li *ngFor="let list of wrkSchedule">
+              <strong>{{ isRTL ? list.sheduleHe : list.sheduleEn }}</strong> {{ list.desc }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="ws_count">
+          <h3 *ngIf="workshopData.fee">
+            <span>
+              {{
+                workshopData.early_bird_date && workshopData.early_bird_fee && accruedDate > currentDate
+                  ? workshopData.early_bird_fee
+                  : workshopData.fee
+              }}
+              {{ 'NIS' | translate }}</span
+            >
+          </h3>
+
+          <!--ws_period-->
+          <div class="ws_period mobile_period">
+            <ul>
+              <li>
+                <img src="../../assets/images/icon_date.png" />
+                <h5>
+                  {{ workshopData.date | date }}
+                </h5>
+              </li>
+              <li *ngIf="workshopData.from_time || workshopData.to_time">
+                <img src="../../assets/images/icon_time.png" />
+                <h5>{{ workshopData.from_time }} - {{ workshopData.to_time }}</h5>
+              </li>
+              <li *ngIf="workshopData.location">
+                <img style="width: 80px" src="../../assets/images/icon_location2.png" />
+                <h5>{{ isRTL ? workshopData.LocationHe : workshopData.LocationEn }}</h5>
+              </li>
+            </ul>
+          </div>
+          <!--ws_period_END-->
+        </div>
+
+        <div class="ws_button">
+          <a
+            style="cursor: pointer"
+            *ngIf="!workshopData.external_link"
+            class="registr"
+            [routerLink]="['/workshop-registration', id]"
+            >{{ 'Register' | translate }}</a
+          >
+          <a *ngIf="workshopData.external_link" class="registr" href="{{ workshopData.external_link }}">{{
+            'Register' | translate
+          }}</a>
+          <!-- <a class="request_info ms-2 mt-5" (click)="RequestInformation()">{{
+            'Request Information Only' | translate
+          }}</a> -->
+        </div>
+      </div>
+      <!--ws_shedule_wrapper_END-->
+
+      <!--media_details-->
+      <div class="ws_media_details">
+        <div class="ws_video" *ngIf="workshopData.vdo_link">
+          <!-- <h3>{{ 'Welcome Video' | translate }}</h3> -->
+          <section>
+            <iframe
+              width="623"
+              height="319"
+              [src]="safeVdoLink"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </section>
+        </div>
+
+        <div class="ws_recomondation" *ngIf="wrkRecomendations">
+          <table style="width: 100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <th>{{ 'Sentiments' | translate }}</th>
+            </tr>
+            <tr *ngFor="let recom of wrkRecomendations">
+              <td>
+                <p>
+                  <strong>{{ isRTL ? recom.transAutorHe : recom.autorEn }} : </strong>
+                  {{ recom.recommendation_text }}
+                </p>
+                <ul>
+                  <li><i [ngClass]="recom.rating >= 1 ? 'fas fa-star' : 'far fa-star'"></i></li>
+                  <li><i [ngClass]="recom.rating >= 2 ? 'fas fa-star' : 'far fa-star'"></i></li>
+                  <li><i [ngClass]="recom.rating >= 3 ? 'fas fa-star' : 'far fa-star'"></i></li>
+                </ul>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!--media_details_END-->
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>

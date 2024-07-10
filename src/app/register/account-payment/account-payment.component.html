@@ -1,0 +1,242 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper">
+      <h1 class="title_tag">
+        {{ 'Registration' | translate }}<span>{{ 'Few steps and you’re in' | translate }}</span>
+      </h1>
+      <div class="login_banner">
+        <div class="login_banner">
+          <h3>{{ 'Welcome' | translate }}</h3>
+        </div>
+      </div>
+
+      <section class="registration_content payment_details">
+        <h3><span>4</span> {{ 'Payment Details' | translate }}:</h3>
+        <h5 class="msg_not ms-4" style="color: black; padding: 2px">
+          {{ 'First payment will only be partial for the month' | translate }}
+        </h5>
+        <!-- <form> -->
+        <!-- <article> -->
+        <!-- <h2>
+              {{ 'Total payment' | translate }}:<span
+                >{{ paymentDetails | translate }}
+              </span>
+            </h2> -->
+
+        <!-- <div class="">
+              <input
+                [ngClass]="{ 'is-invalid': f['name'].touched && f['name'].invalid }"
+                name="name"
+                type="text"
+                placeholder="{{ 'Name' | translate }}"
+                formControlName="name"
+              />
+              <p *ngIf="f['name'].touched && f['name'].invalid" class="small text-danger font-italic">
+                *{{ 'name is required' | translate }}.
+              </p>
+            </div> -->
+
+        <!-- <div>
+              <input
+                [ngClass]="{ 'is-invalid': f['phone'].touched && f['phone'].invalid }"
+                name="phone"
+                type="text"
+                placeholder="{{ 'Phone' | translate }}"
+                formControlName="phone"
+                [maxLength]="11"
+              />
+              <p *ngIf="f['phone'].touched && f['phone'].invalid" class="small text-danger font-italic">
+                * {{ 'Phone is required' | translate }}.
+              </p>
+              <p *ngIf="f['phone'].errors?.['pattern']" class="small text-danger font-italic">Invalid Phone Number.</p>
+            </div> -->
+
+        <!-- <div>
+              <input
+                [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }"
+                name="email"
+                type="text"
+                placeholder="{{ 'example@gmail.com' | translate }}"
+                formControlName="email"
+                [maxLength]="30"
+              />
+              <p *ngIf="f['email'].touched && f['email'].invalid" class="small text-danger font-italic">
+                *{{ 'Email is required' | translate }}.
+              </p>
+            </div> -->
+
+        <!-- <div class="">
+              <input
+                [ngClass]="{ 'is-invalid': f['cardNumber'].touched && f['cardNumber'].invalid }"
+                name="cardNumber"
+                type="text"
+                placeholder="{{ 'Card Number' | translate }}"
+                formControlName="cardNumber"
+              />
+              <p *ngIf="f['cardNumber'].touched && f['cardNumber'].invalid" class="small text-danger font-italic">
+                *{{ 'Valid card number is required' | translate }}.
+              </p>
+            </div> -->
+        <!-- 
+            <div class="card_number_wrapper">
+              <label>{{ 'Expiration Date' | translate }}</label>
+              <select
+                name="expMonth"
+                [ngClass]="{ 'is-invalid': f['expMonth'].touched && f['expMonth'].invalid }"
+                formControlName="expMonth"
+              >
+                <option>Select</option>
+                <option *ngFor="let month of monthlist" [value]="month.value">{{ month.text }}</option>
+              </select>
+              <select
+                name="expYear"
+                [ngClass]="{ 'is-invalid': f['expYear'].touched && f['expYear'].invalid }"
+                formControlName="expYear"
+              >
+                <option>Select</option>
+                <option *ngFor="let year of years" [value]="year.value">
+                  {{ year.text }}
+                </option>
+              </select>
+
+              <p *ngIf="f['expMonth'].touched && f['expMonth'].invalid" class="small text-danger font-italic">
+                *{{ 'Valid expiry month is required' | translate }}.
+              </p>
+              <p *ngIf="f['expYear'].touched && f['expYear'].invalid" class="small text-danger font-italic">
+                *{{ 'Valid expiry year is required' | translate }}.
+              </p>
+            </div> -->
+
+        <!-- <div class="payment_field_half">
+              <span>
+                <input
+                  [ngClass]="{ 'is-invalid': f['cvv'].touched && f['cvv'].invalid }"
+                  name="cvv"
+                  type="text"
+                  placeholder="{{ 'CVV' | translate }}"
+                  formControlName="cvv"
+                />
+                <small data-bs-toggle="modal" data-bs-target="#exampleModal" class="help-icon">?</small>
+              </span>
+              <p *ngIf="f['cvv'].touched && f['cvv'].invalid" class="small text-danger font-italic">
+                *{{ 'cvv is required' | translate }}.
+              </p>
+            </div> -->
+        <!-- </article> -->
+
+        <!-- <ul class="audition_pagination reg_pagination">
+            <li class="ad_next step_next">
+              <a style="color: #000f50 !important; cursor: pointer" class="sbscrptn_save" (click)="onSubmit()">
+                {{ 'Save & Complete' | translate }}
+              </a>
+            </li>
+          </ul> -->
+        <!-- <ul class="audition_pagination reg_pagination">
+            <li style="padding: 0px 28px 0 0 !important" class="ad_next step_next">
+              <button
+                [disabled]="!newPaymentForm.valid"
+                style="background-color: transparent; border: none; color: #8a91f9; font-size: 20px; font-weight: bold"
+                class="btn btn-primary"
+              >
+                {{ 'Save & Complete' | translate }}
+              </button>
+            </li>
+          </ul> -->
+        <!-- </form> -->
+        <ng-container *ngIf="language === 'he-IL'">
+          <iframe #myIframe2 class="mt-3" id="myIframe" [src]="iframeHeSrc" width="100%" height="500px"></iframe>
+        </ng-container>
+        <ng-container *ngIf="language !== 'he-IL'">
+          <iframe #myIframe2 class="mt-3" id="myIframe" [src]="iframeEnSrc" width="100%" height="500px"></iframe>
+        </ng-container>
+
+        <!-- <iframe id="myIframe" src="https://direct.tranzila.com/shalash1/iframenew.php?sum=24&currency=1&cred_type=1&template=custom" width="100%" height="500px"></iframe> -->
+        <p *ngIf="language === 'he-IL'" style="margin-right: 90px">
+          ביטול עסקה בהתאם לתקנות הגנת הצרכן (ביטול עסקה), התשע"א-2010 וחוק הגנת הצרכן, התשמ"א-1981
+        </p>
+        <!-- <p *ngIf="language !== 'he-IL'">
+          Cancellation of a transaction in accordance with the Consumer Protection Regulations (cancellation of a
+          transaction), 2010-771 and the Consumer Protection Law, 1981-5771
+        </p> -->
+      </section>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div style="margin-top: 163px; width: 25%" class="modal-dialog">
+    <div class="modal-content">
+      <div style="border: none" class="modal-header">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+        <button
+          style="padding: 23px 20px 20px 20px"
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        CVV (Card Verification Value) is a three or four-digit security code on the back or front of their credit card
+        that helps verify the card's authenticity.
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<div data-backdrop="static" data-keyboard="false" id="popup-overlay" class="popup-overlay">
+  <div id="popup" class="popup">
+    <ng-template #contentPopSecnd let-modal>
+      <div class="modal-header">
+        <!-- <button type="button" class="close" aria-label="Close" id="modalCloseButton" (click)="modal.dismiss()">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body popup-intro">
+        <p
+          *ngIf="language == 'en-US' && !isRenewal"
+          style="margin-top: 36px; text-align: center; font-size: 30px; height: 89px"
+        >
+          Success, thank you for registering!
+        </p>
+        <p
+          *ngIf="language == 'he-IL' && !isRenewal"
+          style="margin-top: 36px; text-align: center; font-size: 30px; height: 89px"
+        >
+          בהצלחה, תודה על ההרשמה!
+        </p>
+        <p
+          *ngIf="language != 'en-US' && language != 'he-IL' && !isRenewal"
+          style="margin-top: 36px; text-align: center; font-size: 30px; height: 89px"
+        >
+          Success, thank you for registering!
+        </p>
+        <p
+          *ngIf="language == 'en-US' && isRenewal"
+          style="margin-top: 36px; text-align: center; font-size: 30px; height: 89px"
+        >
+          Success,Registration has been Renewed!
+        </p>
+
+        <p
+          *ngIf="language == 'he-IL' && isRenewal"
+          style="margin-top: 36px; text-align: center; font-size: 30px; height: 89px"
+        >
+          בהצלחה, תודה על ההרשמה!
+        </p>
+
+        <p
+          *ngIf="language != 'en-US' && language != 'he-IL' && isRenewal"
+          style="margin-top: 36px; text-align: center; font-size: 30px; height: 89px"
+        >
+          Success,Registration has been Renewed!
+        </p>
+      </div>
+    </ng-template>
+  </div>
+</div>

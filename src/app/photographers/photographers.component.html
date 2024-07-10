@@ -1,0 +1,183 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="pg_wrapper">
+      <h1>
+        {{ 'Our Top Photographers' | translate }}<span>{{ 'Best prices for actors' | translate }}</span>
+      </h1>
+
+      <section style="margin: 0" class="about_quote">
+        <p>
+          {{
+            'Photography for me is not looking, it’s feeling. If you can’t feel what you’re looking at, then you’re never going to get others to feel anything when they look at your pictures'
+              | translate
+          }}<span> / {{ 'Don McCullin' | translate }}</span>
+        </p>
+      </section>
+
+      <!-- <section class="example_box">
+        <h5 >{{ 'Examples' | translate }}</h5>
+        <div class="rec-photo">
+          <img alt="photographers" src="./assets/images/photographers.png" />
+          <img alt="photographers" src="./assets/images/photographers2.png" />
+          <img alt="photographers" src="./assets/images/photographers3.png" />
+          <img alt="photographers" src="./assets/images/photographers4.png" />
+          <img alt="photographers" src="./assets/images/photographers5.png" />
+        </div>
+      </section> -->
+
+      <!-- <p>
+        {{ 'You guys the prices for a full professional actors book is about' | translate }}
+        {{ '1000 nis or so' | translate }}.
+      </p>
+      <p>
+        {{
+          'According to many actors and actresses Personal experience we are honored to send you the following list of talented photographers who have agreed to cooperate with us by offering to our venues The best books with the minimum prices'
+            | translate
+        }}.
+      </p>
+      <p>
+        {{
+          'We hope our professionals pornographers Will allow you to renew your books often and not just every five years, Remember a successful Book is the main key for many summons to the right auditions'
+            | translate
+        }}.
+      </p>
+      <p>
+        <strong>{{ 'Remember' | translate }}:</strong>
+        {{
+          'When the photograph is professional and the appearance of the headshot Reflects to your real Natural appearance your casting calls will be more accurate'
+            | translate
+        }}.
+      </p>
+      <p>
+        <strong>{{ 'Important' | translate }}:</strong>
+        {{
+          'Our members Will receive the benefit and full photographers details only by subscribing to one of our Subscription plans'
+            | translate
+        }}.
+      </p> -->
+
+      <div class="photographer_profile">
+        <ng-container *ngFor="let photos of photographersList">
+          <h2 class="mt-2">{{ !isRTL ? photos.translatedEnName : photos.translatedHeName }}</h2>
+
+          <section>
+            <div class="pg_desc">
+              <div class="pg_dp">
+                <img
+                  *ngIf="photos.photographer_photo"
+                  src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{
+                    photos.photographer_photo
+                  }}&w=275&h=366&zc=1&q=95"
+                  alt=""
+                />
+
+                <img class="no_img" *ngIf="!photos.photographer_photo" src="../../assets/images/no-photo1.png" alt="" />
+              </div>
+              <div class="pg_content">
+                <p>{{ photos.the_content }}</p>
+              </div>
+            </div>
+
+            <div class="pg_bottom">
+              <div class="pg_links">
+                <ul class="info_photo">
+                  <li *ngIf="photos.address">
+                    <a href="http://maps.google.com/?q={{ photos.address }}" target="_blank">
+                      {{ isRTL ? photos.translatedHeadd : photos.translatedEnadd }}
+                    </a>
+                  </li>
+                  <li *ngIf="photos.website">
+                    <a href="{{ photos.website }}" target="_blank">
+                      {{ photos.website | shortenUrl: 20 }}
+                    </a>
+                  </li>
+                  <li *ngIf="photos.email_address">
+                    <a href="mailto:photos.email_address">{{ photos.email_address | shortenUrl: 20 }}</a>
+                  </li>
+                  <li *ngIf="photos.phone">
+                    <a href="tel:photos.phone">{{ photos.phone }}</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="pg_gallery">
+                <ul>
+                  <li *ngIf="photos.pic_four">
+                    <a
+                      ><img
+                        src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ photos.pic_four }}&w=275&h=366&zc=1&q=95"
+                        alt=""
+                    /></a>
+                  </li>
+                  <li *ngIf="photos.pic_three">
+                    <a
+                      ><img
+                        src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{
+                          photos.pic_three
+                        }}&w=275&h=366&zc=1&q=95"
+                        alt=""
+                    /></a>
+                  </li>
+                  <li *ngIf="photos.pic_two">
+                    <a
+                      ><img
+                        src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ photos.pic_two }}&w=275&h=366&zc=1&q=95"
+                        alt=""
+                    /></a>
+                  </li>
+                  <li *ngIf="photos.pic_one">
+                    <a
+                      ><img
+                        src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ photos.pic_one }}&w=275&h=366&zc=1&q=95"
+                        alt=""
+                    /></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </ng-container>
+      </div>
+
+      <!-- <section class="pg_cards">
+        <div class="row">
+          <ng-container *ngFor="let photos of photographersList">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+              <article>p
+                <div class="card_contact">
+                  <h3>
+                    <span>{{ photos.round_box_text | translate }}</span>
+                  </h3>
+                  <section>
+                    <ul >
+                      <li id="icon_location">
+                        <a href="http://maps.google.com/?q={{ photos.address }}" target="_blank">
+                          {{ isRTL ? photos.translatedHeadd : photos.translatedEnadd }}
+                        </a>
+                      </li>
+                      <li id="icon_phone">
+                        <a href="tel:photos.phone">{{ photos.phone }}</a>
+                      </li>
+                      <li id="icon_email">
+                        <a href="mailto:photos.email_address">{{ photos.email_address }}</a>
+                      </li>
+                    </ul>
+                  </section>
+                </div>
+
+                <div class="card_details">
+                  <h5>{{ !isRTL ? photos.translatedEnName : photos.translatedHeName }}</h5>
+                  <p>{{ !isRTL ? photos.translatedEnText : photos.translatedHeText }}</p>
+                  <small>* {{ !isRTL ? photos.translatedEnex : photos.translatedHeEx }}</small>
+                </div>
+              </article>
+            </div>
+          </ng-container>
+        </div>
+      </section> -->
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

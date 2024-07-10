@@ -1,0 +1,55 @@
+.about_video_screen {
+  cursor: pointer;
+}
+
+
+.table-container {
+  overflow-x: auto; /* Enable horizontal scrolling */
+}
+
+.table {
+  width: 100%; /* Ensure the table takes full width of its container */
+  table-layout: fixed; /* Use fixed table layout to prevent columns from expanding */
+}
+
+.table th, .table td {
+  text-overflow: ellipsis; /* Show ellipsis (...) for overflowed text */
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  border: 2px solid #ccc; /* Example border style */
+  border-radius:10px !important;
+}
+
+.styled-table {
+  thead {
+    tr {
+      background-color: #0d0e0d !important;
+      text-align: right;
+    }
+  }
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}

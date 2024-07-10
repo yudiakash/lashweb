@@ -1,0 +1,41 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper ws_wrapper">
+      <h1 class="title_tag">{{ isRTL ? workshopData.titleHe : workshopData.titleEn }}</h1>
+      <ul class="breadcrumb">
+        <li><a href="#">Home</a> /</li>
+        <li><a href="#">Workshops</a> /</li>
+        <li>{{ isRTL ? workshopData.titleHe : workshopData.titleEn }}</li>
+      </ul>
+
+      <!--ws_banner-->
+      <div [ngClass]="{ no_img: !workshopData.image }" class="ws_banner">
+        <div *ngIf="workshopData.image" class="ws_banner_image">
+          <img
+            src="{{ this.imageUrl }}{{ workshopData.image }}"
+            style="width: 100%; height: 163px; object-fit: cover"
+          />
+        </div>
+
+        <div class="ws_banner_date">
+          <h5>{{ workshopData.date | date }}</h5>
+        </div>
+
+        <div class="ws_banner_title">
+          <h3>{{ isRTL ? workshopData.titleHe : (workshopData.titleEn | translate) }}</h3>
+        </div>
+      </div>
+      <!--ws_banner_END-->
+
+      <!--thanks_message-->
+      <section class="registration_content thanks_message">
+        <h2>
+          {{ 'Thank you for registering with us' | translate }}<span>{{ 'Please check your email' | translate }}</span>
+        </h2>
+      </section>
+      <!--thanks_message_END-->
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>

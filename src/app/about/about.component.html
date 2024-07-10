@@ -1,0 +1,200 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="about_wrapper">
+      <h1 *ngIf="enLanguage == 'en-US'">
+        {{ 'About SHALASH' }}<span>{{ 'Everything you need to know' }}</span>
+      </h1>
+
+      <section class="about_quote" *ngIf="enLanguage == 'en-US'">
+        <p>
+          {{ 'There is nothing more unequal than the equal treatment of unequal people.'
+          }}<span> / {{ 'Thomas Jefferson' }}</span>
+        </p>
+      </section>
+
+      <h1 *ngIf="enLanguage == 'he-IL'">
+        {{ 'About SHALASH' | translate: { name: 'About SHALASH' }
+        }}<span>{{ 'Everything you need to know' | translate: { name: 'Everything you need to know' } }}</span>
+      </h1>
+
+      <section class="about_quote" *ngIf="enLanguage == 'he-IL'">
+        <p>
+          {{
+            'There is nothing more unequal than the equal treatment of unequal people.'
+              | translate: { name: 'There is nothing more unequal than the equal treatment of unequal people.' }
+          }}<span> / {{ 'Thomas Jefferson' | translate: { name: 'Thomas Jefferson' } }}</span>
+        </p>
+      </section>
+
+      <section class="about_venture" *ngIf="enLanguage == 'en-US'">
+        <article class="about_contact">
+          <h4>{{ 'Reach us at' }}:</h4>
+          <a class="ab-email" href="mailto:shalash1@gmail.com">shalash1&#64;gmail.com</a>
+          <p>
+            <!-- <a href="tel:+972543314242">{{ 'phone1' | translate }}</a> | <a href="tel:+972524816766">{{ 'phone2' | translate }}</a> | -->
+            <a href="tel:+972542687358">{{ 'phone3' | translate }}</a>
+            <!-- <a href="tel:+497507676131">{{ 'phone4' | translate  }}</a> -->
+          </p>
+          <p class="ab-location">{{ 'aboutaddress' | translate }}</p>
+        </article>
+        <h3>{{ 'Our Venture' }}</h3>
+        <p>
+          {{
+            'we appeal to acotrs artists singers and dancers we really try to increase the work opportunities for actors and enlarge the employement channels in various of art industries.'
+          }}
+        </p>
+        <p>
+          {{
+            'Our business is a bounce both for the actors on one side and directors on the other. I m game to link them together in order to produce more and more collaborations.'
+          }}
+        </p>
+        <p>
+          {{
+            'Today we are the largest company in Israel that is deals with artists who are been submit by us towards new channels in the entertainment industry.'
+          }}
+        </p>
+        <p>
+          {{
+            'We have artists in between the age of 15 - 80, most of whom have graduates acting schools and are entirely professional.'
+          }}
+        </p>
+        <p>
+          {{
+            'With our unique glad for him we were able to collaborate with the best directors, casting directors and produers.In fact Until now We casted thousands of actors for hundreds projects including musicals,TV series,movies, commercials and more.'
+          }}
+        </p>
+        <p>
+          {{
+            'We aim to offer a wide range of actors with many skills and abilities as we try to approach to all kinds of casting varities and types.'
+          }}
+        </p>
+        <p>
+          {{
+            'The General idea is to allow everyone to have equal opportunities and expose all of the suitable actors do the correct characters, reduce rating considerations and putting the focus on their talent of the actors and actresses.'
+          }}
+        </p>
+        <p>
+          {{
+            'There are hundreds of gifted people who are waiting to be revealed and what a waste it would be if we would hide them.'
+          }}
+        </p>
+        <p>
+          {{
+            'Mini actors and actresses have been exposed to the industry by our templates and were signed in big agencies, some of them are still collaborating with us.'
+          }}
+        </p>
+        <p>
+          {{
+            'Due to our equal conception we decided not to take fee from the actors and actresses with every job that they’re being casted to.'
+          }}
+        </p>
+        <p>
+          {{
+            'I believe that by Sharing our professional tools And knowledge a person can increase The opportunity to find some job according to his level, bye knowledge and workshops you can increase your abilities and develop yourself as an actor and achieve high levels.'
+          }}
+        </p>
+      </section>
+
+      <section class="about_venture" *ngIf="enLanguage == 'he-IL'">
+        <article class="about_contact">
+          <h4>{{ 'Reach us at' | translate }}:</h4>
+          <a class="ab-email" href="mailto:shalash1@gmail.com">shalash1&#64;gmail.com</a>
+          <p>
+            <!-- <a href="tel:+972543314242">{{ 'phone1' | translate }}</a> |
+            <a href="tel:+972524816766">{{ 'phone2' | translate }}</a> | -->
+            <a href="tel:+972542687358">{{ 'phone3' | translate }}</a>
+            <!-- <a href="tel:+497507676131">{{ 'phone4' | translate }}</a> -->
+          </p>
+          <p class="ab-location">{{ 'aboutaddress' | translate }}</p>
+        </article>
+
+        <p>
+          <strong>של"ש (שחקנים למען שחקנים)</strong> הוא מיזם ישראלי לקידום שחקנים, זמרים, רקדנים ובמאים אשר נוסד על ידי
+          <a
+            href="https://he.wikipedia.org/wiki/%D7%92%D7%99%D7%9C_%D7%A0%D7%AA%D7%A0%D7%96%D7%95%D7%9F"
+            target="_blank"
+            >גיל נתנזון</a
+          >
+          בשנת 2008. נכון ל-2024 חברים בארגון 1400 שחקנים, ומאז הקמתו שירת למעלה מ-8,000 שחקנים. הארגון פועל לפי חוק
+          חופש המידע, שוויון ההזדמנויות, וחופש העיסוק, ומנסה להקנות תחרות יותר שוויונית בתעשייה ישראלית קטנה והגמונית.
+          המטרה של המיזם הינה לקשר בין אמנים ללקוחות, להרחיב את ערוצי החשיפה שלהם ולסייע בליהוק מוצלח לפרויקטים שונים.
+          ב<strong>של"ש</strong> משתתפים מאות אמנים בגילאים שונים (15 ועד 80+) ובסגנונות שונים.
+        </p>
+
+        <p>
+          של"ש הוא הארגון הראשון בישראל שהוקם במטרה לעבות ערוצי פרנסה לשחקנים וכיום הוא
+          <strong>הגוף הגדול ביותר בישראל</strong> ששולח שחקנים אל עבר פרויקטים מקצועיים תוך שימת דגש על ניפוי מדויק
+          ומהיר <strong>והכוונה והקניית כלים לשחקנים</strong> אם באמצעות ייעוץ מיתוגי, תמחור מדויק, ליווי עד תשלום
+          העבודה לשחקן ושירותים משלימים לשחקנים הפועלים עצמאית.
+        </p>
+
+        <p>
+          בשנת 2009 לאחר התנגדויות של סוכנויות שחקנים הופקדו זכויות היוצרים של ארגון של"ש אל מול נוטריון בארצות הברית
+          בתיווכה של עורכת הדין עירית הכהן כאשר המטרה הייתה לקבע ולאשר את אופן העבודה הייחודי לארגון של"ש, בכך ביסס
+          הארגון את מעמדו בהצלחה בתעשייה בישראל. הארגון מאפשר לאלפי שחקנים להיבחן לפרויקטים שלא דרך צד שלישי כגון
+          סוכנויות שחקנים אלא באופן עצמאי וישיר מול הבמאי, מנהלי הליהוק והמפיקים בתעשיות הסרטים, הטלוויזיה והתיאטרון
+          ובכך להגדיל את הזדמנויות התעסוקה של שחקנים. של"ש מהווה מקפצה עבור השחקנים מחד וחברות ההפקה מאידך.
+        </p>
+
+        <p>
+          אלפי שחקנים
+          <a href="https://www.shalash.org.il/casted-successfully" target="_blank">לוהקו בהצלחה</a> לפרויקטים רבים,
+          הזדמנויות הפרנסה תרמו לשימור השחקנים בתעשייה והותירו רבים מהם בתחום המשחק לאורך שנים תוך צמצום אחוזי האבטלה
+          הנפוצים לאוכלוסיה זו. לאורך השנים מיזם של"ש ליהק בהצלחה שחקנים ושחקניות לאלפי פרויקטים בתחום הדיגיטל, המסך,
+          והבמה.
+        </p>
+
+        <p>
+          רוב החברים בארגון הינם בוגרי ובוגרות בתי ספר למשחק, יחד עם זאת הארגון פותח את שורותיו לשחקנים ושחקניות מוכשרים
+          שלא סיימו לימודי משחק בבתי ספר תלת שנתיים בלבד. בתהליך הליהוק הרעיון לאפשר הזדמנויות שוות ולחשוף את המתאימים
+          תוך הפחתת שיקולי רייטינג ורווחיות עמלות המתווכים.
+        </p>
+
+        <p>
+          <strong>הארגון אינו מהווה סוכנות ומכאן שאינו גובה עמלות בעבור ההשמות הרבות אותן מבצע</strong> אלא מתוקצב על
+          ידי דמי מנוי חודשיים וכך מאפשר תחרות נטולת אינטרסים לצד תעשייה ששמה דגש על הכנסות גבוהות, רייטינג וקשרים
+          אישיים. באמצעות דמי מנוי נמוכים מתאפשרת לשחקנים רבים גישה ותחרות שוויונית יותר ששמה דגש על כישרון, מגדר, גיל
+          והתאמה לתיאורי הדמויות.
+        </p>
+
+        <p>תחומי הפעילות העיקריים:</p>
+
+        <ul class="custom-bullets" style="list-style-type: disc; padding-right: 20px; padding-left: 20px">
+          <li>
+            <strong>חיבור אמנים ללקוחות</strong>: אנו פועלים לקשר בין אמנים מוכשרים לבין חברות הפקה, במאים, מפיקים
+            ומלהקות הזקוקים לשחקנים, זמרים, רקדנים עבור הפרויקטים שלהם.
+          </li>
+          <li>
+            <strong>הגדלת אפשרויות החשיפה</strong>: אנו פועלים לקדם את האמנים באמצעות מגוון ערוצים, ביניהם אתר אינטרנט,
+            רשתות חברתיות, חשיפה למלהקים, אירועים מקצועיים ועוד.
+          </li>
+          <li>
+            <strong>סדנאות וקורסים</strong>: אנו פועלים להציע סדנאות וקורסים מקצועיים בתחומי המשחק, השירה, הריקוד
+            והבימוי, המסייעים לאמנים לפתח את כישוריהם ולשפר את סיכויי ההצלחה שלהם.
+          </li>
+        </ul>
+      </section>
+
+      <section class="about_video">
+        <div class="about_video_content">
+          <h3>#{{ 'motivation' | translate: { name: 'motivation' } }}</h3>
+        </div>
+        <div class="about_video_screen" (click)="open(mymodal)"></div>
+      </section>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <iframe width="430" height="315" src="https://www.youtube.com/embed/PJ2af7AYRlU"> </iframe>
+  </div>
+</ng-template>

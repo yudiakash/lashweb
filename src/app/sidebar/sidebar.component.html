@@ -1,0 +1,284 @@
+<!--sidebar for not authenticted persons-->
+<aside class="sidebar" *ngIf="!auth.isAuthenticated">
+  <div class="logo_space">
+    <a routerLink="/home">
+      <img alt="logo" src="./assets/images/shalash_logo.png" width="220" />
+    </a>
+  </div>
+  <div class="acc_btn">
+    <a style="background-color: #000d59" routerLink="/login">{{ 'Login' | translate: { name: 'Login' } }}</a>
+    <a style="background-color: #0019af; text-transform: uppercase" routerLink="/join-as-actor">{{
+      'JoinNow' | translate: { name: 'JoinNow' }
+    }}</a>
+  </div>
+  <ul>
+    <li [ngClass]="{ active: currentRoute == '/search' }">
+      <a routerLink="/search">{{ 'Search Talent' | translate: { name: 'Search Talent' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/casting-calls' }">
+      <a routerLink="/casting-calls">{{ 'Casting Calls' | translate: { name: 'Casting Calls' } }}</a>
+    </li>
+    <!-- <li [ngClass]="{ active: currentRoute == '/director-registration' }">
+      <a routerLink="/director-registration">{{ 'Cast A Project' | translate: { name: 'cast a project' } }}</a>
+    </li> -->
+    <li [ngClass]="{ active: currentRoute == '/workshops' }">
+      <a routerLink="/workshops">{{ 'Workshops' | translate: { name: 'Workshops' } }}</a>
+    </li>
+    <!-- <li>
+      <a routerLink="#">{{ 'Post a Job' | translate: { name: 'Post a Job' } }}</a>
+    </li>
+    <li>
+      <a routerLink="#">{{ 'Workshops' | translate: { name: 'Workshops' } }}</a>
+    </li> -->
+    <li>
+      <a href="javascript:void(0)" (click)="toggleDisplayDivIf()">{{
+        'Recommendations' | translate: { name: 'Recommendations' }
+      }}</a>
+      <ul class="sub-menu" *ngIf="isShowDivIf">
+        <li [ngClass]="{ active: currentRoute == '/rehearsals-studios' }">
+          <a routerLink="/rehearsals-studios">{{ 'Rehearsals Studios' | translate: { name: 'Rehearsals Studios' } }}</a>
+        </li>
+        <li [ngClass]="{ active: currentRoute == '/our-top-photographers' }">
+          <a routerLink="/our-top-photographers">{{ 'Photographers' | translate: { name: 'Photographers' } }}</a>
+        </li>
+      </ul>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/news' }">
+      <a routerLink="/news">{{ 'News' | translate: { name: 'News' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/about' }">
+      <a routerLink="/about">{{ 'About' | translate: { name: 'About' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/faq' }">
+      <a routerLink="/faq">{{ 'Faq' | translate: { name: 'Faq' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/director-registration' }">
+      <a routerLink="/director-registration">{{ 'Cast A Project' | translate: { name: 'cast a project' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/casted-successfully' }">
+      <a routerLink="/casted-successfully">{{ 'Casted Successfully' | translate: { name: 'Casted Successfully' } }}</a>
+    </li>
+  </ul>
+</aside>
+<!--sidebar_END-->
+
+<!--for authenticated routes and inner pages-->
+
+<aside class="sidebar actor-sidebar" *ngIf="auth.isAuthenticated && !isHome">
+  <div class="logo_space">
+    <a routerLink="/home">
+      <img alt="logo_space" src="./assets/images/shalash_logo.png" width="220" />
+    </a>
+  </div>
+  <div class="profile_wrapper">
+    <div class="sidebar_profile_container">
+      <ng-container>
+        <a [routerLink]="['/actor-details']" [queryParams]="{ details: encoded }">
+          <img
+            alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+            *ngIf="data && !dummyImage"
+            src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ data }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+          />
+          <img
+            alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+            *ngIf="artistPictures && !data && !dummyImage && artistPictures.flag == 1"
+            src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{
+              artistPictures.fileName
+            }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+          />
+          <img
+            alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+            *ngIf="artistPictures && !data && !dummyImage && artistPictures.flag == 0"
+            src="{{ imageReSizeUrl }}src={{ artistPictures.fileName }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+          />
+          <img
+            alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+            *ngIf="dummyImage && actiorDetails.Gender == 1"
+            src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}female.png&w=100&h=100&zc=1&q=95"
+          />
+
+          <img
+            alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+            *ngIf="dummyImage && actiorDetails.Gender == 0"
+            src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}male.png&w=100&h=100&zc=1&q=95"
+          />
+        </a>
+        <!-- <img *ngIf="mainpictures" src="http://dev.shalashazure.com/public/uploads/actor/{{ mainpictures }}" /> -->
+      </ng-container>
+      <a [routerLink]="['/actor-details']" [queryParams]="{ details: encoded }">
+        <img
+          alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+          *ngIf="!artistPictures && !data && actiorDetails.Gender == 0"
+          src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}male.png&w=100&h=100&zc=1&q=95"
+        />
+      </a>
+      <a [routerLink]="['/actor-details']" [queryParams]="{ details: encoded }">
+        <img
+          alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+          *ngIf="!artistPictures && !data && actiorDetails.Gender == 1"
+          src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}female.png&w=100&h=100&zc=1&q=95"
+        />
+      </a>
+    </div>
+    <h3>
+      <a routerLink="/actor-account">{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}</a
+      ><span *ngIf="actiorDetails.Gender != 1">{{ 'Actor' | translate }}</span>
+      <span *ngIf="actiorDetails.Gender == 1">{{ 'Actoress' | translate }}</span>
+    </h3>
+    <h5>
+      <a routerLink="/my-subscription">{{ 'Monthly' | translate }}</a>
+    </h5>
+  </div>
+  <ul>
+    <li [ngClass]="{ active: currentRoute == '/my-messages' }">
+      <a routerLink="/my-messages" [ngClass]="{ 'disabled-link': disableLinks }"
+        >{{ 'Messages' | translate }} <span *ngIf="unReadMessage > 0">{{ unReadMessage }}</span></a
+      >
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/my-account-details' }">
+      <a routerLink="/my-account-details" [ngClass]="{ 'disabled-link': disableLinks, 'link-enable': !disableLinks }">{{
+        'My details' | translate
+      }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/actor-account' }">
+      <a routerLink="/actor-account" [ngClass]="{ 'disabled-link': disableLinks }">{{ 'My actor page' | translate }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/my-subscription' }">
+      <a routerLink="/my-subscription" [ngClass]="{ 'disabled-link': disableLinks }">{{
+        'Subscription info' | translate
+      }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/payment-history' }">
+      <a routerLink="/payment-history" [ngClass]="{ 'disabled-link': disableLinks }">{{
+        'Payment info' | translate
+      }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/my-notifications' }">
+      <a routerLink="/my-notifications" [ngClass]="{ 'disabled-link': disableLinks }">{{
+        'Notifications' | translate
+      }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/tell-us-more' }">
+      <a routerLink="/tell-us-more" [ngClass]="{ 'disabled-link': disableLinks }">{{ 'Tell us more' | translate }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/logout' }">
+      <a href="javascript:void(0)" (click)="logout()">{{ 'Logout' | translate }}</a>
+    </li>
+  </ul>
+  <div class="profile_complete">
+    <span
+      >{{ 'Profile' | translate }}<br />
+      {{ profileStatus }}% {{ 'full' | translate }}</span
+    >
+  </div>
+</aside>
+<!--sidebar_END-->
+
+<!--for authenticated routes and public pages-->
+
+<aside class="sidebar" *ngIf="auth.isAuthenticated && isHome">
+  <div class="logo_space">
+    <a routerLink="/home">
+      <img alt="logo" src="./assets/images/shalash_logo.png" width="220" />
+    </a>
+  </div>
+  <ul>
+    <li [ngClass]="{ active: currentRoute == '/search' }">
+      <a routerLink="/search">{{ 'Search Talent' | translate: { name: 'Search Talent' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/casting-calls' }">
+      <a routerLink="/casting-calls">{{ 'Casting Calls' | translate: { name: 'Casting Calls' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/director-registration' }">
+      <a routerLink="/director-registration">{{ 'Cast A Project' | translate: { name: 'cast a project' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/workshops' }">
+      <a routerLink="/workshops">{{ 'Workshops' | translate: { name: 'Workshops' } }}</a>
+    </li>
+    <!-- <li>
+      <a routerLink="#">{{ 'Post a Job' | translate: { name: 'Post a Job' } }}</a>
+    </li>
+    <li>
+      <a routerLink="#">{{ 'Workshops' | translate: { name: 'Workshops' } }}</a>
+    </li> -->
+    <li>
+      <a href="javascript:void(0)" (click)="toggleDisplayDivIf()">{{
+        'Recommendations' | translate: { name: 'Recommendations' }
+      }}</a>
+      <ul class="sub-menu" *ngIf="isShowDivIf">
+        <li [ngClass]="{ active: currentRoute == '/rehearsals-studios' }">
+          <a routerLink="/rehearsals-studios">{{ 'Rehearsals Studios' | translate: { name: 'Rehearsals Studios' } }}</a>
+        </li>
+        <li [ngClass]="{ active: currentRoute == '/our-top-photographers' }">
+          <a routerLink="/our-top-photographers">{{ 'Photographers' | translate: { name: 'Photographers' } }}</a>
+        </li>
+      </ul>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/news' }">
+      <a routerLink="/news">{{ 'News' | translate: { name: 'News' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/about' }">
+      <a routerLink="/about">{{ 'About' | translate: { name: 'About' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/faq' }">
+      <a routerLink="/faq">{{ 'Faq' | translate: { name: 'Faq' } }}</a>
+    </li>
+    <li [ngClass]="{ active: currentRoute == '/casted-successfully' }">
+      <a routerLink="/casted-successfully">{{ 'Casted Successfully' | translate: { name: 'Casted Successfully' } }}</a>
+    </li>
+  </ul>
+
+  <a class="my_account">
+    <div class="account_details_container">
+      <ng-container>
+        <a [routerLink]="['/actor-details']" [queryParams]="{ details: encoded }">
+          <img
+            alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+            *ngIf="data"
+            src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ data }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+          />
+          <img
+            alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+            *ngIf="artistPictures && !data && artistPictures.flag == 1"
+            src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{
+              artistPictures.fileName
+            }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+          />
+          <img
+            alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+            *ngIf="artistPictures && !data && !dummyImage && artistPictures.flag == 0"
+            src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{
+              artistPictures.fileName
+            }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+          />
+        </a>
+        <!-- <img
+          *ngIf="sideImages"
+          src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ sideImages }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+        /> -->
+        <!-- <img *ngIf="mainpictures" src="http://dev.shalashazure.com/public/uploads/actor/{{ mainpictures }}" /> -->
+      </ng-container>
+      <!-- <ng-container *ngFor="let mainpictures of mainImages; let k = index">
+        <img
+          *ngIf="mainpictures"
+          src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ mainpictures }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+        />
+      </ng-container> -->
+      <a [routerLink]="['/actor-details']" [queryParams]="{ details: encoded }">
+        <img
+          alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+          *ngIf="!artistPictures && !data && actiorDetails.Gender == 0"
+          src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}male.png&w=100&h=100&zc=1&q=95"
+        />
+        <img
+          alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+          *ngIf="!artistPictures && !data && actiorDetails.Gender == 1"
+          src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}female.png&w=100&h=100&zc=1&q=95"
+        />
+      </a>
+    </div>
+
+    <a routerLink="/actor-account"> {{ 'My Account' | translate }}</a>
+  </a>
+</aside>
+<!--sidebar_END-->

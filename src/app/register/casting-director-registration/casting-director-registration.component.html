@@ -1,0 +1,168 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper">
+      <h1 class="title_tag">
+        {{ 'Cast A Project' | translate }}
+      </h1>
+      <div class="login_banner">
+        <h3>{{ 'Cast A Project' | translate }}</h3>
+      </div>
+
+      <section class="registration_content">
+        <h3><span>1</span> {{ 'Add Your Details' | translate }}</h3>
+        <form autocomplete="off" class="form-horizontal" [formGroup]="newRegisterForm" (ngSubmit)="onSubmit()">
+          <article>
+            <div class="field_wrapper">
+              <input
+                [ngClass]="{ 'is-invalid': f['FirstName'].touched && f['FirstName'].invalid }"
+                name="FirstName"
+                type="text"
+                placeholder="{{ 'First Name' | translate }}"
+                formControlName="FirstName"
+                [maxLength]="13"
+              />
+              <p *ngIf="f['FirstName'].touched && f['FirstName'].invalid" class="small text-danger font-italic">
+                *{{ 'First name is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper">
+              <input
+                [ngClass]="{ 'is-invalid': f['LastName'].touched && f['LastName'].invalid }"
+                name="LastName"
+                type="text"
+                placeholder="{{ 'Last Name' | translate }}"
+                formControlName="LastName"
+                [maxLength]="13"
+              />
+              <p *ngIf="f['LastName'].touched && f['LastName'].invalid" class="small text-danger font-italic">
+                *{{ 'Last name is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper examplle">
+              <input
+                [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }"
+                name="email"
+                type="text"
+                placeholder=" {{ 'Email' | translate }}"
+                formControlName="email"
+                [maxLength]="30"
+              />
+              <p *ngIf="f['email'].touched && f['email'].invalid" class="small text-danger font-italic">
+                *{{ 'Email is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper">
+              <input
+                [ngClass]="{ 'is-invalid': f['Phone'].touched && f['Phone'].invalid }"
+                name="Phone"
+                type="text"
+                placeholder="{{ 'Phone' | translate }}"
+                formControlName="Phone"
+                [maxLength]="11"
+              />
+              <p *ngIf="f['Phone'].touched && f['Phone'].invalid" class="small text-danger font-italic">
+                * {{ 'Phone is required' | translate }}.
+              </p>
+              <p *ngIf="f['Phone'].errors?.['pattern']" class="small text-danger font-italic">Invalid Phone Number.</p>
+            </div>
+
+            <div class="field_wrapper">
+              <input
+                [ngClass]="{ 'is-invalid': f['projectName'].touched && f['projectName'].invalid }"
+                name="projectName"
+                type="text"
+                placeholder="{{ 'Project Name' | translate }}"
+                formControlName="projectName"
+              />
+              <p *ngIf="f['projectName'].touched && f['projectName'].invalid" class="small text-danger font-italic">
+                *{{ 'Project Name is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper">
+              <input
+                [ngClass]="{ 'is-invalid': f['projectType'].touched && f['projectType'].invalid }"
+                name="projectType"
+                type="text"
+                placeholder="{{ 'Project Type' | translate }}"
+                formControlName="projectType"
+              />
+              <p *ngIf="f['projectType'].touched && f['projectType'].invalid" class="small text-danger font-italic">
+                *{{ 'Project Type is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper">
+              <input
+                [ngClass]="{ 'is-invalid': f['budgetRange'].touched && f['budgetRange'].invalid }"
+                name="budgetRange"
+                type="text"
+                placeholder="{{ 'Budget range' | translate }}"
+                formControlName="budgetRange"
+              />
+
+              <p *ngIf="f['budgetRange'].touched && f['budgetRange'].invalid" class="small text-danger font-italic">
+                *{{ 'Budget range is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper">
+              <input
+                [ngClass]="{ 'is-invalid': f['workDate'].touched && f['workDate'].invalid }"
+                name="workDate"
+                type="text"
+                placeholder="{{ 'Project Work Day' | translate }}"
+                formControlName="workDate"
+              />
+
+              <p *ngIf="f['workDate'].touched && f['workDate'].invalid" class="small text-danger font-italic">
+                *{{ 'work Date is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper text-gen-desc textarea-container">
+              <textarea
+                style="background-color: #e7e7e7"
+                matInput
+                [placeholder]="'General Description of the Project' | translate"
+                formControlName="generalDesc"
+                required
+              ></textarea>
+              <a class="anchor" id="fileAnchor" (click)="openFileInput()">
+                <i class="fa-solid fa-paperclip"></i>
+                <!-- <i class="fa fa-file fa-xl" aria-hidden="true"></i> -->
+              </a>
+            </div>
+
+            <div class="field_wrapper" style="display: none">
+              <input
+                formControlName="FileName"
+                id="fileInput"
+                type="file"
+                class="form-control"
+                (change)="onFileSelected($event)"
+              />
+            </div>
+          </article>
+
+          <ul class="audition_pagination reg_pagination mt-5">
+            <li style="padding: 0px 28px 0px 30px !important" class="ad_next">
+              <button
+                style="background-color: transparent; border: none; color: #02085d; font-size: 24px; font-weight: bold"
+                class="btn btn-primary"
+              >
+                {{ 'Save' | translate }}
+              </button>
+            </li>
+          </ul>
+        </form>
+      </section>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

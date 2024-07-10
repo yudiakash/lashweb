@@ -1,0 +1,22 @@
+.casting_apply {
+  background: none;
+  border: none;
+  /* color: blue; */
+  color: #253378;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 21px;
+  margin-left: 800px;
+  // text-decoration:underline;
+  line-height: 10px;
+}
+.casting_apply:hover {
+  text-decoration: underline;
+}
+.rtl .arrow-casting {
+  transform: rotate(180deg);
+  display: inline-block;
+}
+.rtl .casting_apply {
+  background-image: none !important;
+}

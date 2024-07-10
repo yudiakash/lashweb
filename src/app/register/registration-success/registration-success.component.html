@@ -1,0 +1,34 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper">
+      <h1 *ngIf="!storedValue" class="title_tag">
+        {{ 'Registration' | translate }}<span>{{ 'Few steps and you’re in' | translate }}</span>
+      </h1>
+      <h1 *ngIf="storedValue" class="title_tag">
+        {{ 'Registration Renewal' | translate }}<span>{{ 'Few steps and you’re in' | translate }}</span>
+      </h1>
+      <div class="login_banner">
+        <div class="login_banner">
+          <h3>{{ 'Welcome' | translate }}</h3>
+        </div>
+      </div>
+
+      <section class="registration_content thanks_message">
+        <h2 *ngIf="!storedValue">
+          {{ 'Thank you for registering with us' | translate }}<span>{{ 'Please check your email' | translate }}</span>
+        </h2>
+
+        <h2 *ngIf="storedValue">
+          {{ 'Registration has been Renewed' | translate }}
+        </h2>
+
+        <!-- <h5>
+          <a routerLink="/login">{{ 'Login' | translate: { name: 'Login' } }}</a>
+        </h5> -->
+      </section>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

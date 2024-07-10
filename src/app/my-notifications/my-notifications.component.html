@@ -1,0 +1,104 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="myaccount_notification">
+      <h1 class="title_tag">
+        {{ 'Notifications' | translate }}<span>{{ 'View and edit your notifications' | translate }}</span>
+      </h1>
+
+      <form [formGroup]="NotificationForm" (ngSubmit)="onSubmit()">
+        <section>
+          <h3 class="top_text">{{ 'Emails + message box' | translate }}</h3>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="check1"
+              name="option1"
+              formControlName="summons_for_audition"
+              value="{{ accountDetailsList.summons_for_audition }}"
+              checked="{{ accountDetailsList.summons_for_audition === 1 ? 'checked' : '' }}"
+            />
+            <label class="form-check-label" for="check1">{{ 'Summons for Auditions' | translate }}</label>
+          </div>
+          <!-- <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="check2"
+              name="option2"
+              formControlName="message_from_desk"
+              value="{{ accountDetailsList.message_from_desk }}"
+              checked="{{ accountDetailsList.message_from_desk === 1 ? 'checked' : '' }}"
+            />
+            <label class="form-check-label" for="check2">{{ 'Messages from desk' | translate }}</label>
+          </div> -->
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="check3"
+              name="option3"
+              formControlName="copies_of_applies"
+              value="{{ accountDetailsList.copies_of_applies }}"
+              checked="{{ accountDetailsList.copies_of_applies === 1 ? 'checked' : '' }}"
+            />
+            <label class="form-check-label" for="check3">{{ 'Copies of Your applies' | translate }}</label>
+          </div>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="check4"
+              name="option4"
+              formControlName="workshops_events"
+              value="{{ accountDetailsList.workshops_events }}"
+              checked="{{ accountDetailsList.workshops_events === 1 ? 'checked' : '' }}"
+            />
+            <label class="form-check-label" for="check4">{{ 'Workshops & events' | translate }}</label>
+          </div>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="check5"
+              name="option5"
+              formControlName="newsletter_articles"
+              value="{{ accountDetailsList.newsletter_articles }}"
+              checked="{{ accountDetailsList.newsletter_articles === 1 ? 'checked' : '' }}"
+            />
+            <label class="form-check-label" for="check4">{{ 'Newsletter & articles' | translate }}</label>
+          </div>
+
+          <h3 class="child_txt">{{ 'Text messages + WhatsApp' | translate }}</h3>
+
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="check1"
+              name="option1"
+              value="{{ accountDetailsList.summons_for_audition }}"
+              checked="{{ accountDetailsList.summons_for_audition === 1 ? 'checked' : '' }}"
+            />
+            <label class="form-check-label" for="check1">{{ 'Summons for Auditions' | translate }}</label>
+          </div>
+        </section>
+        <ul class="audition_pagination mynotifictn reg_pagination">
+          <li style="padding: 0px 28px 0px 33px !important" class="ad_next mt-4 mb-3">
+            <button
+              style="background-color: transparent; border: none; color: #000d59; font-size: 20px; font-weight: bold"
+              class="btn btn-primary"
+            >
+              {{ 'Save' | translate }}
+            </button>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+  <app-registration-renewal></app-registration-renewal>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

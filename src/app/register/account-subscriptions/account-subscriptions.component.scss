@@ -1,0 +1,13 @@
+.subscription_info li {
+  width: 33.3333%;
+  padding: 0 15px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.subscription_info li.active {
+  opacity: 1;
+}
+.sbscrptn_save {
+  color: #0216b5 !important;
+}

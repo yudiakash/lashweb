@@ -1,0 +1,16 @@
+<div class="regstrtn_renewal" *ngIf="elementMembership">
+  <div class="expiredNot" id="expiredNot">
+    {{ 'To activate your subscription click here.' | translate }}.
+    <button class="btn_membrship" (click)="renew()">{{ 'Activate Profile' | translate }}</button>
+    <p class="not-alert">
+      {{
+        'Please make sure all mandatory dropdowns values at the top and atleast 1 image saved before going to payment page'
+          | translate
+      }}
+    </p>
+  </div>
+</div>
+
+<div #notMsg style="color: red; text-align: center; font-size: 20px; font-weight: bolder; margin: 20px">
+  <p>{{ innerMsg }}</p>
+</div>

@@ -1,0 +1,97 @@
+.ngx-slider .ngx-slider-bubble.ngx-slider-limit {
+  color: #55637d;
+  display: none !important;
+}
+
+.check_value .mat-checkbox-label {
+  color: #fff;
+}
+
+.ngx-slider .ngx-slider-bubble.ngx-slider-limit {
+  color: #fff;
+}
+
+.dlt-btn {
+  right: 0 !important;
+  padding: 0 !important;
+  position: relative !important;
+  top: 0 !important;
+  margin: 0 0 0 40px;
+}
+i.fa-solid.fa-magnifying-glass.search {
+  position: absolute;
+  margin-left: 451px;
+  color: grey;
+}
+i.fa-solid.fa-magnifying-glass.keywords {
+  position: absolute;
+  margin-left: 800px;
+  color: grey;
+}
+
+button.btn-search.ms-2 {
+  width: 100%;
+  text-align: left;
+}
+i.fa-solid.fa-angle-down {
+  float: right;
+  width: 45px;
+  font-size: 25px;
+}
+button.clear {
+  background: transparent;
+  color: white;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 21px;
+  margin-top: 8px;
+  height: 44px;
+  border-radius: 14px;
+}
+.searchh_btn {
+  background: transparent;
+  color: white;
+  font-style: italic;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 124px;
+  margin-top: 8px;
+  border-radius: 14px;
+  height: 44px;
+  width: 90px;
+}
+#treeRoot {
+  width: 956px;
+  height: 1600px;
+  overflow-y: auto;
+}
+.filter_header {
+  padding: 19px 20px;
+}
+
+.rtl .fa-magnifying-glass.keywords {
+  right: 218px !important;
+}
+.rtl .fa-magnifying-glass.search {
+  right: 590px !important;
+}
+.rtl input.search_input {
+  padding: 0 30px 0 0 !important;
+}
+.rtl .filter_fields select {
+  padding: 5px 10px !important;
+  background-position: 10px center !important;
+}
+.actor_image:hover h5 {
+  bottom: 0;
+}
+.actor_image h5,
+.actor_image .h5 {
+  bottom: -47px;
+  transition: all 0.7s ease 0s;
+}
+.actor_image h5,
+.actor_image .h5 {
+  background-color: rgba(255, 255, 255, 0.7);
+}

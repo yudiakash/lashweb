@@ -1,0 +1,56 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper">
+      <h1 class="title_tag">
+        {{ 'Registration' | translate }}<span>{{ 'Few steps and you’re in' | translate }}</span>
+      </h1>
+      <div class="login_banner">
+        <div class="login_banner">
+          <h3>{{ 'Welcome' | translate }}</h3>
+        </div>
+      </div>
+
+      <section class="registration_content subscription_info">
+        <h3><span>3</span> {{ 'Choose Your Plan' | translate }}:</h3>
+
+        <ul>
+          <ng-container *ngFor="let types of planTypeResponse; let k = index">
+            <li (click)="select(types.id)" [ngClass]="{ active: getId === types.id }" *ngIf="k == 0">
+              <article>
+                <div class="period_wrapper">
+                  <h2>
+                    {{ types.planType | translate }}<span>{{ types.price }} {{ 'NIS/mo' | translate }}</span>
+                  </h2>
+                </div>
+              </article>
+              <h5>{{ types.planType | translate }} {{ 'Payments' | translate }}</h5>
+            </li>
+
+            <li *ngIf="k != 0">
+              <article>
+                <div class="period_wrapper">
+                  <h2>
+                    {{ types.planType | translate }}<span>{{ 'Upcoming Plan' | translate }}</span>
+                  </h2>
+                </div>
+              </article>
+              <!-- <h5>{{ types.planType }} {{ 'Payments' | translate }}</h5> -->
+            </li>
+          </ng-container>
+        </ul>
+
+        <ul class="audition_pagination reg_pagination">
+          <!-- <li class="ad_prev"><a href="#">Back</a></li> -->
+          <li style="opacity: 1" class="ad_next step_next">
+            <a style="color: #000f50 !important" class="sbscrptn_save" (click)="selectPlan()">{{
+              'Save & Next' | translate
+            }}</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

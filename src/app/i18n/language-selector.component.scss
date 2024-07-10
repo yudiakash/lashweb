@@ -1,0 +1,25 @@
+.nav-link.dropdown-toggle {
+  cursor: pointer;
+}
+.flag_wrapper li.active,
+.flag_wrapper li:hover {
+  opacity: 1;
+}
+.flag_wrapper li {
+  opacity: 0.5;
+}
+.flag_wrapper {
+  display: block;
+  align-items: flex-start;
+  float: right;
+  padding: 29px 185px 7px;
+  width: 15%;
+  background-color: #e7e7e7;
+}
+.flag_wrapper li {
+  width: 30px;
+  padding: 4px 2px 2px 2px;
+}
+.flag_wrapper li.active {
+  width: 30px;
+}

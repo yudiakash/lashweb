@@ -1,0 +1,59 @@
+<!-- <div [ngClass]="{ 'nav-item': inNavbar }" ngbDropdown>
+  <a *ngIf="inNavbar; else button" id="language-dropdown" class="nav-link" ngbDropdownToggle>
+    {{ currentLanguage | translate }}
+  </a>
+  <ng-template #button>
+    <button id="language-dropdown" class="btn btn-sm btn-light" ngbDropdownToggle>
+      {{ currentLanguage }}
+    </button>
+  </ng-template>
+  <div ngbDropdownMenu aria-labelledby="language-dropdown" [ngClass]="menuClass">
+    <button class="dropdown-item" *ngFor="let language of languages" (click)="setLanguage(language)">
+      {{ language | translate }}
+    </button>
+  </div>
+</div> -->
+
+<ul [hidden]="currentLanguage == 'he-IL'" class="flag_wrapper">
+  <li [ngClass]="{ active: currentLanguage == 'en-US' }">
+    <a
+      *ngIf="currentLanguage == 'en-US' || showEng"
+      href="javascript:void(0)"
+      (dblclick)="showHebreww('en-US')"
+      (click)="setLanguage('en-US')"
+      ><img src="./assets/images/flag-london.png"
+    /></a>
+  </li>
+  <li [ngClass]="{ active: currentLanguage == 'he-IL' }">
+    <a
+      *ngIf="currentLanguage == 'he-IL' || showHebrew"
+      (dblclick)="showHebreww('he-IL')"
+      href="javascript:void(0)"
+      (click)="setLanguage('he-IL')"
+    >
+      <img src="./assets/images/flag-hebrew.png" />
+    </a>
+  </li>
+</ul>
+<ul [hidden]="currentLanguage == 'en-US'" class="flag_wrapper">
+  <li [ngClass]="{ active: currentLanguage == 'he-IL' }">
+    <a
+      *ngIf="currentLanguage == 'he-IL' || showHebrew"
+      (dblclick)="showHebreww('he-IL')"
+      href="javascript:void(0)"
+      (click)="setLanguage('he-IL')"
+    >
+      <img src="./assets/images/flag-hebrew.png" />
+    </a>
+  </li>
+  <li [ngClass]="{ active: currentLanguage == 'en-US' }">
+    <a
+      *ngIf="currentLanguage == 'en-US' || showEng"
+      href="javascript:void(0)"
+      (dblclick)="showHebreww('en-US')"
+      (click)="setLanguage('en-US')"
+      ><img src="./assets/images/flag-london.png"
+    /></a>
+  </li>
+</ul>
+<div style="clear: both"></div>

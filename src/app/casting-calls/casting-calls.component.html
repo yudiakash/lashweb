@@ -1,0 +1,228 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="audition_single">
+      <h1 class="title_tag">
+        {{ 'Find Acting Auditions' | translate }}
+        <span
+          >{{ 'Showing' | translate }} {{ rolesCount }} {{ 'acting jobs with' | translate }} {{ totalAudCount }}
+          {{ 'productions' | translate }}
+        </span>
+      </h1>
+
+      <!--audition_category-->
+      <div class="audition_category">
+        <ul>
+          <li *ngFor="let types of castingCallsCat; let i = index">
+            <a (click)="typeChange(types)" [routerLink]="['/casting-calls']" [queryParams]="{ catName: types }">
+              <article [ngClass]="{ active: dataType == types || categoryName == types }" id="cat{{ i + 1 }}">
+                <h3>{{ types | translate }}</h3>
+              </article>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!--audition_category_END-->
+
+      <!--filter_box-->
+      <form class="form-horizontal" [formGroup]="newSearchForm" (ngSubmit)="searchFilter()">
+        <div class="filter_box casting-filter">
+          <div class="filter_header">
+            <h5>{{ 'Filter by' | translate }}</h5>
+            <label>{{ 'Keywords' | translate: { name: 'Keywords' } }}</label>
+            <input
+              style="width: 30%"
+              onkeypress="return (event.charCode > 64 && 
+            event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)"
+              [maxlength]="30"
+              name="Keyword"
+              formControlName="Keyword"
+              type="text"
+            />
+            <a (click)="searchFilter()" style="color: white" href="javascript:void(0)">{{
+              'Search' | translate: { name: 'Search' }
+            }}</a>
+            <div class="ms-4 advanced_filter">
+              <a
+                style="color: white; font-size: 13px; text-align: center"
+                href="javascript:void(0)"
+                (click)="toggleDisplayDivIf()"
+                >{{ 'Advanced Filters' | translate }}</a
+              >
+            </div>
+          </div>
+
+          <div class="filter_fields" *ngIf="isShowDivIf">
+            <select
+              [ngStyle]="{ 'background-color': genderselect ? '#4558ba' : '#253378' }"
+              (change)="formChange($event)"
+              name="gender"
+              formControlName="gender"
+            >
+              <option value="">{{ 'Gender' | translate: { name: 'Gender' } }}</option>
+              <option value="0">{{ 'Male' | translate }}</option>
+              <option value="1">{{ 'Female' | translate }}</option>
+              <option value="2">{{ 'Actor or Actress' | translate }}</option>
+            </select>
+
+            <div class="slidecontainer" *ngIf="language != 'he-IL'">
+              <p style="margin-left: 10px">{{ 'Age' | translate: { name: 'Age' } }}</p>
+              <ngx-slider
+                style="width: 150px; margin-left: 10px"
+                [(ngModel)]="age"
+                [(value)]="age"
+                [(highValue)]="highValue"
+                [options]="optionss"
+              >
+              </ngx-slider>
+            </div>
+
+            <div class="slidecontainer" *ngIf="language == 'he-IL'">
+              <p style="margin-left: 10px">{{ 'Age' | translate: { name: 'Age' } }}</p>
+              <ngx-slider
+                style="width: 150px; margin-left: 10px"
+                [(ngModel)]="age"
+                [(value)]="age"
+                [(highValue)]="highValue"
+                [options]="options1Heb"
+              >
+              </ngx-slider>
+            </div>
+
+            <!-- <select name="production">
+        <option value="Body">Body</option>
+        <option value="saab">Saab</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+    </select>
+    
+    <select name="production">
+        <option value="Hair Colour">Hair Colour</option>
+        <option value="saab">Saab</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+    </select>
+    
+    <select name="production">
+        <option value="Hair Type">Hair Type</option>
+        <option value="saab">Saab</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+    </select>
+    
+    <select name="production">
+        <option value="Eyes">Eyes</option>
+        <option value="saab">Saab</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+    </select>
+    
+    <select name="production">
+        <option value="Skin Tone">Skin Tone</option>
+        <option value="saab">Saab</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+    </select>
+    
+    <select name="production">
+        <option value="Agency">Agency</option>
+        <option value="saab">Saab</option>
+        <option value="opel">Opel</option>
+        <option value="audi">Audi</option>
+    </select> -->
+            <button class="search_btn">{{ 'Search' | translate: { name: 'Search' } }}</button>
+          </div>
+        </div>
+        <!--filter_box_END-->
+      </form>
+
+      <section
+        class="audition_list"
+        *ngFor="
+          let result of castingCalls
+            | paginate
+              : {
+                  itemsPerPage: tableSize,
+                  currentPage: page,
+                  totalItems: totalAudCount
+                };
+          let i = index
+        "
+      >
+        <div class="audition_taskbar" *ngIf="castingCalls">
+          <span *ngIf="result.auditionTypeName"> {{ result.auditionTypeName | translate }}</span>
+          <p>
+            {{ 'Posted' | translate }} : {{ result.auditionCreationDate | dateago }} | {{ 'Expires' | translate }}:
+            {{ result.auditionClosingDate | date: 'MM-dd-y' }}
+          </p>
+        </div>
+        <br />
+
+        <div class="audition_details">
+          <div class="audition_content audition_content_new">
+            <h4>
+              <strong>{{ result.inviteMsgTitle | translate }}</strong>
+            </h4>
+            <p>
+              {{ result.auditionDescription | translate }}
+              <a [routerLink]="['/casting-call-details']" [queryParams]="{ details: result.slug }">{{
+                'see more' | translate
+              }}</a>
+            </p>
+          </div>
+        </div>
+
+        <ul class="audition_table mobile_hidden">
+          <li>
+            <label>{{ 'Dates - Shooting' | translate }}:</label>{{ result.auditionDate | date }}
+          </li>
+          <li>
+            <label>{{ 'Location' | translate }}:</label> {{ result.auditionLocation | translate }}
+          </li>
+        </ul>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <ng-container *ngFor="let roles of result.rolesData; let k = index">
+              <td width="25%" *ngIf="roles.title && k <= 2">
+                <section>
+                  <span>{{ roles.title }}</span>
+                  {{ roles.RoleTypeName }},
+                  <p *ngIf="roles.gender == 0">{{ 'Male' | translate }}, {{ roles.minAge }} - {{ roles.maxAge }}</p>
+                  <p *ngIf="roles.gender == 1">{{ 'Female' | translate }}, {{ roles.minAge }} - {{ roles.maxAge }}</p>
+                  <p *ngIf="roles.gender == 2">
+                    {{ 'Actor or Actress' | translate }}, {{ 'Age' | translate }}: {{ roles.minAge }} -
+                    {{ roles.maxAge }}
+                  </p>
+                </section>
+              </td>
+            </ng-container>
+            <td width="25%">
+              <a
+                class="details_btn"
+                [routerLink]="['/casting-call-details']"
+                [queryParams]="{ details: result.slug }"
+                >{{ 'All Details' | translate }}</a
+              >
+            </td>
+          </tr>
+        </table>
+      </section>
+
+      <ul *ngIf="totalAudCount > 0" class="actor_pagination">
+        <pagination-controls
+          previousLabel="{{ 'Prev' | translate }}"
+          nextLabel="{{ 'Next' | translate }}"
+          (pageChange)="onTableDataChange($event)"
+          [(ngModel)]="currentPage"
+        >
+        </pagination-controls>
+      </ul>
+
+      <div *ngIf="totalAudCount <= 0">
+        <p style="text-align: center; opacity: 0.5; margin: 34px">{{ 'No search found' | translate }}</p>
+      </div>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

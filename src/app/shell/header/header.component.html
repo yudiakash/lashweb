@@ -1,0 +1,257 @@
+<nav style="background-color: #0073dd" class="mobile-menu navbar navbar-expand-xl mb-3 ms-5 me-5 mt-3">
+  <div class="container-fluid">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="!menuHidden"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="collapse navbar-collapse"
+      id="navbarSupportedContent"
+      (click)="toggleMenu()"
+      [ngbCollapse]="menuHidden"
+      data-toggle="collapse"
+    >
+      <div class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="mobile_logo" *ngIf="!auth.isAuthenticated">
+          <div class="logo_space">
+            <a routerLink="/home">
+              <img src="./assets/images/shalash_logo.png" width="220" />
+            </a>
+          </div>
+          <div class="acc_btn">
+            <a style="background-color: #000d59" routerLink="/login">{{ 'Login' | translate: { name: 'Login' } }}</a>
+            <a style="background-color: #0019af; text-transform: uppercase" routerLink="/join-as-actor">{{
+              'JoinNow' | translate: { name: 'JoinNow' }
+            }}</a>
+          </div>
+
+          <ul>
+            <li class="nav-item">
+              <a class="navbar-brand" routerLink="/home">{{ 'Home' | translate }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/search' }">
+              <a routerLink="/search">{{ 'Search Talent' | translate: { name: 'Search Talent' } }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/casting-calls' }">
+              <a routerLink="/casting-calls">{{ 'Casting Calls' | translate: { name: 'Casting Calls' } }}</a>
+            </li>
+            <!-- <li>
+              <a routerLink="#">{{ 'Post a Job' | translate: { name: 'Post a Job' } }}</a>
+            </li>
+            <li>
+              <a routerLink="#">{{ 'Workshops' | translate: { name: 'Workshops' } }}</a>
+            </li> -->
+            <li>
+              <a href="javascript:void(0)" (click)="toggleDisplayDivIf()">{{
+                'Recommendations' | translate: { name: 'Recommendations' }
+              }}</a>
+              <ul class="sub-menu" *ngIf="isShowDivIf">
+                <li [ngClass]="{ active: currentRoute == '/rehearsals-studios' }">
+                  <a routerLink="/rehearsals-studios">{{
+                    'Rehearsals Studios' | translate: { name: 'Rehearsals Studios' }
+                  }}</a>
+                </li>
+                <li [ngClass]="{ active: currentRoute == '/our-top-photographers' }">
+                  <a routerLink="/our-top-photographers">{{
+                    'Photographers' | translate: { name: 'Photographers' }
+                  }}</a>
+                </li>
+              </ul>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/news' }">
+              <a routerLink="/news">{{ 'News' | translate: { name: 'News' } }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/about' }">
+              <a routerLink="/about">{{ 'About' | translate: { name: 'About' } }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/faq' }">
+              <a routerLink="/faq">{{ 'Faq' | translate: { name: 'Faq' } }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/casted-successfully' }">
+              <a routerLink="/casted-successfully">{{
+                'Casted Successfully' | translate: { name: 'Casted Successfully' }
+              }}</a>
+            </li>
+          </ul>
+        </div>
+
+        <div *ngIf="auth.isAuthenticated && !isHome">
+          <!-- dropdown -->
+          <div class="logo_space">
+            <a routerLink="/home">
+              <img src="./assets/images/shalash_logo.png" width="220" />
+            </a>
+          </div>
+          <div class="profile_wrapper">
+            <div class="sidebar_profile_container">
+              <ng-container>
+                <a [routerLink]="['/actor-details']" [queryParams]="{ details: encodeId }">
+                  <img
+                    alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+                    *ngIf="data && !dummyImage"
+                    src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{ data }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+                  />
+                  <img
+                    alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+                    *ngIf="artistPictures && !data && !dummyImage && artistPictures.flag == 1"
+                    src="{{ imageReSizeUrl }}src={{ this.imagebaseUrl }}{{
+                      artistPictures.fileName
+                    }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+                  />
+                  <img
+                    alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+                    *ngIf="artistPictures && !data && !dummyImage && artistPictures.flag == 0"
+                    src="{{ imageReSizeUrl }}src={{ artistPictures.fileName }}&w=100&h=100&zc=1&q=95&cc=D9EBEF"
+                  />
+                  <img
+                    alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+                    *ngIf="dummyImage && actiorDetails.Gender == 1"
+                    src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}female.png&w=100&h=100&zc=1&q=95"
+                  />
+
+                  <img
+                    alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+                    *ngIf="dummyImage && actiorDetails.Gender == 0"
+                    src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}male.png&w=100&h=100&zc=1&q=95"
+                  />
+                </a>
+              </ng-container>
+              <a [routerLink]="['/actor-details']" [queryParams]="{ details: encodeId }">
+                <img
+                  alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+                  *ngIf="!artistPictures && !data && actiorDetails.Gender == 0"
+                  src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}male.png&w=100&h=100&zc=1&q=95"
+                />
+                <img
+                  alt="{{ isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn }}"
+                  *ngIf="!artistPictures && !data && actiorDetails.Gender == 1"
+                  src="{{ imageReSizeUrl }}src={{ this.imgNewsUrl }}female.png&w=100&h=100&zc=1&q=95"
+                />
+              </a>
+            </div>
+            <h3>
+              <a [routerLink]="['/actor-details']" [queryParams]="{ details: encodeId }">{{
+                isRTL ? actiorDetails.transEnNameHe : actiorDetails?.transNameEn
+              }}</a
+              ><a
+                [routerLink]="['/actor-details']"
+                [queryParams]="{ details: encodeId }"
+                style="color: #212529; text-decoration: none"
+                ><span>{{ 'Actor' | translate }}</span></a
+              >
+            </h3>
+            <h5>{{ 'Monthly' | translate }}</h5>
+          </div>
+          <ul>
+            <li class="">
+              <a routerLink="/home">{{ 'Home' | translate }}</a>
+            </li>
+
+            <li [ngClass]="{ active: currentRoute == '/my-messages' }">
+              <a routerLink="/my-messages"
+                >{{ 'Messages' | translate }} <span *ngIf="unReadMessage > 0">{{ unReadMessage }}</span></a
+              >
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/my-account-details' }">
+              <a routerLink="/my-account-details">{{ 'My details' | translate }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/actor-account' }">
+              <a routerLink="/actor-account">{{ 'My actor page' | translate }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/my-subscription' }">
+              <a routerLink="/my-subscription">{{ 'Subscription info' | translate }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/payment-history' }">
+              <a routerLink="/payment-history">{{ 'Payment info' | translate }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/my-notifications' }">
+              <a routerLink="/my-notifications">{{ 'Notifications' | translate }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/tell-us-more' }">
+              <a routerLink="/tell-us-more">{{ 'Tell us more' | translate }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/logout' }">
+              <a href="javascript:void(0)" (click)="logout()">{{ 'Logout' | translate }}</a>
+            </li>
+          </ul>
+          <div class="profile_complete">
+            <span
+              >{{ 'Profile' | translate }}<br />
+              {{ profileStatus }}% full</span
+            >
+          </div>
+        </div>
+
+        <div *ngIf="auth.isAuthenticated && isHome">
+          <div class="logo_space">
+            <a routerLink="/home">
+              <img src="./assets/images/shalash_logo.png" width="220" />
+            </a>
+          </div>
+          <ul>
+            <li [ngClass]="{ active: currentRoute == '/search' }">
+              <a routerLink="/search">{{ 'Search Talent' | translate: { name: 'Search Talent' } }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/casting-calls' }">
+              <a routerLink="/casting-calls">{{ 'Casting Calls' | translate: { name: 'Casting Calls' } }}</a>
+            </li>
+            <!-- <li>
+              <a routerLink="#">{{ 'Post a Job' | translate: { name: 'Post a Job' } }}</a>
+            </li>
+            <li>
+              <a routerLink="#">{{ 'Workshops' | translate: { name: 'Workshops' } }}</a>
+            </li> -->
+            <li>
+              <a href="javascript:void(0)" (click)="toggleDisplayDivIf()">{{
+                'Recommendations' | translate: { name: 'Recommendations' }
+              }}</a>
+              <ul class="sub-menu" *ngIf="isShowDivIf">
+                <li [ngClass]="{ active: currentRoute == '/rehearsals-studios' }">
+                  <a routerLink="/rehearsals-studios">{{
+                    'Rehearsals Studios' | translate: { name: 'Rehearsals Studios' }
+                  }}</a>
+                </li>
+                <li [ngClass]="{ active: currentRoute == '/our-top-photographers' }">
+                  <a routerLink="/our-top-photographers">{{
+                    'Photographers' | translate: { name: 'Photographers' }
+                  }}</a>
+                </li>
+              </ul>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/news' }">
+              <a routerLink="/news">{{ 'News' | translate: { name: 'News' } }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/about' }">
+              <a routerLink="/about">{{ 'About' | translate: { name: 'About' } }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/faq' }">
+              <a routerLink="/faq">{{ 'Faq' | translate: { name: 'Faq' } }}</a>
+            </li>
+            <li [ngClass]="{ active: currentRoute == '/casted-successfully' }">
+              <a routerLink="/casted-successfully">{{
+                'Casted Successfully' | translate: { name: 'Casted Successfully' }
+              }}</a>
+            </li>
+          </ul>
+
+          <a class="my_account" routerLink="/actor-account" style="padding: 0px">{{ 'My Account' | translate }}</a>
+        </div>
+
+        <!-- <li class="nav-item"> -->
+        <!-- <a class="nav-link active" aria-current="page" (click)="logout()">{{ 'Logout' | translate }}</a> -->
+        <!-- </li> -->
+      </div>
+    </div>
+  </div>
+</nav>
+
+<app-language-selector [inNavbar]="true" menuClass="dropdown-menu dropdown-menu-right"></app-language-selector>

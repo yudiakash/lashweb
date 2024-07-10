@@ -1,0 +1,49 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper">
+      <h1 class="title_tag">
+        {{ 'Reset Your Username' | translate }} ?<span>{{ 'Reset here' | translate }}</span>
+      </h1>
+
+      <div class="login_banner">
+        <h3>{{ 'Welcome Back' | translate }}</h3>
+      </div>
+
+      <form autocomplete="off" class="mt-2 needs-validation" [formGroup]="resetForm" (ngSubmit)="resetUsername()">
+        <section>
+          <article class="reset_article">
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              placeholder="{{ 'Username' | translate }}"
+              formControlName="name"
+              [ngClass]="{ 'is-invalid': f['name'].touched && f['name'].errors }"
+              autocomplete="off"
+              maxlength="10"
+            />
+            <div style="clear: both"></div>
+            <div *ngIf="f['name'].touched && f['name'].errors" class="invalid-feedback invalid-bg">
+              <div style="margin: 0 0 0 140px" *ngIf="f['name'].touched && f['name']['errors']['required']">
+                {{ 'username is required' | translate }}
+              </div>
+              <!-- <div style="margin: 0 0 0 140px" *ngIf="f['name']['errors']['minlength']">
+                  {{ 'Password must be at least 6 characters' | translate }}
+                </div> -->
+            </div>
+          </article>
+          <br />
+
+          <!-- <p>Forgot your password? <a href="#">click here</a></p> -->
+
+          <div class="login_btn">
+            <button type="submit">{{ 'Reset Username' | translate }}</button>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

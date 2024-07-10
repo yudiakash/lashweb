@@ -1,0 +1,45 @@
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="about_wrapper">
+      <h1>
+        {{ 'Casted Successfully' | translate: { name: 'Casted Successfully' } }}
+      </h1>
+      <section class="about_venture">
+        <!-- <iframe
+          src="https://docs.google.com/spreadsheets/d/1Pifk6IPLArFz3TJ8oxHL9ZKKQEgG7JT6tzFuwVCW8aM/edit?gid=1354118054#gid=1354118054?widget=true&amp;headers=false"
+          width="100%"
+          height="600"
+        ></iframe> -->
+
+ 
+  <!-- sheet-data.component.html -->
+
+  <div *ngIf="sheetData" class="table-container" style="direction: rtl;">
+    <table class="table table-light mat-elevation-z8 demo-table styled-table ">
+        <thead>
+            <tr>
+                <ng-container *ngFor="let head of sheetData[0]; let i=index">
+                    <ng-container *ngIf="head.innerHTML.trim() !== ''">
+                        <th>{{ head.innerHTML }}</th>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of sheetData.slice(1)">
+                    <td >{{ row[0].innerHTML }}</td>
+                    <td >{{ row[1].innerHTML }}</td>
+                    <td >{{ row[2].innerHTML }}</td>
+                    <td >{{ row[3].innerHTML }}</td>                  
+                    <td >{{ row[4].innerHTML }}</td>
+                    <td >{{ row[5].innerHTML }}</td>
+                    <td >{{ row[6].innerHTML }}</td>
+                    <td >{{ row[7].innerHTML }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,48 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper">
+      <h1 class="title_tag">
+        {{ 'Registration' | translate }}<span>{{ 'Few steps and you’re in' | translate }}</span>
+      </h1>
+
+      <div class="login_banner">
+        <h3>{{ 'Welcome' | translate }}</h3>
+      </div>
+
+      <section class="registration_content">
+        <h3><span>1</span> {{ 'Join As' | translate }}:</h3>
+
+        <ul class="reg_round_link">
+          <li class="active">
+            <a routerLink="/add-your-details">
+              <article>
+                <div class="link_wrapper">
+                  <h4>{{ 'Actor' | translate }}</h4>
+                </div>
+              </article>
+            </a>
+          </li>
+
+          <li class="">
+            <a routerLink="/director-registration">
+              <article>
+                <div class="link_wrapper">
+                  <h4>{{ 'Cast New Project' | translate }}</h4>
+                </div>
+              </article>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="audition_pagination reg_pagination">
+          <li class="ad_next">
+            <a routerLink="/add-your-details">{{ 'Next' | translate }}</a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

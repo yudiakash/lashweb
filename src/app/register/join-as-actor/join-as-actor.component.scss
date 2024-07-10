@@ -1,0 +1,13 @@
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.disabled a {
+  cursor: default;
+  text-decoration: none;
+}
+
+.disabled h4 {
+  color: #999;
+}

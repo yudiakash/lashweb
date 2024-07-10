@@ -1,0 +1,109 @@
+.container {
+  max-width: 1413px;
+  margin: 0 auto;
+}
+
+.photographer_profile {
+  margin: 50px 0 0;
+}
+.photographer_profile h2 {
+  margin: 0 0 15px;
+}
+.photographer_profile section {
+  background-color: #fff;
+}
+.pg_desc {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pg_dp {
+  width: 275px;
+}
+.pg_dp img {
+  width: 100%;
+}
+.pg_content {
+  width: calc(100% - 275px);
+  padding: 25px;
+}
+.pg_content p {
+  font-size: 17px;
+  line-height: 32px;
+}
+.pg_bottom {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pg_links {
+  width: 275px;
+  padding: 9px;
+}
+.pg_gallery {
+  width: calc(100% - 275px);
+  padding: 0;
+}
+.pg_gallery ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+.pg_gallery li {
+  width: 25%;
+}
+.pg_gallery li a {
+  display: block;
+}
+.pg_gallery li img {
+  width: 100%;
+}
+.pg_links li {
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+.pg_links li a {
+  display: block;
+  color: #000;
+}
+#icon_location {
+  background-image: url(../../assets/images/icon_location.png);
+}
+
+.info_photo a {
+  color: black !important;
+  text-decoration: underline;
+  font-size: 17px;
+}
+.info_photo {
+  padding: 11px;
+}
+.address_pic {
+  background-image: url(../../assets/images/message_icon.png);
+}
+#icon_website {
+  background-image: url(../../assets/images/icon-website.png);
+}
+
+@media (min-width: 250px) and (max-width: 576px) {
+  .pg_desc {
+    display: block !important;
+  }
+  .pg_dp {
+    width: 100% !important;
+  }
+  .pg_content {
+    width: calc(100% - 0px) !important;
+  }
+  .pg_links {
+    width: 100% !important;
+    padding: 18px !important;
+  }
+  .pg_gallery {
+    width: calc(100% - 0px) !important;
+    padding: 0 !important;
+  }
+  .pg_bottom {
+    display: block !important;
+  }
+}
+img.no_img {
+  border: 1px solid white;
+}

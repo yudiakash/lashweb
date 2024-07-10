@@ -1,0 +1,122 @@
+ul.breadcrumb {
+  padding: 0;
+  background-color: transparent;
+  margin: 0 0 30px;
+}
+ul.breadcrumb li {
+  margin: 0 8px 0 0;
+}
+ul.breadcrumb li a {
+  display: inline-block;
+  padding: 0 5px 0 0;
+  color: #000;
+}
+.ws_banner {
+  display: flex;
+  flex-wrap: wrap;
+}
+.ws_banner_image {
+  width: 25%;
+}
+.ws_banner_date {
+  width: 25%;
+  display: flex;
+  background-color: #000;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.ws_banner_date h5 {
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+  background-image: url(../../assets/images/icon_date.png);
+  background-repeat: no-repeat;
+  background-position: center top;
+  padding: 105px 0 0;
+}
+.ws_banner_title {
+  width: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ws_banner_title h3 {
+  font-size: 34px;
+  font-weight: 600;
+}
+.audition_pagination {
+  display: flex;
+  justify-content: center;
+  padding: 30px 0;
+}
+.modal .modal-body {
+  padding: 49px;
+  font-size: 17px;
+  font-weight: bold;
+}
+.reg_pagination li.step_next a {
+  color: #8b92fa;
+  text-decoration: none;
+  background-position: right center !important;
+}
+.reg_pagination li.step_next {
+  background-image: url(../../assets/images/arow-violet.png);
+  background-position: right;
+  padding: 10px 37px 10px 1px;
+}
+.reg_pagination li.ad_prev {
+  padding: 10px 0px 0px 42px;
+}
+.rtl .reg_pagination li.step_next {
+  background-image: url(../../assets/images/arow-violet.png);
+  background-position: left !important;
+  padding: 10px 37px 10px 1px;
+}
+.rtl .reg_pagination li.ad_prev {
+  padding: 10px 0px 0px 42px;
+}
+img,
+svg {
+  width: 100%;
+  vertical-align: middle;
+}
+.login_wrapper section p {
+  margin: -6px auto 10px !important;
+}
+.coupon_add {
+  background-color: transparent;
+  border: solid 1px #000;
+  padding: 0 16px;
+  width: 100%;
+  font-size: 18px;
+  height: 43px;
+}
+.modal-content {
+  width: 500px;
+}
+.modal-body {
+  display: flex;
+  justify-content: center;
+  margin-top: 23px;
+}
+button.coupon_btn {
+  color: #02085d;
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+}
+.fail {
+  i.fa-solid.fa-xmark {
+    color: red;
+  }
+}
+.no_img .ws_banner_title {
+  width: 74% !important;
+}
+.ws_banner_title {
+  padding: 30px;
+}

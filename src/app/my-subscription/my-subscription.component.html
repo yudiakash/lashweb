@@ -1,0 +1,71 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="subscription_info">
+      <h1 class="title_tag">
+        {{ 'Subscription info' | translate }}<span>{{ 'View and change your plan' | translate }}</span>
+      </h1>
+
+      <section>
+        <ul>
+          <ng-container *ngFor="let types of planTypeResponse; let k = index">
+            <li (click)="select(types.id)" [ngClass]="{ active: gettId === types.id }" *ngIf="k == 0">
+              <article class="subscription_mobile">
+                <div class="period_wrapper">
+                  <!-- <h2>
+                    {{ types.planType | translate
+                    }}<span>{{ types.price }} {{ 'NIS' | translate }} / {{ types.no_of_months }}</span>
+                  </h2> -->
+                  <h2>
+                    {{ types.planType | translate }}<span>{{ types.price }} {{ 'NIS' | translate }}</span>
+                  </h2>
+                </div>
+              </article>
+              <h5>{{ types.planType | translate }} {{ 'Payments' | translate }}</h5>
+            </li>
+            <li (click)="select(types.id)" [ngClass]="{ active: gettId === types.id }" *ngIf="k != 0">
+              <article class="subscription_mobile">
+                <div class="period_wrapper">
+                  <h2>
+                    {{ types.planType | translate }}<span>{{ 'Upcoming Plan' | translate }}</span>
+                  </h2>
+                </div>
+              </article>
+              <!-- <h5>{{ types.planType }} {{ 'Payments' | translate }}</h5> -->
+            </li>
+          </ng-container>
+        </ul>
+
+        <div class="renue_radio">
+          <label *ngIf="paymentPlan.exp_date">
+            <!-- {{ 'Current Plan expires on' | translate }} {{ paymentPlan.exp_date | date: 'mediumDate' }} -->
+          </label>
+          <!-- <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+            <label class="form-check-label" for="flexRadioDefault1">{{ 'On' | translate }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked />
+            <label class="form-check-label" for="flexRadioDefault2">{{ 'OFF' | translate }}</label>
+          </div> -->
+        </div>
+      </section>
+
+      <!-- <ul class="audition_pagination reg_pagination">
+        <li style="padding: 0px 26px 5px 25px !important" class="ad_next step_next">
+          <button
+            (click)="reNewPayment()"
+            style="background-color: transparent; border: none; color: #02085d; font-size: 20px; font-weight: bold"
+            class="btn btn-primary"
+          >
+            {{ 'Renew' | translate }}
+          </button>
+        </li>
+      </ul> -->
+    </div>
+  </div>
+  <app-registration-renewal></app-registration-renewal>
+
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

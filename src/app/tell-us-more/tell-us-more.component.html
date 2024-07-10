@@ -1,0 +1,175 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="myaccount_texteditor">
+      <h1 class="title_tag">
+        {{ 'Tell us more' | translate }}<span>{{ 'Be your own agent! recommend them about your' | translate }}:</span>
+      </h1>
+      <form [formGroup]="TellUsForm" (ngSubmit)="onSubmit()">
+        <section>
+          <article class="texteditor_line left_editor">
+            <label
+              ><span>{{ 'Dramatic abilities' | translate }}</span></label
+            >
+            <textarea
+              #Drama
+              class="dramatic_textarea"
+              name="Drama"
+              cols=""
+              rows=""
+              [maxlength]="350"
+              placeholder="{{
+                isRTL && actorGender == 1
+                  ? dramaShe
+                  : isRTL && actorGender == 0
+                  ? dramaHe
+                  : !isRTL && actorGender == 0
+                  ? 'Describe yourself (in a third person - He), adding two drama roles you proudly played in (could be from productions you participated in, including acting school). Additionally please highlight few of your characteristic abilities'
+                  : 'Describe yourself (in a third person - She), adding two drama roles you proudly played in (could be from productions you participated in, including acting school). Additionally please highlight few of your characteristic abilities'
+              }}"
+              formControlName="Drama"
+            >
+              {{ TellUsMoreData?.Drama }}</textarea
+            >
+            <span style="font-size: 13px"
+              >{{ 'Characters left:' | translate }} {{ 350 - (Drama?.value?.length || 0) }}</span
+            >
+          </article>
+
+          <article class="texteditor_line right_editor">
+            <label
+              ><span>{{ 'Singing abilities' | translate }}</span></label
+            >
+            <textarea
+              #Musical
+              name="Musical"
+              cols=""
+              rows=""
+              [maxlength]="350"
+              placeholder="{{
+                isRTL && actorGender == 1
+                  ? musicalShe
+                  : isRTL && actorGender == 0
+                  ? musicalHe
+                  : !isRTL && actorGender == 0
+                  ? 'Describe yourself (in a third person - He), adding two musical roles you proudly played in (could be from productions you participated in, including acting school). Additionally please highlight few of your characteristic abilities'
+                  : 'Describe yourself (in a third person - She), adding two musical roles you proudly played in (could be from productions you participated in, including acting school). Additionally please highlight few of your characteristic abilities'
+              }}"
+              formControlName="Musical"
+            >
+              {{ TellUsMoreData?.Musical }}</textarea
+            >
+            <span style="font-size: 13px"
+              >{{ 'Characters left:' | translate }} {{ 350 - (Musical?.value?.length || 0) }}</span
+            >
+          </article>
+
+          <article class="texteditor_line left_editor">
+            <label
+              ><span>{{ 'Comic abilities' | translate }}</span></label
+            >
+            <textarea
+              #Comic
+              name="Comic"
+              cols=""
+              rows=""
+              [maxlength]="350"
+              placeholder="{{
+                isRTL && actorGender == 1
+                  ? comicShe
+                  : isRTL && actorGender == 0
+                  ? comicHe
+                  : !isRTL && actorGender == 0
+                  ? 'Describe yourself (in a third person - He), adding two comic roles you proudly played in (could be from productions you participated in, including acting school). Additionally please highlight few of your characteristic abilities'
+                  : 'Describe yourself (in a third person - She), adding two comic roles you proudly played in (could be from productions you participated in, including acting school). Additionally please highlight few of your characteristic abilities'
+              }}"
+              formControlName="Comic"
+            >
+              {{ TellUsMoreData?.Comic }}</textarea
+            >
+            <span style="font-size: 13px"
+              >{{ 'Characters left:' | translate }} {{ 350 - (Comic?.value?.length || 0) }}</span
+            >
+          </article>
+          <article class="texteditor_line right_editor">
+            <label
+              ><span>{{ 'Edit headline' | translate }}</span></label
+            >
+            <textarea
+              #Headline
+              name="headline"
+              cols=""
+              rows=""
+              [maxlength]="350"
+              placeholder="{{
+                isRTL && actorGender == 1
+                  ? headlineShe
+                  : isRTL && actorGender == 0
+                  ? headlineHe
+                  : 'Write a sentence that gives you inspiration and serves as your personal belief statement. It will appear on your profile, above everything else.'
+              }}"
+              formControlName="headline"
+            >
+              {{ TellUsMoreData?.headline }}</textarea
+            >
+            <span style="font-size: 13px"
+              >{{ 'Characters left:' | translate }} {{ 350 - (Headline?.value?.length || 0) }}</span
+            >
+          </article>
+
+          <!-- <article class="texteditor_line left_editor">
+            <a class="add_editor_field" href="#">Add your own abilities</a>
+          </article> -->
+        </section>
+
+        <ul class="audition_pagination reg_pagination">
+          <li class="ad_next" style="padding: 0px 26px 5px 25px !important">
+            <button
+              [ngStyle]="{ color: TellUsForm.valid ? '#000d59' : '#8a91f9' }"
+              style="background-color: transparent; border: none; color: #8a91f9; font-size: 20px; font-weight: bold"
+              [disabled]="!TellUsForm.valid"
+              class="btn btn-primary"
+            >
+              {{ 'Savee' | translate }}
+            </button>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+  <app-registration-renewal></app-registration-renewal>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->
+
+<!-- <div *ngIf="regTellUsMore">
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body popup-intro">
+      <p style="font-size: 28px" *ngIf="language == 'en-US'">
+        This is a highly important page {{ actorName }}, here we’d like you to recommend about yourself in a brief.
+        please, before you begin, listen to the massage i made for that matter if you will, thanks
+        <span [innerHTML]="emoji1"></span>
+      </p>
+      <p style="font-size: 28px" *ngIf="language != 'en-US' && language != 'he-IL'">
+        This is a highly important page {{ actorName }}, here we’d like you to recommend about yourself in a brief.
+        please, before you begin, listen to the massage i made for that matter if you will, thanks
+        <span [innerHTML]="emoji1"></span>
+      </p>
+      <p style="font-size: 28px" *ngIf="language == 'he-IL' && actorGender == 0">
+        זה עמוד מאוד חשוב {{ actorName }}, בעמוד הזה אנחנו מבקשים ממך להמליץ לנו על עצמך, בקצרה. לא יותר משלוש שורות.
+        ברשותך תקשיב בבקשה להודעה שהקלטתי בנוגע לזה לפני שתתחיל <span [innerHTML]="emoji2"></span> תודה
+      </p>
+      <p style="font-size: 28px" *ngIf="language == 'he-IL' && actorGender == 1">
+        זה עמוד מאוד חשוב {{ actorName }}, בעמוד הזה אנחנו מבקשים שתמליצי לנו על עצמך, בקצרה. לא יותר משלוש שורות. אם
+        תוכלי תקשיבי בבקשה להודעה שהקלטנו פה בנוגע לזה לפני שתתחילי <span [innerHTML]="emoji2"></span> תודה.
+      </p>
+
+       <iframe width="430" height="315" src="https://www.youtube.com/embed/PJ2af7AYRlU"> </iframe> 
+    </div>
+  </ng-template>
+</div> -->

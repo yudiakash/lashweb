@@ -1,0 +1,22 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="about_wrapper">
+      <h1>
+        {{ isRTL ? newsDetails.title : newsDetails.title }}
+        <!-- {{ isRTL ? newsDetails.translatedNameHe : newsDetails.translatedNameEn }} -->
+      </h1>
+
+      <section class="about_venture about_venture_news">
+        <div class="news-img">
+          <img style="width: 100%" *ngIf="newsDetails.pic" src="{{ imgNewsUrl }}{{ newsDetails.pic }}" />
+        </div>
+        <div class="news-cont">
+          <p style="width: 100%; height: 100%" [innerHtml]="safeHtmlContent"></p>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

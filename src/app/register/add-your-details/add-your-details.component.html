@@ -1,0 +1,408 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="login_wrapper">
+      <h1 class="title_tag">
+        {{ 'Registration' | translate }}<span>{{ 'Few steps and you’re in' | translate }}</span>
+      </h1>
+      <div class="login_banner">
+        <h3>{{ 'Welcome' | translate }}</h3>
+      </div>
+
+      <section class="registration_content">
+        <h3><span>2</span> {{ 'Account Details' | translate }}:</h3>
+        <form autocomplete="off" class="form-horizontal" [formGroup]="newRegisterForm" (ngSubmit)="onSubmit()">
+          <article>
+            <div class="field_wrapper">
+              <label>{{ 'First Name' | translate }}</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['FirstName'].touched && f['FirstName'].invalid }"
+                name="FirstName"
+                type="text"
+                placeholder="{{ 'First Name' | translate }}"
+                formControlName="FirstName"
+                [maxLength]="13"
+              />
+              <p *ngIf="f['FirstName'].touched && f['FirstName'].invalid" class="small text-danger font-italic">
+                *{{ 'First name is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper">
+              <label>{{ 'Last Name' | translate }}</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['LastName'].touched && f['LastName'].invalid }"
+                name="LastName"
+                type="text"
+                placeholder="{{ 'Last Name' | translate }}"
+                formControlName="LastName"
+                [maxLength]="13"
+              />
+              <p *ngIf="f['LastName'].touched && f['LastName'].invalid" class="small text-danger font-italic">
+                *{{ 'Last name is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper">
+              <label>{{ 'Gender' | translate }}</label>
+              <select
+                name="Gender"
+                [ngClass]="{ 'is-invalid': f['Gender'].touched && f['Gender'].invalid }"
+                formControlName="Gender"
+              >
+                <option value="">{{ 'Gender' | translate }}</option>
+                <option value="0">{{ 'Male' | translate }}</option>
+                <option value="1">{{ 'Female' | translate }}</option>
+              </select>
+              <p *ngIf="f['Gender'].touched && f['Gender'].invalid" class="small text-danger font-italic">
+                *{{ 'Gender is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper">
+              <label>{{ 'BirthDay' | translate }}</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['BirthDay'].touched && f['BirthDay'].invalid }"
+                name="BirthDay"
+                type="date"
+                placeholder="{{ 'Birthday' | translate }}"
+                formControlName="BirthDay"
+                max="{{ currentDate }}"
+              />
+
+              <p *ngIf="f['BirthDay'].touched && f['BirthDay'].invalid" class="small text-danger font-italic">
+                *{{ 'Birthday is required' | translate }}.
+              </p>
+            </div>
+
+            <!-- <div class="field_wrapper">
+              <input
+                [ngClass]="{ 'is-invalid': f['Weight'].touched && f['Weight'].invalid }"
+                name="Weight"
+                type="number"
+                step="0.01"
+                min="0"
+                max="500"
+                placeholder="{{ 'Weight' | translate }}"
+                formControlName="Weight"
+              />
+              <p *ngIf="f['Weight'].touched && f['Weight'].invalid" class="small text-danger font-italic">
+                *Weight is required.
+              </p>
+            </div> -->
+
+            <div class="field_wrapper">
+              <label>{{ 'Email' | translate }}</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }"
+                name="email"
+                type="text"
+                placeholder="{{ 'example@gmail.com' | translate }}"
+                formControlName="email"
+                [maxLength]="30"
+              />
+              <p *ngIf="f['email'].touched && f['email'].invalid" class="small text-danger font-italic">
+                *{{ 'Email is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper">
+              <label>{{ 'Username' | translate }}</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['name'].touched && f['name'].invalid }"
+                name="name"
+                type="text"
+                placeholder="{{ 'Username' | translate }}"
+                formControlName="name"
+                [maxLength]="10"
+                autocomplete="new-username"
+              />
+              <p *ngIf="f['name'].touched && f['name'].invalid" class="small text-danger font-italic">
+                *{{ 'Username is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper passwordd">
+              <label>{{ 'Password' | translate }}</label>
+              <input
+                style="width: 10%; border-radius: 0px; margin-bottom: 15px; background-color: transparent"
+                [ngClass]="{ 'is-invalid': f['password'].touched && f['password'].invalid }"
+                [type]="fieldTextType ? 'text' : 'password'"
+                placeholder="{{ 'Password' | translate }}"
+                formControlName="password"
+                autocomplete="new-password"
+                (change)="paswd($event)"
+              />
+              <div class="input-group-append" style="height: 1px">
+                <span class="input-group-text">
+                  <i
+                    class="fa fa-eye-slash mb-3 pswdd"
+                    [ngClass]="{
+                      'fa-eye-slash': !fieldTextType,
+                      'fa-eye': fieldTextType
+                    }"
+                    (click)="toggleFieldTextType()"
+                  ></i>
+                </span>
+              </div>
+              <p *ngIf="f['password'].touched && f['password'].invalid" class="small text-danger font-italic">
+                *{{ 'Password is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper pswd">
+              <label>{{ 'Confirm Password' | translate }}</label>
+              <input
+                style="width: 10%; border-radius: 0px; margin-bottom: 15px; background-color: transparent"
+                [ngClass]="{ 'is-invalid': f['confirmPassword'].touched && f['confirmPassword'].invalid }"
+                [type]="confirmPswdField ? 'text' : 'password'"
+                placeholder="{{ 'Confirm Password' | translate }}"
+                formControlName="confirmPassword"
+                autocomplete="new-password"
+                (change)="confirmPaswd($event)"
+                (keyup)="getShowpassword()"
+              />
+              <div class="input-group-append" style="height: 1px">
+                <span class="input-group-text">
+                  <i
+                    class="fa fa-eye-slash"
+                    [ngClass]="{
+                      'fa-eye-slash': !confirmPswdField,
+                      'fa-eye': confirmPswdField
+                    }"
+                    (click)="toggleFieldConfirmPswd()"
+                  ></i>
+                </span>
+              </div>
+              <p class="small text-danger font-italic" [innerHtml]="msgAlert"></p>
+
+              <p
+                *ngIf="f['confirmPassword'].touched && f['confirmPassword'].invalid"
+                class="small text-danger font-italic"
+              >
+                *{{ 'Password is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper phone_wraper">
+              <label>{{ 'Phone' | translate }}</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['Phone'].touched && f['Phone'].invalid }"
+                name="Phone"
+                type="text"
+                placeholder="{{ 'Phone' | translate }}"
+                formControlName="Phone"
+                [maxLength]="11"
+              />
+              <p *ngIf="f['Phone'].touched && f['Phone'].invalid" class="small text-danger font-italic">
+                * {{ 'Phone is required' | translate }}.
+              </p>
+              <p *ngIf="f['Phone'].errors?.['pattern']" class="small text-danger font-italic">Invalid Phone Number.</p>
+            </div>
+
+            <div class="field_wrapper phone_wraper mt-3">
+              <div style="object-fit: contain">
+                <p *ngIf="shwMsg" class="shw-warn ms-1 mb-2">{{ 'Only 10 numbers can be written.' | translate }}.</p>
+              </div>
+            </div>
+
+            <!-- <p *ngIf="shwMsg" class="shw-warn ms-1 mb-2">
+                *Passowrd should contain atleast 1 numeric, 1 lower case and 1 upper case character with minimum 6
+                letters.
+              </p> -->
+
+            <!-- <div *ngIf="shwMsg" class="shw-warning-container">
+                    <span  class="shw-warning"> Phone Number should be xxx-xxxxxxx format. </span>
+                  </div> -->
+
+            <div class="field_wrapper address_wrapper">
+              <label>{{ 'Country' | translate }}</label>
+              <select
+                name="NewCountry"
+                [ngClass]="{ 'is-invalid': f['NewCountry'].touched && f['NewCountry'].invalid }"
+                formControlName="NewCountry"
+              >
+                <option value="">{{ 'Country' | translate }}</option>
+                <option *ngFor="let countries of countryList" value="{{ countries.country_name }}">
+                  {{ countries.country_name | translate }}
+                </option>
+              </select>
+              <p *ngIf="f['NewCountry'].touched && f['NewCountry'].invalid" class="small text-danger font-italic">
+                *{{ 'Country is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper address_wrapper">
+              <label>{{ 'City' | translate }}</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['NewCity'].touched && f['NewCity'].invalid }"
+                name="NewCity"
+                type="text"
+                placeholder="{{ 'City' | translate }}"
+                formControlName="NewCity"
+                value=""
+              />
+              <p *ngIf="f['NewCity'].touched && f['NewCity'].invalid" class="small text-danger font-italic">
+                *{{ 'City is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper address_wrapper">
+              <label>{{ 'Address' | translate }}</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['NewAddress'].touched && f['NewAddress'].invalid }"
+                name="NewAddress"
+                type="text"
+                placeholder="{{ 'Address' | translate }}"
+                formControlName="NewAddress"
+                value=""
+              />
+              <p *ngIf="f['NewAddress'].touched && f['NewAddress'].invalid" class="small text-danger font-italic">
+                *{{ 'Address is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper address_wrapper">
+              <label>{{ 'Zipcode' | translate }}</label>
+              <input
+                [ngClass]="{ 'is-invalid': f['NewZipCode'].touched && f['NewZipCode'].invalid }"
+                name="NewZipCode"
+                type="text"
+                placeholder="{{ 'Zipcode' | translate }}"
+                formControlName="NewZipCode"
+                value=""
+              />
+              <p *ngIf="f['NewZipCode'].touched && f['NewZipCode'].invalid" class="small text-danger font-italic">
+                *{{ 'ZipCode is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper address_wrapper">
+              <label>{{ 'How did you hear about us' | translate }}</label>
+              <select
+                name="usersource"
+                [ngClass]="{ 'is-invalid': f['user_source'].touched && f['user_source'].invalid }"
+                formControlName="user_source"
+              >
+                <option style="color: grey" class="user_sourcee" value="">{{ 'How did you find' | translate }}</option>
+                <option *ngFor="let name of userSource" value="{{ name.name }}">
+                  {{ name.name | translate }}
+                </option>
+              </select>
+              <p *ngIf="f['user_source'].touched && f['user_source'].invalid" class="small text-danger font-italic">
+                *{{ 'user source is required' | translate }}.
+              </p>
+            </div>
+
+            <div class="field_wrapper address_wrapper"></div>
+
+            <div class="field_wrapper address_wrapper clothing mt-2">
+              <label
+                >{{ 'Clothing measurements' | translate }}({{
+                  'internal system only if you are accepted for the project and they want the data, we can send it quickly'
+                    | translate
+                }})</label
+              >
+              <div class="parent_cloth mt-2">
+                <div class="child_cloth">
+                  <label>{{ 'Shoes' | translate }}</label>
+                  <input
+                    [ngClass]="{ 'is-invalid': f['shoe_size'].touched && f['shoe_size'].invalid }"
+                    name="shoe_size"
+                    type="text"
+                    placeholder="{{ 'Shoes' | translate }}"
+                    formControlName="shoe_size"
+                    autocomplete="shoe_size"
+                    [maxLength]="10"
+                    autocomplete="shoe_size"
+                  />
+                  <!-- <p *ngIf="f['shoe_size'].touched && f['shoe_size'].invalid" class="small text-danger font-italic">
+                  *{{ 'shoe Size is required' | translate }}.
+                </p> -->
+                </div>
+
+                <div class="child_cloth">
+                  <label>{{ 'Shirt' | translate }}</label>
+                  <input
+                    [ngClass]="{ 'is-invalid': f['shirt_size'].touched && f['shirt_size'].invalid }"
+                    name="shirt_size"
+                    type="text"
+                    placeholder="{{ 'Shirt' | translate }}"
+                    formControlName="shirt_size"
+                    autocomplete="shirt_size"
+                    [maxLength]="10"
+                    autocomplete="shirt_size"
+                  />
+                  <!-- <p *ngIf="f['name'].touched && f['name'].invalid" class="small text-danger font-italic">
+                  *{{ 'Username is required' | translate }}.
+                </p> -->
+                </div>
+
+                <div class="child_cloth">
+                  <label>{{ 'Pants' | translate }}</label>
+                  <input
+                    [ngClass]="{ 'is-invalid': f['pant_size'].touched && f['pant_size'].invalid }"
+                    name="pant_size"
+                    type="text"
+                    placeholder="{{ 'Pants' | translate }}"
+                    formControlName="pant_size"
+                    autocomplete="pant_size"
+                    [maxLength]="10"
+                    autocomplete="pant_size"
+                  />
+                  <!-- <p *ngIf="f['name'].touched && f['name'].invalid" class="small text-danger font-italic">
+                  *{{ 'Username is required' | translate }}.
+                </p> -->
+                </div>
+              </div>
+            </div>
+            <!-- <div class="field_wrapper">
+              <label>{{ 'Height' | translate }}({{ 'In Centimetre' | translate }}) </label>
+              <select
+                name="Height"
+                [ngClass]="{ 'is-invalid': f['Height'].touched && f['Height'].invalid }"
+                formControlName="Height"
+              >
+                <option value="">{{ 'Height' | translate }}</option>
+                <option *ngFor="let number of numberRange" [value]="number">
+                  {{ number | translate }}
+                </option>
+              </select>
+
+              <p *ngIf="f['Height'].touched && f['Height'].invalid" class="small text-danger font-italic">
+                *{{ 'Height is required' | translate }}.
+              </p>
+            </div> -->
+            <div class="field_wrapper"></div>
+          </article>
+
+          <div class="form-check checkbox_wrapper">
+            <input
+              id="flexcheckDefault"
+              class="checkbox"
+              type="checkbox"
+              name="newsletter"
+              formControlName="Newsletter"
+            />
+            <label class="form-check-label" for="flexcheckDefault">{{ 'join our newsletter' | translate }}</label>
+          </div>
+          <!-- <div class="single_btn">
+            <button class="btn btn-primary">{{ 'Save' | translate }}</button>
+          </div> -->
+          <ul class="audition_pagination reg_pagination">
+            <li style="padding: 0px 28px 0px 22px !important" class="ad_next">
+              <button
+                style="background-color: transparent; border: none; color: #02085d; font-size: 24px; font-weight: bold"
+                class="btn btn-primary"
+              >
+                {{ 'Send' | translate }}
+              </button>
+            </li>
+          </ul>
+        </form>
+      </section>
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->

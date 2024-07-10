@@ -1,0 +1,39 @@
+textarea {
+  margin-left: 0px;
+  width: 276px;
+  resize: vertical;
+  width: 561px;
+  height: 100px;
+}
+.text-gen-desc {
+  width: 100% !important;
+}
+
+.rtl .login_wrapper section.registration_content h3 span,
+.login_wrapper section.registration_content .h3 span {
+  margin: 0 0 0 10px !important;
+}
+
+.textarea-container {
+  width: 100%; /* Ensure the textarea container spans the entire width */
+}
+
+.textarea-container textarea {
+  position: relative;
+  width: 100%; /* Ensure the textarea spans the entire width of the container */
+  height: 100px; /* Set the desired height for the textarea */
+  /* Add other textarea styles as needed */
+}
+
+.anchor {
+  position: absolute;
+  bottom: 11px;
+  right: 10px;
+}
+
+.rtl .textarea-container.anchor {
+  position: absolute;
+  bottom: 11px;
+  left: 10px !important;
+  right: 0 !important;
+}

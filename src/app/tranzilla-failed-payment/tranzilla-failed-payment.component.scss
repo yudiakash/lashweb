@@ -1,0 +1,43 @@
+h4 {
+  font-size: 30px;
+  color: red;
+}
+.fail {
+  width: 39px;
+  height: 39px;
+  padding: 8px;
+  border-radius: 50%;
+  border: 1px solid red;
+  text-align: center;
+  margin: auto;
+}
+.fa-solid,
+.fas {
+  font-weight: 900;
+  color: red;
+}
+.payment_check {
+  margin-top: 200px;
+  background-color: #e7e7e7;
+}
+.payment_failed {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  padding: 90px;
+  flex-wrap: wrap;
+  background-color: #e7e7e7;
+}
+.payment_failed h4 {
+  width: 100%;
+}
+.payment_check {
+  margin: 0 !important;
+}

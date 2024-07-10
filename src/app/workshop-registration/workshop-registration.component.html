@@ -1,0 +1,146 @@
+<div class="site_content">
+  <!--site_wrapper-->
+  <div class="site_wrapper">
+    <div class="inner_wrapper">
+      <div class="login_wrapper ws_wrapper">
+        <h1 class="title_tag">{{ isRTL ? workshopData.titleHe : workshopData.titleEn }}</h1>
+        <ul class="breadcrumb">
+          <li>
+            <a href="#">{{ 'Home' | translate }}</a> /
+          </li>
+          <li>
+            <a href="#">{{ 'Workshops' | translate }}</a> /
+          </li>
+          <li>{{ isRTL ? workshopData.titleHe : workshopData.titleEn }}</li>
+        </ul>
+
+        <!--ws_banner-->
+        <div [ngClass]="{ no_img: !workshopData.image }" class="ws_banner">
+          <div *ngIf="workshopData.image" class="ws_banner_image">
+            <img
+              src="{{ this.imageUrl }}{{ workshopData.image }}"
+              style="width: 100%; height: 163px; object-fit: cover"
+            />
+          </div>
+
+          <div class="ws_banner_date">
+            <h5>{{ workshopData.date | date }}</h5>
+          </div>
+
+          <div class="ws_banner_title">
+            <h3>{{ isRTL ? workshopData.titleHe : workshopData.titleEn }}</h3>
+          </div>
+        </div>
+        <!--ws_banner_END-->
+
+        <!--registration_content-->
+        <section class="registration_content">
+          <form autocomplete="off" class="form-horizontal" [formGroup]="newRegisterForm" (ngSubmit)="onSubmit()">
+            <article>
+              <div class="field_wrapper">
+                <input
+                  [ngClass]="{ 'is-invalid': f['firstName'].touched && f['firstName'].invalid }"
+                  name="FirstName"
+                  type="text"
+                  placeholder="{{ 'First Name' | translate }}"
+                  formControlName="firstName"
+                  [maxLength]="13"
+                />
+                <p *ngIf="f['firstName'].touched && f['firstName'].invalid" class="small text-danger font-italic">
+                  *{{ 'First name is required' | translate }}.
+                </p>
+              </div>
+              <div class="field_wrapper">
+                <input
+                  [ngClass]="{ 'is-invalid': f['surName'].touched && f['surName'].invalid }"
+                  name="LastName"
+                  type="text"
+                  placeholder="{{ 'Surname' | translate }}"
+                  formControlName="surName"
+                  [maxLength]="13"
+                />
+                <p *ngIf="f['surName'].touched && f['surName'].invalid" class="small text-danger font-italic">
+                  *{{ 'surname is required' | translate }}.
+                </p>
+              </div>
+              <div class="field_wrapper">
+                <input
+                  [ngClass]="{ 'is-invalid': f['email'].touched && f['email'].invalid }"
+                  name="email"
+                  type="text"
+                  placeholder="{{ 'Email' | translate }}"
+                  formControlName="email"
+                  [maxLength]="30"
+                />
+                <p *ngIf="f['email'].touched && f['email'].invalid" class="small text-danger font-italic">
+                  *{{ 'Email is required' | translate }}.
+                </p>
+              </div>
+              <div class="field_wrapper">
+                <input
+                  (change)="phoneValidation($event)"
+                  [ngClass]="{ 'is-invalid': f['phone'].touched && f['phone'].invalid }"
+                  name="Phone"
+                  type="text"
+                  placeholder="{{ 'Phone' | translate }}"
+                  formControlName="phone"
+                  [maxLength]="11"
+                />
+                <p *ngIf="f['phone'].touched && f['phone'].invalid" class="small text-danger font-italic">
+                  * {{ 'Phone is required' | translate }}.
+                </p>
+                <!-- <p *ngIf="f['phone'].errors?.['pattern']" class="small text-danger font-italic">
+                  Invalid Phone Number.
+                </p> -->
+                <div style="color: red; font-size: 12px" *ngIf="phoneValidtn" class="future-date-message mt-1">
+                  {{
+                    'Only 10 numbers can be written. Phone Number should be 05x-xxxxxxx/05xxxxxxxx format.' | translate
+                  }}.
+                </div>
+              </div>
+            </article>
+          </form>
+
+          <!-- <div class="form-check checkbox_wrapper">
+            <input (change)="checkbox()" class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+            <label class="form-check-label" for="flexCheckDefault">
+              {{ 'request information only' | translate }}
+            </label>
+          </div> -->
+
+          <ul class="audition_pagination reg_pagination">
+            <li class="ad_prev mt-4 reg_back">
+              <a routerLink="/workshop">{{ 'Back' | translate }}</a>
+            </li>
+            <!-- <li class="ad_next step_next"><a routerLink="/workshop-registration2">Next</a></li> -->
+            <li
+              [ngClass]="{ ad_next: newRegisterForm.valid, arrow_disable: !newRegisterForm.valid }"
+              class="ad_next mt-3 reg_next"
+              style="padding: 0px 26px 4px 0px !important"
+            >
+              <button
+                (click)="onSubmit()"
+                [ngStyle]="{ color: newRegisterForm.valid ? '#000d59' : '#8a91f9' }"
+                style="
+                  text-decoration: underline;
+                  background-color: transparent;
+                  font-size: 24px !important;
+                  border: none;
+                  color: #8a91f9;
+                  font-size: 20px;
+                  font-weight: bold;
+                "
+                [disabled]="!newRegisterForm.valid && phoneValidtn"
+                class="btn btn-primary"
+              >
+                {{ 'Next' | translate }}
+              </button>
+            </li>
+          </ul>
+        </section>
+        <!--registration_content_END-->
+      </div>
+    </div>
+    <!--inner_wrapper-->
+  </div>
+</div>

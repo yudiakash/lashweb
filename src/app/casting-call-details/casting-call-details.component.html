@@ -1,0 +1,155 @@
+<!--site_wrapper-->
+<div class="site_wrapper">
+  <div class="inner_wrapper">
+    <div class="audition_single">
+      <h1 class="title_tag">{{ 'Audition' | translate }}</h1>
+      <section>
+        <div class="audition_taskbar">
+          <span>{{ !isRTL ? castingDetails.transAuditionEn : castingDetails.transAuditionHe }}</span>
+          <p>
+            {{ 'Posted' | translate }}: {{ castingDetails.auditionCreationDate }} | {{ 'Expires' | translate }}:
+            {{ castingDetails.auditionClosingDate | date }}
+          </p>
+        </div>
+        <br />
+
+        <div class="audition_details">
+          <div class="audition_content">
+            <h4>
+              <strong>{{ !isRTL ? castingDetails.transMsgEn : castingDetails.transMsgHe }}</strong>
+            </h4>
+            <p>
+              {{ !isRTL ? castingDetails.transDescEn : castingDetails.transDescHe }}
+            </p>
+            <!-- <a
+              href="https://gilnat.azurewebsites.net/Uploads/{{ castingDetails.auditionFileName }}"
+              *ngIf="castingDetails.auditionFileName"
+            >
+              {{ castingDetails.auditionFileName }}
+            </a> -->
+          </div>
+          <div class="mobile_table">
+            <ul class="audition_table">
+              <li>
+                <label>{{ 'Rates:' | translate }}</label> {{ 'Union Rate' | translate }}
+              </li>
+              <li>
+                <label>{{ 'Production Type:' | translate }}:</label>
+                {{ !isRTL ? castingDetails.tranTypeEn : castingDetails.tranTypeHe }}
+              </li>
+            </ul>
+          </div>
+          <div class="audition_image">
+            <img
+              *ngIf="castingDetails.auditionFileName"
+              src="{{ imageReSizeUrl }}src={{ this.auditionUrl }}{{
+                castingDetails.auditionFileName
+              }}&w=210&h=314&zc=1&q=95"
+            />
+            <!-- <img
+              *ngIf="!castingDetails.auditionFileName"
+              src="http://shalashazure.com/wp-content/themes/salash_theme/img/male.png"
+            /> -->
+          </div>
+        </div>
+
+        <ul class="audition_table mobile_hidden">
+          <li>
+            <label>{{ 'Rates:' | translate }}</label> {{ 'Union Rate' | translate }}
+          </li>
+          <li>
+            <label>{{ 'Production Type:' | translate }}</label>
+            {{ !isRTL ? castingDetails.tranTypeEn : castingDetails.tranTypeHe }}
+          </li>
+        </ul>
+
+        <ul class="audition_table">
+          <li>
+            <div class="au_label">
+              <label>{{ 'Dates' | translate }}:</label> <span class="casting_cast">{{ 'Casting' | translate }}:</span>
+              {{ castingDetails.auditionDate | date }}
+            </div>
+            <div>
+              <label style="padding: 0 0 0 65px">{{ 'Rehearsal' | translate }}:</label>
+              {{ castingDetails.auditionRehearsalStartDate | date }}
+            </div>
+            <div>
+              <label style="padding: 0 0 0 65px">{{ 'Shooting' | translate }}:</label>
+              {{ castingDetails.auditionWorkStartDate | date }}
+            </div>
+          </li>
+          <li>
+            <div class="au_label">
+              <label>{{ 'Locations' | translate }}:</label>
+              <span
+                >{{ 'Shooting' | translate }}:
+                {{ !isRTL ? castingDetails.auditionLoctnEn : castingDetails.auditionLoctnHe }}</span
+              >
+            </div>
+          </li>
+        </ul>
+
+        <ng-container *ngFor="let roles of castingDetails.rolesData">
+          <div class="audition_accordion">
+            <h4>
+              {{ roles.title }} <span *ngIf="roles.type">({{ roles.title }}), </span>
+              <span *ngIf="roles.gender == 0">{{ 'Male' | translate }}, {{ roles.minAge }} - {{ roles.maxAge }}</span>
+              <span *ngIf="roles.gender == 1">{{ 'Female' | translate }}, {{ roles.minAge }} - {{ roles.maxAge }}</span>
+              <span *ngIf="roles.gender == 2"
+                >{{ 'Actor or Actress' | translate }}, {{ 'Age' | translate }}: {{ roles.minAge }} -
+                {{ roles.maxAge }}</span
+              >
+            </h4>
+            <article>
+              <div class="audition_details">
+                <div class="audition_content">
+                  <p>
+                    {{ roles.description }}
+                  </p>
+                </div>
+                <div class="audition_image">
+                  <img
+                    *ngIf="roles.FileName"
+                    src="{{ imageReSizeUrl }}src={{ this.auditionUrl }}{{ roles.FileName }}&w=210&h=280&zc=1&q=95"
+                  />
+                  <!-- <img
+                    *ngIf="!roles.FileName && roles.gender == 1"
+                    src="http://shalashazure.com/wp-content/themes/salash_theme/img/female.png"
+                  />
+                  <img
+                    *ngIf="!roles.FileName && roles.gender == 0"
+                    src="http://shalashazure.com/wp-content/themes/salash_theme/img/male.png"
+                  />
+                  <img
+                    *ngIf="!roles.FileName && roles.gender == 2"
+                    src="http://shalashazure.com/wp-content/themes/salash_theme/img/male.png"
+                  /> -->
+                </div>
+              </div>
+
+              <ul class="audition_table">
+                <li>
+                  <label>{{ 'Audition Budget Name' | translate }}:</label>
+                  {{ !isRTL ? castingDetails.audBudgetEn : roles.audBudgetHe }}
+                </li>
+                <li>
+                  <label>{{ 'Budget' | translate }}:</label> {{ roles.sum }}
+                </li>
+              </ul>
+              <button class="casting_apply" (click)="applyCasting(roles.id)">
+                {{ 'Apply' | translate }} <span class="arrow_casting"><i class="fa-solid fa-arrow-right"></i></span>
+              </button>
+            </article>
+          </div>
+        </ng-container>
+      </section>
+
+      <!-- <ul class="audition_pagination">
+        <li class="ad_prev"><a href="#">Back</a></li>
+        <li class="ad_next">Publish</li>
+      </ul> -->
+    </div>
+  </div>
+  <!--inner_wrapper-->
+</div>
+<!--site_wrapper_END-->
